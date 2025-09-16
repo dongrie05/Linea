@@ -7,7 +7,7 @@ export default function AnimationFallback() {
     // Force animations to run after a short delay
     const timer = setTimeout(() => {
       const elements = document.querySelectorAll('[style*="opacity:0"]');
-      elements.forEach((element) => {
+      elements.forEach(element => {
         const htmlElement = element as HTMLElement;
         if (htmlElement.style.opacity === "0") {
           htmlElement.style.opacity = "1";
