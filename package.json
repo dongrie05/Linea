@@ -1,27 +1,44 @@
 {
-  "name": "linea",
+  "name": "linea-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "export": "next build && next export",
+    "deploy": "npm run export && touch out/.nojekyll"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "@headlessui/react": "^2.2.8",
+    "clsx": "^2.1.1",
+    "framer-motion": "^10.16.16",
+    "lucide-react": "^0.294.0",
+    "next": "14.0.4",
+    "next-intl": "^3.4.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-intersection-observer": "^9.5.3",
+    "swiper": "^11.0.5",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.3",
-    "@eslint/eslintrc": "^3"
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "postcss": "^8",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }
