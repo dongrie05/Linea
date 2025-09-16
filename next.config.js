@@ -5,8 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === "production" ? "/linea" : "",
-  assetPrefix: process.env.NODE_ENV === "production" ? "/linea/" : "",
+  basePath: process.env.NODE_ENV === "production" ? "/Linea" : "",
+  assetPrefix: process.env.NODE_ENV === "production" ? "/Linea/" : "",
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
