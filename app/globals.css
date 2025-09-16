@@ -137,3 +137,35 @@
     content: "...";
   }
 }
+
+/* Fallback for when JavaScript/animations don't load */
+@media (prefers-reduced-motion: no-preference) {
+  /* Only apply fallback if user hasn't disabled animations */
+  [style*="opacity:0"] {
+    opacity: 1 !important;
+  }
+
+  [style*="transform:translateY"] {
+    transform: none !important;
+  }
+
+  [style*="transform:translateX"] {
+    transform: none !important;
+  }
+
+  [style*="transform:scale"] {
+    transform: none !important;
+  }
+}
+
+/* Force visibility after 1 second as ultimate fallback */
+@keyframes forceVisible {
+  to {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+[style*="opacity:0"] {
+  animation: forceVisible 0.1s ease-in-out 1s forwards;
+}
