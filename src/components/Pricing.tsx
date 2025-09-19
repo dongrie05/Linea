@@ -138,7 +138,7 @@ export default function Pricing() {
                     ? "0 25px 50px rgba(0,0,0,0.15), 0 0 30px rgba(34, 197, 94, 0.2)"
                     : "0 20px 40px rgba(0,0,0,0.1)",
                 }}
-                className={`card p-8 h-full ${
+                className={`card p-8 h-full flex flex-col ${
                   plan.popular ? "border-2 border-secondary-200 shadow-2xl" : ""
                 } transition-all duration-300`}
               >
@@ -172,7 +172,7 @@ export default function Pricing() {
                   </motion.div>
                 </div>
 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   {plan.features.map((feature, featureIndex) => (
                     <motion.li
                       key={featureIndex}
@@ -207,7 +207,7 @@ export default function Pricing() {
                     x: { duration: 0.5 },
                     scale: { duration: 0.2 },
                   }}
-                  className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 transform hover:shadow-lg bg-gradient-to-r ${plan.color} flex items-center justify-center space-x-2`}
+                  className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 transform hover:shadow-lg bg-gradient-to-r ${plan.color} flex items-center justify-center space-x-2 mt-auto`}
                 >
                   <span>{plan.cta}</span>
                   <ArrowRight className="w-5 h-5" />
