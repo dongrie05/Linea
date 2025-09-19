@@ -77,7 +77,7 @@ ${mensagem}
 
     if (envioMethod === "whatsapp") {
       const whatsappMessage = generateWhatsAppMessage();
-      const whatsappUrl = `https://wa.me/351123456789?text=${whatsappMessage}`;
+      const whatsappUrl = `https://wa.me/351927699882?text=${whatsappMessage}`;
       window.open(whatsappUrl, "_blank");
     } else if (envioMethod === "email") {
       // Simula envio por email
