@@ -148,55 +148,6 @@ export default function FinalCTA() {
             </motion.a>
           </motion.div>
 
-          {/* Trust Indicators */}
-          <motion.div
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
-          >
-            <motion.div
-              variants={staggerItem}
-              whileHover={{ scale: 1.05 }}
-              className="text-center"
-            >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-3xl font-bold text-secondary-400 mb-2"
-              >
-                500+
-              </motion.div>
-              <div className="text-gray-300">Empresas Ativas</div>
-            </motion.div>
-            <motion.div
-              variants={staggerItem}
-              whileHover={{ scale: 1.05 }}
-              className="text-center"
-            >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                className="text-3xl font-bold text-secondary-400 mb-2"
-              >
-                50k+
-              </motion.div>
-              <div className="text-gray-300">Chamadas Atendidas</div>
-            </motion.div>
-            <motion.div
-              variants={staggerItem}
-              whileHover={{ scale: 1.05 }}
-              className="text-center"
-            >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                className="text-3xl font-bold text-secondary-400 mb-2"
-              >
-                €2M+
-              </motion.div>
-              <div className="text-gray-300">Poupado pelos Clientes</div>
-            </motion.div>
-          </motion.div>
-
           {/* Urgency Message */}
           <motion.div
             variants={fadeInUp}
@@ -205,7 +156,7 @@ export default function FinalCTA() {
             <motion.p
               animate={{ opacity: [0.8, 1, 0.8] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="text-yellow-200 font-medium"
+              className="text-yellow-200 font-medium whitespace-nowrap"
             >
               ⚡ <strong>Oferta Limitada:</strong> Primeiro mês grátis para
               novos clientes. Aproveite esta oportunidade única!
