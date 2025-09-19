@@ -22,7 +22,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-accent-800 pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-accent-800 pt-20">
       {/* Animated Background Gradient */}
       <motion.div
         className="absolute inset-0"
@@ -194,7 +194,7 @@ export default function HeroSection() {
                   </div>
 
                   {/* Call Interface */}
-                  <div className="flex-1 flex flex-col justify-center items-center text-white">
+                  <div className="flex-1 flex flex-col justify-center items-center text-white pt-8">
                     <motion.div
                       animate={{
                         scale: isCallActive ? 1.1 : 1,
@@ -204,12 +204,12 @@ export default function HeroSection() {
                         duration: 0.5,
                         ease: "easeInOut",
                       }}
-                      className="w-20 h-20 bg-secondary-500 rounded-full flex items-center justify-center mb-6"
+                      className="w-20 h-20 bg-secondary-500 rounded-full flex items-center justify-center mb-8"
                     >
                       <Phone className="w-8 h-8" />
                     </motion.div>
 
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-semibold mb-3">
                       Chamada Recebida
                     </h3>
                     <p className="text-gray-300 text-center mb-6">
