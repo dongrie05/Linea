@@ -79,20 +79,19 @@ export default function HeroSection() {
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
             >
-              <span className="block sm:inline">
+              <span className="block">
                 Poupe até 70% em custos de atendimento
               </span>
-              <span className="block sm:inline">
-                {" "}
+              <span className="block">
                 – linea atende todas as chamadas por si.
               </span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-lg sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-4xl"
+              className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-4xl"
             >
               O primeiro assistente telefónico com Inteligência Artificial em
               Portugal que responde, agenda e organiza chamadas automaticamente.
@@ -135,28 +134,27 @@ export default function HeroSection() {
             {/* Trust Indicators */}
             <motion.div
               variants={fadeInUp}
-              className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap justify-center xl:justify-start gap-3 sm:gap-4 lg:gap-6 text-gray-300"
+              className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap justify-center xl:justify-start gap-4 sm:gap-6 text-gray-300"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-xs sm:text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center space-x-2 text-sm sm:text-base"
               >
-                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-secondary-400 flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Sem compromisso</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-xs sm:text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center space-x-2 text-sm sm:text-base"
               >
-                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-secondary-400 flex-shrink-0" />
-                <span className="hidden sm:inline">Configuração em 1 dia</span>
-                <span className="sm:hidden">Setup 1 dia</span>
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
+                <span>Configuração em 1 dia</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-xs sm:text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center space-x-2 text-sm sm:text-base"
               >
-                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-secondary-400 flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Suporte 24/7</span>
               </motion.div>
             </motion.div>
@@ -182,7 +180,7 @@ export default function HeroSection() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="phone-mockup w-64 h-80 sm:w-72 sm:h-88 md:w-80 md:h-96 relative"
+                className="phone-mockup w-64 h-80 sm:w-72 sm:h-88 md:w-80 md:h-96 lg:w-80 lg:h-96 xl:w-80 xl:h-96 relative"
               >
                 <div className="phone-screen h-full flex flex-col">
                   {/* Status Bar */}
