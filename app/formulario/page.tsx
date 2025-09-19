@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Phone, Mail, Calendar, CheckCircle } from "lucide-react";
+import { ArrowLeft, Phone, Mail, CheckCircle } from "lucide-react";
 
 export default function FormularioPage() {
   const router = useRouter();
@@ -80,11 +80,31 @@ ${mensagem}
       const whatsappUrl = `https://wa.me/351927699882?text=${whatsappMessage}`;
       window.open(whatsappUrl, "_blank");
     } else if (envioMethod === "email") {
-      // Simula envio por email
-      alert("📧 Email enviado com sucesso! Receberá uma resposta em breve.");
-    } else if (envioMethod === "telefone") {
-      // Simula chamada
-      alert("📞 Ligação iniciada! Nossa equipa entrará em contacto em breve.");
+      // Envia email real
+      const emailSubject = `Nova solicitação - Linea AI - ${formData.plano}`;
+      const emailBody = `Nova solicitação recebida via formulário Linea:
+
+DADOS DO CLIENTE:
+Nome: ${formData.nome}
+Email: ${formData.email}
+Telefone: ${formData.telefone}
+Empresa: ${formData.empresa}
+
+PLANO SELECIONADO: ${formData.plano}
+
+DETALHES DO NEGÓCIO:
+Funcionários: ${formData.funcionarios}
+Chamadas/mês: ${formData.chamadasMes}
+Urgência: ${formData.urgencia}
+
+MENSAGEM:
+${formData.mensagem}
+
+---
+Enviado via formulário Linea`;
+
+      const emailUrl = `mailto:goncalodongrie@icloud.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(emailUrl, "_blank");
     }
 
     // Simula delay para feedback visual
@@ -353,7 +373,7 @@ ${mensagem}
                 <label className="block text-sm font-semibold text-gray-700 mb-4">
                   Como prefere ser contactado?
                 </label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div
                     onClick={() => setEnvioMethod("whatsapp")}
                     className={`cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
@@ -401,28 +421,6 @@ ${mensagem}
                       )}
                     </div>
                   </div>
-
-                  <div
-                    onClick={() => setEnvioMethod("telefone")}
-                    className={`cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
-                      envioMethod === "telefone"
-                        ? "border-accent-500 bg-accent-50 ring-2 ring-accent-500"
-                        : "border-gray-200 bg-white hover:border-accent-300"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                        <Calendar className="w-5 h-5 text-purple-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">Ligação</h3>
-                        <p className="text-sm text-gray-600">Agendamento</p>
-                      </div>
-                      {envioMethod === "telefone" && (
-                        <CheckCircle className="w-5 h-5 text-accent-500 ml-auto" />
-                      )}
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -444,13 +442,9 @@ ${mensagem}
                         <Phone className="w-5 h-5" />
                       )}
                       {envioMethod === "email" && <Mail className="w-5 h-5" />}
-                      {envioMethod === "telefone" && (
-                        <Calendar className="w-5 h-5" />
-                      )}
                       <span>
                         {envioMethod === "whatsapp" && "Enviar via WhatsApp"}
                         {envioMethod === "email" && "Enviar por Email"}
-                        {envioMethod === "telefone" && "Agendar Ligação"}
                       </span>
                     </>
                   )}
@@ -464,8 +458,6 @@ ${mensagem}
                     "Os seus dados serão enviados via WhatsApp para nossa equipa"}
                   {envioMethod === "email" &&
                     "Os seus dados serão enviados por email para nossa equipa"}
-                  {envioMethod === "telefone" &&
-                    "A nossa equipa entrará em contacto para agendar uma ligação"}
                 </p>
                 <p>Entraremos em contacto em menos de 1 dia</p>
               </div>
