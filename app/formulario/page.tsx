@@ -22,6 +22,7 @@ export default function FormularioPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [envioMethod, setEnvioMethod] = useState("whatsapp");
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -74,11 +75,17 @@ ${mensagem}
     e.preventDefault();
     setIsSubmitting(true);
 
-    const whatsappMessage = generateWhatsAppMessage();
-    const whatsappUrl = `https://wa.me/351123456789?text=${whatsappMessage}`;
-
-    // Abre WhatsApp em nova aba
-    window.open(whatsappUrl, "_blank");
+    if (envioMethod === "whatsapp") {
+      const whatsappMessage = generateWhatsAppMessage();
+      const whatsappUrl = `https://wa.me/351123456789?text=${whatsappMessage}`;
+      window.open(whatsappUrl, "_blank");
+    } else if (envioMethod === "email") {
+      // Simula envio por email
+      alert("📧 Email enviado com sucesso! Receberá uma resposta em breve.");
+    } else if (envioMethod === "telefone") {
+      // Simula chamada
+      alert("📞 Ligação iniciada! Nossa equipa entrará em contacto em breve.");
+    }
 
     // Simula delay para feedback visual
     setTimeout(() => {
@@ -198,29 +205,75 @@ ${mensagem}
                 </div>
               </div>
 
-              {/* Plano Selecionado */}
+              {/* Seleção de Plano */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Plano Selecionado
+                <label className="block text-sm font-semibold text-gray-700 mb-4">
+                  Escolha o seu Plano
                 </label>
-                <div className="bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-200 rounded-xl p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-bold text-primary-700">
-                        {formData.plano}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {formData.plano === "Starter" &&
-                          "€99/mês - 250 chamadas"}
-                        {formData.plano === "Growth" &&
-                          "€199/mês - 500 chamadas"}
-                        {formData.plano === "Pro" && "€899/mês - 2500 chamadas"}
-                      </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[
+                    {
+                      name: "Starter",
+                      price: "€99/mês",
+                      calls: "250 chamadas",
+                      color: "from-gray-500 to-gray-600",
+                      bgColor: "bg-gray-50",
+                      borderColor: "border-gray-200",
+                    },
+                    {
+                      name: "Growth",
+                      price: "€199/mês",
+                      calls: "500 chamadas",
+                      color: "from-secondary-500 to-secondary-600",
+                      bgColor: "bg-secondary-50",
+                      borderColor: "border-secondary-200",
+                      popular: true,
+                    },
+                    {
+                      name: "Pro",
+                      price: "€899/mês",
+                      calls: "2500 chamadas",
+                      color: "from-accent-500 to-accent-600",
+                      bgColor: "bg-accent-50",
+                      borderColor: "border-accent-200",
+                    },
+                  ].map(plan => (
+                    <div
+                      key={plan.name}
+                      onClick={() =>
+                        setFormData(prev => ({ ...prev, plano: plan.name }))
+                      }
+                      className={`relative cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
+                        formData.plano === plan.name
+                          ? `${plan.borderColor} ${plan.bgColor} ring-2 ring-primary-500`
+                          : "border-gray-200 bg-white hover:border-primary-300"
+                      }`}
+                    >
+                      {plan.popular && (
+                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                          <span className="bg-secondary-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Mais Popular
+                          </span>
+                        </div>
+                      )}
+                      <div className="text-center">
+                        <h3 className="font-bold text-lg text-gray-900 mb-1">
+                          {plan.name}
+                        </h3>
+                        <p className="text-2xl font-bold text-primary-600 mb-1">
+                          {plan.price}
+                        </p>
+                        <p className="text-sm text-gray-600 mb-3">
+                          {plan.calls}
+                        </p>
+                        {formData.plano === plan.name && (
+                          <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center mx-auto">
+                            <CheckCircle className="w-4 h-4 text-white" />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -295,6 +348,84 @@ ${mensagem}
                 />
               </div>
 
+              {/* Método de Envio */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-4">
+                  Como prefere ser contactado?
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div
+                    onClick={() => setEnvioMethod("whatsapp")}
+                    className={`cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
+                      envioMethod === "whatsapp"
+                        ? "border-secondary-500 bg-secondary-50 ring-2 ring-secondary-500"
+                        : "border-gray-200 bg-white hover:border-secondary-300"
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <Phone className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">
+                          WhatsApp
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Resposta imediata
+                        </p>
+                      </div>
+                      {envioMethod === "whatsapp" && (
+                        <CheckCircle className="w-5 h-5 text-secondary-500 ml-auto" />
+                      )}
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => setEnvioMethod("email")}
+                    className={`cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
+                      envioMethod === "email"
+                        ? "border-primary-500 bg-primary-50 ring-2 ring-primary-500"
+                        : "border-gray-200 bg-white hover:border-primary-300"
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <Mail className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Email</h3>
+                        <p className="text-sm text-gray-600">Resposta em 24h</p>
+                      </div>
+                      {envioMethod === "email" && (
+                        <CheckCircle className="w-5 h-5 text-primary-500 ml-auto" />
+                      )}
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => setEnvioMethod("telefone")}
+                    className={`cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
+                      envioMethod === "telefone"
+                        ? "border-accent-500 bg-accent-50 ring-2 ring-accent-500"
+                        : "border-gray-200 bg-white hover:border-accent-300"
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                        <Calendar className="w-5 h-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Ligação</h3>
+                        <p className="text-sm text-gray-600">Agendamento</p>
+                      </div>
+                      {envioMethod === "telefone" && (
+                        <CheckCircle className="w-5 h-5 text-accent-500 ml-auto" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Submit Button */}
               <div className="pt-6">
                 <button
@@ -309,8 +440,18 @@ ${mensagem}
                     </>
                   ) : (
                     <>
-                      <Phone className="w-5 h-5" />
-                      <span>Enviar via WhatsApp</span>
+                      {envioMethod === "whatsapp" && (
+                        <Phone className="w-5 h-5" />
+                      )}
+                      {envioMethod === "email" && <Mail className="w-5 h-5" />}
+                      {envioMethod === "telefone" && (
+                        <Calendar className="w-5 h-5" />
+                      )}
+                      <span>
+                        {envioMethod === "whatsapp" && "Enviar via WhatsApp"}
+                        {envioMethod === "email" && "Enviar por Email"}
+                        {envioMethod === "telefone" && "Agendar Ligação"}
+                      </span>
                     </>
                   )}
                 </button>
@@ -319,7 +460,12 @@ ${mensagem}
               {/* Info */}
               <div className="text-center text-sm text-gray-500">
                 <p>
-                  Os seus dados serão enviados via WhatsApp para nossa equipa
+                  {envioMethod === "whatsapp" &&
+                    "Os seus dados serão enviados via WhatsApp para nossa equipa"}
+                  {envioMethod === "email" &&
+                    "Os seus dados serão enviados por email para nossa equipa"}
+                  {envioMethod === "telefone" &&
+                    "A nossa equipa entrará em contacto para agendar uma ligação"}
                 </p>
                 <p>Entraremos em contacto em menos de 1 dia</p>
               </div>
