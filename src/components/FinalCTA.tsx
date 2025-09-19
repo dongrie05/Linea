@@ -147,21 +147,6 @@ export default function FinalCTA() {
               <ArrowRight className="w-6 h-6 relative z-10" />
             </motion.a>
           </motion.div>
-
-          {/* Urgency Message */}
-          <motion.div
-            variants={fadeInUp}
-            className="mt-12 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-xl max-w-2xl mx-auto"
-          >
-            <motion.p
-              animate={{ opacity: [0.8, 1, 0.8] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="text-yellow-200 font-medium whitespace-nowrap"
-            >
-              ⚡ <strong>Oferta Limitada:</strong> Primeiro mês grátis para
-              novos clientes. Aproveite esta oportunidade única!
-            </motion.p>
-          </motion.div>
         </motion.div>
       </div>
 
