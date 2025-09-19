@@ -49,7 +49,7 @@ export default function Header() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.href}
@@ -72,7 +72,7 @@ export default function Header() {
           </nav>
 
           {/* Language Selector & CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             {/* Language Dropdown */}
             <div className="relative">
               <motion.button
@@ -137,7 +137,7 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-gray-600 hover:text-primary-600"
+            className="lg:hidden p-2 text-gray-600 hover:text-primary-600"
           >
             <motion.div
               animate={{ rotate: isMenuOpen ? 180 : 0 }}
@@ -160,7 +160,7 @@ export default function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-gray-100"
+              className="lg:hidden border-t border-gray-100"
             >
               <div className="py-4 space-y-4">
                 {navItems.map((item, index) => (

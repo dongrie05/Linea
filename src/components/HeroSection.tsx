@@ -68,14 +68,14 @@ export default function HeroSection() {
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-12 items-center">
           {/* Left Content */}
           <motion.div
             ref={ref}
             initial="hidden"
             animate={controls}
             variants={fadeInLeft}
-            className="text-center lg:text-left"
+            className="text-center xl:text-left"
           >
             <motion.h1
               variants={fadeInUp}
@@ -104,7 +104,7 @@ export default function HeroSection() {
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start"
             >
               <motion.a
                 href="/Linea/formulario"
@@ -135,27 +135,28 @@ export default function HeroSection() {
             {/* Trust Indicators */}
             <motion.div
               variants={fadeInUp}
-              className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 text-gray-300"
+              className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap justify-center xl:justify-start gap-3 sm:gap-4 lg:gap-6 text-gray-300"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-sm sm:text-base"
+                className="flex items-center space-x-2 text-xs sm:text-sm lg:text-base whitespace-nowrap"
               >
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
+                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Sem compromisso</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-sm sm:text-base"
+                className="flex items-center space-x-2 text-xs sm:text-sm lg:text-base whitespace-nowrap"
               >
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
-                <span>Configuração em 1 dia</span>
+                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-secondary-400 flex-shrink-0" />
+                <span className="hidden sm:inline">Configuração em 1 dia</span>
+                <span className="sm:hidden">Setup 1 dia</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-sm sm:text-base"
+                className="flex items-center space-x-2 text-xs sm:text-sm lg:text-base whitespace-nowrap"
               >
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
+                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Suporte 24/7</span>
               </motion.div>
             </motion.div>
@@ -167,7 +168,7 @@ export default function HeroSection() {
             initial="hidden"
             animate={controls}
             variants={fadeInRight}
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center xl:justify-end"
           >
             <div className="relative">
               {/* Phone Mockup */}
