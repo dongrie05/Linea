@@ -111,7 +111,7 @@ export default function FinalCTA() {
           {/* CTA Button */}
           <motion.div variants={fadeInUp} className="mb-12">
             <motion.a
-              href="/formulario"
+              href="/Linea/formulario"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 40px rgba(34, 197, 94, 0.6)",

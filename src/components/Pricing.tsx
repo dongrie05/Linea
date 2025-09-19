@@ -197,7 +197,7 @@ export default function Pricing() {
                 </ul>
 
                 <motion.a
-                  href={`/formulario?plano=${plan.name}`}
+                  href={`/Linea/formulario?plano=${plan.name}`}
                   whileHover={{
                     scale: 1.05,
                     x: [0, -2, 2, -2, 2, 0], // Shake effect

@@ -99,7 +99,7 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <motion.a
-                href="/formulario"
+                href="/Linea/formulario"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 0 30px rgba(34, 197, 94, 0.6)",

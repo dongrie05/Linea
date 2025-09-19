@@ -151,7 +151,7 @@ export default function FAQ() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="/formulario"
+                href="/Linea/formulario"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
@@ -162,7 +162,7 @@ export default function FAQ() {
                 Contactar Suporte
               </motion.a>
               <motion.a
-                href="/formulario"
+                href="/Linea/formulario"
                 whileHover={{
                   scale: 1.05,
                   backgroundColor: "rgba(255,255,255,0.1)",
