@@ -98,28 +98,30 @@ export default function HeroSection() {
               variants={fadeInUp}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <motion.button
+              <motion.a
+                href="/formulario"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 0 30px rgba(34, 197, 94, 0.6)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary text-lg px-8 py-4 glow"
+                className="btn-primary text-lg px-8 py-4 glow inline-flex items-center justify-center"
               >
                 Experimente Já
                 <ArrowRight className="w-5 h-5 ml-2 inline" />
-              </motion.button>
-              <motion.button
+              </motion.a>
+              <motion.a
+                href="#pricing"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-secondary text-lg px-8 py-4"
+                className="btn-secondary text-lg px-8 py-4 inline-flex items-center justify-center"
               >
                 <Play className="w-5 h-5 mr-2 inline" />
                 Ver Planos e Preços
-              </motion.button>
+              </motion.a>
             </motion.div>
 
             {/* Trust Indicators */}
@@ -139,7 +141,7 @@ export default function HeroSection() {
                 className="flex items-center space-x-2"
               >
                 <CheckCircle className="w-5 h-5 text-secondary-400" />
-                <span>Configuração em 10 min</span>
+                <span>Configuração em 1 dia</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}

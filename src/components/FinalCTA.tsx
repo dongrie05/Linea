@@ -17,7 +17,7 @@ export default function FinalCTA() {
   });
 
   const benefits = [
-    { icon: CheckCircle, text: "Configuração em 10 minutos" },
+    { icon: CheckCircle, text: "Configuração em 1 dia" },
     { icon: Zap, text: "Ativação imediata" },
     { icon: Shield, text: "Sem compromisso" },
   ];
@@ -110,7 +110,8 @@ export default function FinalCTA() {
 
           {/* CTA Button */}
           <motion.div variants={fadeInUp} className="mb-12">
-            <motion.button
+            <motion.a
+              href="/formulario"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 40px rgba(34, 197, 94, 0.6)",
@@ -144,7 +145,7 @@ export default function FinalCTA() {
               />
               <span className="relative z-10">Começar Agora Gratuitamente</span>
               <ArrowRight className="w-6 h-6 relative z-10" />
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* Trust Indicators */}

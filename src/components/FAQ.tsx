@@ -23,7 +23,7 @@ export default function FAQ() {
       question:
         "O que acontece se alguém fizer uma pergunta que a IA não sabe?",
       answer:
-        "A IA encaminha a chamada para o dono ou envia um SMS com os detalhes da pergunta.",
+        "A IA encaminha a chamada para o dono com todos os detalhes da conversa.",
     },
     {
       question: "É difícil configurar?",
@@ -150,26 +150,28 @@ export default function FAQ() {
               o prazer em esclarecer as suas questões.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
+              <motion.a
+                href="/formulario"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+                className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-xl hover:bg-gray-100 transition-colors duration-200 inline-flex items-center justify-center"
               >
                 Contactar Suporte
-              </motion.button>
-              <motion.button
+              </motion.a>
+              <motion.a
+                href="/formulario"
                 whileHover={{
                   scale: 1.05,
                   backgroundColor: "rgba(255,255,255,0.1)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl hover:bg-white hover:text-primary-600 transition-colors duration-200"
+                className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl hover:bg-white hover:text-primary-600 transition-colors duration-200 inline-flex items-center justify-center"
               >
                 Agendar Demo
-              </motion.button>
+              </motion.a>
             </div>
           </motion.div>
         </motion.div>

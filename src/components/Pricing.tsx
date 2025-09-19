@@ -196,7 +196,8 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <motion.button
+                <motion.a
+                  href={`/formulario?plano=${plan.name}`}
                   whileHover={{
                     scale: 1.05,
                     x: [0, -2, 2, -2, 2, 0], // Shake effect
@@ -210,7 +211,7 @@ export default function Pricing() {
                 >
                   <span>{plan.cta}</span>
                   <ArrowRight className="w-5 h-5" />
-                </motion.button>
+                </motion.a>
               </motion.div>
             </motion.div>
           ))}
