@@ -14,6 +14,7 @@ export default function FormularioPage() {
     email: "",
     telefone: "",
     empresa: "",
+    ramo: "",
     plano: planoPreSelecionado,
     funcionarios: "",
     chamadasMes: "",
@@ -39,6 +40,7 @@ export default function FormularioPage() {
       email,
       telefone,
       empresa,
+      ramo,
       plano,
       funcionarios,
       chamadasMes,
@@ -53,6 +55,7 @@ export default function FormularioPage() {
 📧 Email: ${email}
 📱 Telefone: ${telefone}
 🏢 Empresa: ${empresa}
+🏭 Ramo: ${ramo}
 
 *Plano Selecionado:*
 📋 ${plano}
@@ -212,15 +215,30 @@ Enviado via formulário Linea`;
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Empresa
+                    Nome da Empresa *
                   </label>
                   <input
                     type="text"
                     name="empresa"
                     value={formData.empresa}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
                     placeholder="Nome da sua empresa"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Ramo de Atividade *
+                  </label>
+                  <input
+                    type="text"
+                    name="ramo"
+                    value={formData.ramo}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                    placeholder="Ex: Restauração, Saúde, Tecnologia, etc."
                   />
                 </div>
               </div>
