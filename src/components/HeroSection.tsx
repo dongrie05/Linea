@@ -68,7 +68,7 @@ export default function HeroSection() {
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <motion.div
             ref={ref}
@@ -79,19 +79,27 @@ export default function HeroSection() {
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
             >
-              Poupe até 70% em custos de atendimento – linea atende todas as
-              chamadas por si.
+              <span className="block sm:inline">
+                Poupe até 70% em custos de atendimento
+              </span>
+              <span className="block sm:inline">
+                {" "}
+                – linea atende todas as chamadas por si.
+              </span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-xl text-gray-200 mb-8 leading-relaxed"
+              className="text-lg sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-4xl"
             >
               O primeiro assistente telefónico com Inteligência Artificial em
               Portugal que responde, agenda e organiza chamadas automaticamente.
-              Mais rápido, mais barato e sempre disponível.
+              <span className="block sm:inline">
+                {" "}
+                Mais rápido, mais barato e sempre disponível.
+              </span>
             </motion.p>
 
             <motion.div
@@ -105,10 +113,10 @@ export default function HeroSection() {
                   boxShadow: "0 0 30px rgba(34, 197, 94, 0.6)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary text-lg px-8 py-4 glow inline-flex items-center justify-center"
+                className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 glow inline-flex items-center justify-center w-full sm:w-auto"
               >
                 Experimente Já
-                <ArrowRight className="w-5 h-5 ml-2 inline" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 inline" />
               </motion.a>
               <motion.a
                 href="#pricing"
@@ -117,9 +125,9 @@ export default function HeroSection() {
                   boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-secondary text-lg px-8 py-4 inline-flex items-center justify-center"
+                className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 inline-flex items-center justify-center w-full sm:w-auto"
               >
-                <Play className="w-5 h-5 mr-2 inline" />
+                <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2 inline" />
                 Ver Planos e Preços
               </motion.a>
             </motion.div>
@@ -127,27 +135,27 @@ export default function HeroSection() {
             {/* Trust Indicators */}
             <motion.div
               variants={fadeInUp}
-              className="mt-12 flex flex-wrap justify-center lg:justify-start gap-6 text-gray-300"
+              className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 text-gray-300"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-sm sm:text-base"
               >
-                <CheckCircle className="w-5 h-5 text-secondary-400" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Sem compromisso</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-sm sm:text-base"
               >
-                <CheckCircle className="w-5 h-5 text-secondary-400" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Configuração em 1 dia</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-sm sm:text-base"
               >
-                <CheckCircle className="w-5 h-5 text-secondary-400" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
                 <span>Suporte 24/7</span>
               </motion.div>
             </motion.div>
@@ -173,7 +181,7 @@ export default function HeroSection() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="phone-mockup w-80 h-96 relative"
+                className="phone-mockup w-64 h-80 sm:w-72 sm:h-88 md:w-80 md:h-96 relative"
               >
                 <div className="phone-screen h-full flex flex-col">
                   {/* Status Bar */}
