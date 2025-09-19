@@ -123,9 +123,9 @@ export default function Pricing() {
                       ],
                     }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-6 py-2 rounded-full text-sm font-semibold flex items-center space-x-2 whitespace-nowrap"
+                    className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1 whitespace-nowrap"
                   >
-                    <Star className="w-4 h-4" />
+                    <Star className="w-3 h-3" />
                     <span>Mais Popular</span>
                   </motion.div>
                 </motion.div>
