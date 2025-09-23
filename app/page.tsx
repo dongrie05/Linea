@@ -3,6 +3,7 @@ import ProblemSolution from "@/components/ProblemSolution";
 import Features from "@/components/Features";
 import Pricing from "@/components/Pricing";
 import BusinessSummary from "@/components/BusinessSummary";
+import AISearchOptimization from "@/components/AISearchOptimization";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Header from "@/components/Header";
@@ -18,6 +19,7 @@ export default function Home() {
         <Features />
         <Pricing />
         <BusinessSummary />
+        <AISearchOptimization />
         <FAQ />
         <FinalCTA />
       </main>

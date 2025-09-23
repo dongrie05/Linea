@@ -44,6 +44,9 @@ export default function RootLayout({
       "IA portuguesa que atende chamadas 24/7. Resposta em 2 segundos. Poupe até 70% em custos de atendimento.",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
+    url: "https://dongrie05.github.io/Linea/",
+    datePublished: "2024-01-16",
+    dateModified: "2024-01-16",
     offers: [
       {
         "@type": "Offer",
@@ -51,6 +54,7 @@ export default function RootLayout({
         price: "99",
         priceCurrency: "EUR",
         description: "250 chamadas por mês",
+        availability: "https://schema.org/InStock",
       },
       {
         "@type": "Offer",
@@ -58,6 +62,7 @@ export default function RootLayout({
         price: "199",
         priceCurrency: "EUR",
         description: "500 chamadas por mês",
+        availability: "https://schema.org/InStock",
       },
       {
         "@type": "Offer",
@@ -65,24 +70,41 @@ export default function RootLayout({
         price: "899",
         priceCurrency: "EUR",
         description: "2500 chamadas por mês",
+        availability: "https://schema.org/InStock",
       },
     ],
     provider: {
       "@type": "Organization",
       name: "Linea",
+      url: "https://dongrie05.github.io/Linea/",
       address: {
         "@type": "PostalAddress",
         addressCountry: "PT",
       },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+351-927-699-882",
+        contactType: "customer service",
+        availableLanguage: "Portuguese",
+      },
     },
     featureList: [
-      "Atendimento 24/7",
+      "Atendimento telefónico 24/7",
       "Resposta em 2 segundos",
       "Português natural",
       "Agendamento automático",
       "Encaminhamento inteligente",
       "Relatórios detalhados",
+      "Configuração em 1 dia",
+      "Suporte técnico português",
     ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "150",
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
 
   return (

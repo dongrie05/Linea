@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Permitir acesso completo aos motores de busca
+Allow: /formulario
+Allow: /#features
+Allow: /#pricing
+Allow: /#faq
+
+# Bloquear arquivos desnecessários
+Disallow: /_next/
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://dongrie05.github.io/Linea/sitemap.xml
+
+# Crawl-delay para evitar sobrecarga
+Crawl-delay: 1
+
+# Permitir especificamente para motores de IA
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
