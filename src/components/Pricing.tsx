@@ -77,10 +77,11 @@ export default function Pricing() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Planos e Preços
+            Preços do Atendimento Telefónico IA
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Contratar um telefonista humano custa em média 1200€/mês.
+            Planos flexíveis para empresas portuguesas. Poupe até 70% comparado
+            com atendimento humano tradicional (1200€/mês).
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}

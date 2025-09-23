@@ -81,11 +81,9 @@ export default function HeroSection() {
               variants={fadeInUp}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
             >
+              <span className="block">Atendimento Telefónico IA Portugal</span>
               <span className="block">
-                Poupe até 70% em custos de atendimento
-              </span>
-              <span className="block">
-                – linea atende todas as chamadas por si.
+                Poupe 70% em custos - Resposta em 2 segundos
               </span>
             </motion.h1>
 

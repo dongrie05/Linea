@@ -77,11 +77,11 @@ export default function Features() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Funcionalidades Principais
+            Como Funciona o Atendimento Telefónico IA
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubra todas as funcionalidades que fazem da Linea a solução
-            perfeita para o seu negócio
+            Descubra as funcionalidades avançadas da nossa IA que revoluciona o
+            atendimento telefónico em Portugal
           </p>
         </motion.div>
 

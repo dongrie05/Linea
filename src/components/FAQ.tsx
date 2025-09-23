@@ -20,23 +20,38 @@ export default function FAQ() {
 
   const faqs = [
     {
+      question: "Como funciona o atendimento telefónico com IA em Portugal?",
+      answer:
+        "A Linea é uma IA portuguesa que atende automaticamente todas as chamadas da sua empresa. Responde em português natural, agenda compromissos e encaminha chamadas importantes. Funciona 24/7 com resposta em menos de 2 segundos.",
+    },
+    {
       question:
-        "O que acontece se alguém fizer uma pergunta que a IA não sabe?",
+        "Quanto custa um atendimento telefónico IA comparado com humano?",
       answer:
-        "A IA encaminha a chamada para o dono com todos os detalhes da conversa.",
+        "O atendimento humano custa em média 1200€/mês. Com a Linea IA, poupa até 70% - desde 99€/mês para 250 chamadas até 899€/mês para 2500 chamadas. Sem custos de formação, férias ou subsídios.",
     },
     {
-      question: "É difícil configurar?",
-      answer: "Não, em menos de 10 minutos o sistema fica pronto para usar.",
-    },
-    {
-      question: "Funciona com qualquer número?",
-      answer: "Sim, funciona com números fixos ou móveis.",
-    },
-    {
-      question: "Posso personalizar as respostas da IA?",
+      question:
+        "A IA de atendimento telefónico funciona com qualquer empresa portuguesa?",
       answer:
-        "Sim, pode configurar respostas personalizadas para cada tipo de pergunta.",
+        "Sim, funciona com qualquer tipo de empresa em Portugal - restaurantes, clínicas, barbearias, escritórios, lojas. Funciona com números fixos e móveis, e pode ser configurada em menos de 1 dia.",
+    },
+    {
+      question:
+        "O que acontece quando a IA não consegue responder uma pergunta?",
+      answer:
+        "A IA encaminha automaticamente a chamada para si com todos os detalhes da conversa. Nunca perde uma oportunidade de negócio. Pode também configurar respostas personalizadas para perguntas específicas do seu ramo.",
+    },
+    {
+      question:
+        "Como configurar atendimento telefónico IA para a minha empresa?",
+      answer:
+        "É muito simples: escolha o plano, forneça informações sobre a sua empresa, configure as respostas personalizadas e em 1 dia o sistema está ativo. Não precisa de instalar nada - funciona através da sua linha telefónica existente.",
+    },
+    {
+      question: "A IA de atendimento telefónico funciona 24 horas por dia?",
+      answer:
+        "Sim, a Linea funciona 24/7 sem interrupções. Nunca perde uma chamada, mesmo fora do horário comercial, fins de semana ou feriados. Resposta instantânea em qualquer momento.",
     },
   ];
 

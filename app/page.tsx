@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import ProblemSolution from "@/components/ProblemSolution";
 import Features from "@/components/Features";
 import Pricing from "@/components/Pricing";
+import BusinessSummary from "@/components/BusinessSummary";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Header from "@/components/Header";
@@ -16,6 +17,7 @@ export default function Home() {
         <ProblemSolution />
         <Features />
         <Pricing />
+        <BusinessSummary />
         <FAQ />
         <FinalCTA />
       </main>
