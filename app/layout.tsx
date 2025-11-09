@@ -10,7 +10,8 @@ const siteUrl = "https://dongrie05.github.io/Linea";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
+    default:
+      "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
   description:
@@ -42,7 +43,8 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
+    title:
+      "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
     description:
       "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento telefónico automático 24/7. Resposta em 2 segundos.",
     url: siteUrl,
@@ -99,7 +101,8 @@ export default function RootLayout({
     url: siteUrl,
     datePublished: "2024-01-16",
     dateModified: "2025-01-27",
-    keywords: "linea, atendedor de chamadas, atendimento telefónico IA, atendimento automático, IA Portugal",
+    keywords:
+      "linea, atendedor de chamadas, atendimento telefónico IA, atendimento automático, IA Portugal",
     about: {
       "@type": "Thing",
       name: "Atendimento Telefónico com Inteligência Artificial",
@@ -147,7 +150,8 @@ export default function RootLayout({
         name: "Pro - Atendedor de Chamadas",
         price: "899",
         priceCurrency: "EUR",
-        description: "2500 chamadas por mês - Atendimento telefónico automático",
+        description:
+          "2500 chamadas por mês - Atendimento telefónico automático",
         availability: "https://schema.org/InStock",
       },
     ],

@@ -28,6 +28,7 @@ git push origin main
 ### 3. Guarde informações importantes
 
 **Antes de apagar, anote:**
+
 - URL do repositório GitHub: `https://github.com/dongrie05/Linea`
 - URL do site: `https://dongrie05.github.io/Linea/`
 - Credenciais de acesso (se tiver)
@@ -73,6 +74,7 @@ npm run dev
 ## ⚠️ O que NÃO deve apagar
 
 **NÃO apague:**
+
 - O repositório no GitHub (mantenha-o sempre)
 - Credenciais e senhas (guarde em local seguro)
 - Configurações de domínio (se tiver)
@@ -81,6 +83,7 @@ npm run dev
 ## 📦 O que está no GitHub
 
 **Está seguro no GitHub:**
+
 - ✅ Todo o código fonte
 - ✅ Configurações do projeto
 - ✅ Histórico de commits
@@ -88,6 +91,7 @@ npm run dev
 - ✅ Package.json e dependências
 
 **NÃO está no GitHub (normalmente):**
+
 - ❌ `node_modules/` (pode ser reinstalado com `npm install`)
 - ❌ `.env` (variáveis de ambiente - devem estar no .gitignore)
 - ❌ Arquivos de build local
@@ -136,4 +140,3 @@ O projeto está seguro no GitHub e pode ser recuperado a qualquer momento com um
 ---
 
 **Última atualização:** 27 de Janeiro de 2025
-

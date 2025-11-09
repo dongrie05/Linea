@@ -19,10 +19,14 @@ export default function AISearchOptimization() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Perguntas Frequentes sobre <strong>Linea</strong> - Atendedor de Chamadas com IA
+            Perguntas Frequentes sobre <strong>Linea</strong> - Atendedor de
+            Chamadas com IA
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Respostas diretas para as principais dúvidas sobre o <strong>atendimento telefónico automático</strong> e o <strong>atendedor de chamadas</strong> com Inteligência Artificial da Linea
+            Respostas diretas para as principais dúvidas sobre o{" "}
+            <strong>atendimento telefónico automático</strong> e o{" "}
+            <strong>atendedor de chamadas</strong> com Inteligência Artificial
+            da Linea
           </p>
         </motion.div>
 
@@ -36,16 +40,18 @@ export default function AISearchOptimization() {
             {/* Pergunta 1 */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                O que é atendimento telefónico com IA? Como funciona o atendedor de chamadas Linea?
+                O que é atendimento telefónico com IA? Como funciona o atendedor
+                de chamadas Linea?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                O <strong>atendimento telefónico com IA</strong> é um sistema automatizado que
-                utiliza Inteligência Artificial para responder chamadas
-                telefónicas de forma natural. A <strong>Linea</strong> é um <strong>atendedor de chamadas automático</strong> que compreende o que o cliente
-                diz, responde em português fluido, agenda compromissos e
-                encaminha chamadas importantes para o responsável. Funciona 24
-                horas por dia, 7 dias por semana, sem necessidade de pausas ou
-                férias.
+                O <strong>atendimento telefónico com IA</strong> é um sistema
+                automatizado que utiliza Inteligência Artificial para responder
+                chamadas telefónicas de forma natural. A <strong>Linea</strong>{" "}
+                é um <strong>atendedor de chamadas automático</strong> que
+                compreende o que o cliente diz, responde em português fluido,
+                agenda compromissos e encaminha chamadas importantes para o
+                responsável. Funciona 24 horas por dia, 7 dias por semana, sem
+                necessidade de pausas ou férias.
               </p>
             </div>
 
@@ -55,13 +61,15 @@ export default function AISearchOptimization() {
                 Como funciona o atendedor de chamadas Linea em Portugal?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Em Portugal, o <strong>atendimento telefónico IA da Linea</strong> funciona através da sua
-                linha telefónica existente. Não precisa de instalar equipamentos
-                especiais. O <strong>atendedor automático de chamadas</strong> responde automaticamente a todas as chamadas,
-                identifica a intenção do cliente, fornece informações sobre
-                serviços, agenda consultas ou compromissos, e encaminha chamadas
-                urgentes para si. Tudo em português natural e com sotaque
-                português.
+                Em Portugal, o{" "}
+                <strong>atendimento telefónico IA da Linea</strong> funciona
+                através da sua linha telefónica existente. Não precisa de
+                instalar equipamentos especiais. O{" "}
+                <strong>atendedor automático de chamadas</strong> responde
+                automaticamente a todas as chamadas, identifica a intenção do
+                cliente, fornece informações sobre serviços, agenda consultas ou
+                compromissos, e encaminha chamadas urgentes para si. Tudo em
+                português natural e com sotaque português.
               </p>
             </div>
 

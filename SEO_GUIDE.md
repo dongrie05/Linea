@@ -5,6 +5,7 @@ Este guia explica como fazer o seu site aparecer no Google quando as pessoas pro
 ## 📋 O que já foi feito
 
 ✅ **Metadados SEO otimizados**
+
 - Títulos e descrições com palavras-chave relevantes
 - Meta tags Open Graph e Twitter Cards
 - Structured Data (Schema.org) para melhor compreensão pelos motores de busca
@@ -12,11 +13,13 @@ Este guia explica como fazer o seu site aparecer no Google quando as pessoas pro
 - Keywords otimizadas incluindo "linea" e "atendedor de chamadas"
 
 ✅ **Sitemap e Robots.txt**
+
 - Sitemap.xml atualizado e configurado
 - Robots.txt otimizado para permitir indexação
 - Sitemap dinâmico criado (app/sitemap.ts)
 
 ✅ **Conteúdo otimizado**
+
 - H1 com palavras-chave principais
 - Conteúdo melhorado com termos relevantes
 - Estrutura semântica adequada
@@ -41,7 +44,7 @@ Este guia explica como fazer o seu site aparecer no Google quando as pessoas pro
 
 3. **Verificar propriedade**
    O Google oferece várias formas de verificação. A mais fácil para GitHub Pages:
-   
+
    **Opção A - Método HTML (Recomendado)**
    - Escolha "Método HTML"
    - Copie o código de verificação (algo como: `<meta name="google-site-verification" content="SEU_CODIGO_AQUI" />`)
@@ -87,6 +90,7 @@ Após verificar o site no Search Console:
 Para aparecer melhor no Google, é importante ter links de outros sites apontando para o seu:
 
 **O que fazer:**
+
 - Partilhe o site em redes sociais (LinkedIn, Facebook, Twitter)
 - Adicione o link em perfis de negócio (Google My Business, etc.)
 - Partilhe em fóruns relevantes (quando apropriado)
@@ -97,6 +101,7 @@ Para aparecer melhor no Google, é importante ter links de outros sites apontand
 O Google valoriza sites que são atualizados regularmente:
 
 **Sugestões:**
+
 - Adicione um blog com artigos sobre atendimento telefónico IA
 - Atualize o conteúdo periodicamente
 - Adicione testemunhos de clientes
@@ -145,6 +150,7 @@ O Google valoriza sites rápidos. O seu site já está otimizado, mas pode verif
 ### "O site não aparece no Google"
 
 **Soluções:**
+
 1. Verifique se está no Search Console
 2. Confirme que o sitemap foi submetido
 3. Solicite indexação manual
@@ -153,6 +159,7 @@ O Google valoriza sites rápidos. O seu site já está otimizado, mas pode verif
 ### "Aparece mas muito abaixo"
 
 **Soluções:**
+
 1. Melhore o conteúdo com mais palavras-chave
 2. Adicione backlinks (links de outros sites)
 3. Publique conteúdo regularmente
@@ -161,6 +168,7 @@ O Google valoriza sites rápidos. O seu site já está otimizado, mas pode verif
 ### "Aparece mas com descrição errada"
 
 **Soluções:**
+
 1. Verifique os metadados em `app/layout.tsx`
 2. Use a ferramenta de inspeção do Search Console
 3. Solicite reindexação
@@ -178,10 +186,10 @@ O Google valoriza sites rápidos. O seu site já está otimizado, mas pode verif
 ## 📞 Precisa de Ajuda?
 
 Se tiver dúvidas sobre algum passo, consulte:
+
 - Documentação do Google Search Console: https://support.google.com/webmasters
 - Documentação do Next.js SEO: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 
 ---
 
 **Última atualização:** 27 de Janeiro de 2025
-
