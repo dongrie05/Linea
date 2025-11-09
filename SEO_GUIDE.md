@@ -45,8 +45,18 @@ Este guia explica como fazer o seu site aparecer no Google quando as pessoas pro
 3. **Verificar propriedade**
    O Google oferece várias formas de verificação. A mais fácil para GitHub Pages:
 
-   **Opção A - Método HTML (Recomendado)**
-   - Escolha "Método HTML"
+   **Opção A - Arquivo HTML (Recomendado para GitHub Pages)**
+   - Escolha "Método de arquivo HTML"
+   - Faça download do arquivo HTML (ex: `google09b22ee41771b1e6.html`)
+   - O arquivo já foi adicionado à pasta `public/` do projeto
+   - Aguarde 2-5 minutos para o GitHub Actions fazer o deploy
+   - Verifique se o arquivo está acessível em: `https://dongrie05.github.io/Linea/google09b22ee41771b1e6.html`
+   - Volte ao Search Console e clique em "VALIDAR"
+   - ✅ Se a validação funcionar, continue para o próximo passo!
+   - ❌ Se der erro, verifique se o conteúdo do arquivo está correto
+
+   **Opção B - Tag HTML (Alternativa)**
+   - Escolha "Tag de HTML"
    - Copie o código de verificação (algo como: `<meta name="google-site-verification" content="SEU_CODIGO_AQUI" />`)
    - Abra o arquivo `app/layout.tsx`
    - Encontre a linha com `verification: { // Adicione aqui...`
@@ -57,13 +67,6 @@ Este guia explica como fazer o seu site aparecer no Google quando as pessoas pro
      },
      ```
    - Faça commit e push para o GitHub
-   - Volte ao Search Console e clique em "Verificar"
-
-   **Opção B - Arquivo HTML**
-   - Escolha "Método de arquivo HTML"
-   - Faça download do arquivo HTML
-   - Coloque o arquivo na pasta `public/`
-   - Faça commit e push
    - Volte ao Search Console e clique em "Verificar"
 
 4. **Submeter sitemap**
