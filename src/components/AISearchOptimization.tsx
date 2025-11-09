@@ -19,11 +19,10 @@ export default function AISearchOptimization() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Perguntas Frequentes sobre Atendimento Telefónico IA
+            Perguntas Frequentes sobre <strong>Linea</strong> - Atendedor de Chamadas com IA
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Respostas diretas para as principais dúvidas sobre atendimento
-            telefónico com Inteligência Artificial
+            Respostas diretas para as principais dúvidas sobre o <strong>atendimento telefónico automático</strong> e o <strong>atendedor de chamadas</strong> com Inteligência Artificial da Linea
           </p>
         </motion.div>
 
@@ -37,12 +36,12 @@ export default function AISearchOptimization() {
             {/* Pergunta 1 */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                O que é atendimento telefónico com IA?
+                O que é atendimento telefónico com IA? Como funciona o atendedor de chamadas Linea?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Atendimento telefónico com IA é um sistema automatizado que
+                O <strong>atendimento telefónico com IA</strong> é um sistema automatizado que
                 utiliza Inteligência Artificial para responder chamadas
-                telefónicas de forma natural. A IA compreende o que o cliente
+                telefónicas de forma natural. A <strong>Linea</strong> é um <strong>atendedor de chamadas automático</strong> que compreende o que o cliente
                 diz, responde em português fluido, agenda compromissos e
                 encaminha chamadas importantes para o responsável. Funciona 24
                 horas por dia, 7 dias por semana, sem necessidade de pausas ou
@@ -53,12 +52,12 @@ export default function AISearchOptimization() {
             {/* Pergunta 2 */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Como funciona o atendimento telefónico IA em Portugal?
+                Como funciona o atendedor de chamadas Linea em Portugal?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Em Portugal, o atendimento telefónico IA funciona através da sua
+                Em Portugal, o <strong>atendimento telefónico IA da Linea</strong> funciona através da sua
                 linha telefónica existente. Não precisa de instalar equipamentos
-                especiais. A IA responde automaticamente a todas as chamadas,
+                especiais. O <strong>atendedor automático de chamadas</strong> responde automaticamente a todas as chamadas,
                 identifica a intenção do cliente, fornece informações sobre
                 serviços, agenda consultas ou compromissos, e encaminha chamadas
                 urgentes para si. Tudo em português natural e com sotaque

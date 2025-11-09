@@ -1,23 +1,28 @@
+# Robots.txt para Linea - Atendedor de Chamadas com IA
+# https://dongrie05.github.io/Linea/
+
 User-agent: *
 Allow: /
-
-# Permitir acesso completo aos motores de busca
 Allow: /formulario
-Allow: /#features
-Allow: /#pricing
-Allow: /#faq
 
 # Bloquear arquivos desnecessários
 Disallow: /_next/
 Disallow: /api/
 Disallow: /admin/
 Disallow: /*.json$
+Disallow: /out/
 
 # Sitemap location
 Sitemap: https://dongrie05.github.io/Linea/sitemap.xml
 
-# Crawl-delay para evitar sobrecarga
-Crawl-delay: 1
+# Permitir especificamente para motores de busca principais
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
 
 # Permitir especificamente para motores de IA
 User-agent: GPTBot
