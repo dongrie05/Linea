@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/formulario/`,
+      url: `${baseUrl}/formulario`,
       lastModified: currentDate,
       changeFrequency: "monthly",
       priority: 0.8,

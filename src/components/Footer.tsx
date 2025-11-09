@@ -18,6 +18,7 @@ export default function Footer() {
       { name: "Preços", href: "#pricing" },
       { name: "Testemunhos", href: "#testimonials" },
       { name: "FAQ", href: "#faq" },
+      { name: "Contacto", href: "/Linea/formulario" },
     ],
     company: [
       { name: "Sobre Nós", href: "#about" },
