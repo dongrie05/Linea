@@ -81,9 +81,7 @@ export default function HeroSection() {
               variants={fadeInUp}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
             >
-              <span className="block">
-                Linea - Atendedor de Chamadas com IA
-              </span>
+              <span className="block">Atendedor de Chamadas IA</span>
               <span className="block">
                 Atendimento Telefónico Automático Portugal
               </span>
@@ -96,16 +94,17 @@ export default function HeroSection() {
               variants={fadeInUp}
               className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-4xl"
             >
-              <strong>Linea</strong> é o melhor{" "}
-              <strong>atendedor de chamadas automático</strong> com Inteligência
-              Artificial em Portugal. O nosso{" "}
-              <strong>atendimento telefónico IA</strong> responde, agenda e
-              organiza chamadas automaticamente 24/7.
+              O melhor <strong>atendedor de chamadas com IA</strong> em
+              Portugal.
+              <strong>Atendedor de chamadas automático</strong> com Inteligência
+              Artificial que responde, agenda e organiza chamadas
+              automaticamente 24/7.
               <span className="block sm:inline mt-2">
                 {" "}
                 Mais rápido, mais barato e sempre disponível. O{" "}
-                <strong>atendedor de chamadas</strong> que a sua empresa
-                precisa.
+                <strong>atendedor de chamadas IA</strong> que a sua empresa
+                precisa. <strong>Linea</strong> - atendimento telefónico
+                automático em português.
               </span>
             </motion.p>
 

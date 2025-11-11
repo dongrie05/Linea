@@ -145,11 +145,14 @@ Enviado via formulário Linea`;
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Comece a poupar <span className="gradient-text">hoje mesmo</span>
+              <span className="gradient-text">Atendedor de Chamadas IA</span> -
+              Comece a Poupar Hoje
             </h1>
             <p className="text-xl text-gray-200 mb-6">
-              Preencha o formulário e nossa equipa entrará em contacto em menos
-              de 1 dia
+              O melhor <strong>atendedor de chamadas automático</strong> com
+              Inteligência Artificial em Portugal. Preencha o formulário e nossa
+              equipa entrará em contacto em menos de 1 dia para configurar o seu{" "}
+              <strong>atendimento telefónico IA</strong>.
             </p>
             <div className="flex items-center justify-center space-x-6 text-gray-300">
               <div className="flex items-center space-x-2">

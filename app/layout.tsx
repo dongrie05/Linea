@@ -11,14 +11,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default:
-      "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
+      "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
   description:
-    "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento telefónico automático 24/7. Resposta em 2 segundos. Experimente grátis hoje!",
+    "Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Experimente grátis hoje!",
   keywords: [
-    "linea",
     "atendedor de chamadas",
+    "atendedor de chamadas IA",
+    "atendedor de chamadas automático",
     "atendimento telefónico IA",
     "atendimento telefónico automático",
     "assistente telefónico Portugal",
@@ -35,6 +36,7 @@ export const metadata: Metadata = {
     "IA para telefone",
     "atendimento telefónico barato",
     "atendimento automático português",
+    "linea",
   ].join(", "),
   authors: [{ name: "Linea", url: siteUrl }],
   creator: "Linea",
