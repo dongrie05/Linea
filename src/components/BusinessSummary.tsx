@@ -51,7 +51,7 @@ export default function BusinessSummary() {
 
   return (
     <section ref={ref} className="section-padding bg-white">
-      <div className="container-custom">
+      <div className="container-custom" data-scroll-reveal>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

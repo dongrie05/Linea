@@ -10,6 +10,11 @@ import {
   Instagram,
 } from "lucide-react";
 import Link from "next/link";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_E164,
+} from "@/lib/contact";
 
 export default function Footer() {
   const footerLinks = {
@@ -18,7 +23,7 @@ export default function Footer() {
       { name: "Preços", href: "#pricing" },
       { name: "Testemunhos", href: "#testimonials" },
       { name: "FAQ", href: "#faq" },
-      { name: "Contacto", href: "/Linea/formulario" },
+      { name: "Contacto", href: "/formulario" },
     ],
     company: [
       { name: "Sobre Nós", href: "#about" },
@@ -61,11 +66,21 @@ export default function Footer() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-gray-400">
                   <Phone className="w-4 h-4" />
-                  <span>+351 123 456 789</span>
+                  <a
+                    href={`tel:${CONTACT_PHONE_E164}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {CONTACT_PHONE_DISPLAY}
+                  </a>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-400">
                   <Mail className="w-4 h-4" />
-                  <span>hello@linea.pt</span>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-400">
                   <MapPin className="w-4 h-4" />
@@ -141,9 +156,14 @@ export default function Footer() {
                   </Link>
                 ))}
               </div>
-              <p className="text-gray-400 text-sm">
-                © 2024 Linea. Todos os direitos reservados.
-              </p>
+              <div className="text-center md:text-right">
+                <p className="text-gray-400 text-sm">
+                  © 2024 Linea. Todos os direitos reservados.
+                </p>
+                <p className="text-gray-500 text-xs mt-1">
+                  A Dongrie Labs product
+                </p>
+              </div>
             </div>
           </div>
         </div>

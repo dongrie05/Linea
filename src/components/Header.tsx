@@ -119,16 +119,12 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 20px rgba(34, 197, 94, 0.3)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary"
+            <Link
+              href="/formulario"
+              className="btn-primary inline-flex items-center justify-center"
             >
               Experimente Já
-            </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -219,13 +215,13 @@ export default function Header() {
                   transition={{ duration: 0.3, delay: 0.8 }}
                   className="px-4"
                 >
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="btn-primary w-full"
+                  <Link
+                    href="/formulario"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="btn-primary w-full inline-flex items-center justify-center"
                   >
                     Experimente Já
-                  </motion.button>
+                  </Link>
                 </motion.div>
               </div>
             </motion.div>

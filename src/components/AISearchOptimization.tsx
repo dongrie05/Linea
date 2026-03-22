@@ -11,7 +11,7 @@ export default function AISearchOptimization() {
 
   return (
     <section ref={ref} className="section-padding bg-gray-50">
-      <div className="container-custom">
+      <div className="container-custom" data-scroll-reveal>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

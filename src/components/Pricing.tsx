@@ -69,7 +69,7 @@ export default function Pricing() {
 
   return (
     <section ref={ref} id="pricing" className="section-padding bg-gray-50">
-      <div className="container-custom">
+      <div className="container-custom" data-scroll-reveal>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -198,7 +198,7 @@ export default function Pricing() {
                 </ul>
 
                 <motion.a
-                  href={`/Linea/formulario?plano=${plan.name}`}
+                  href={`/formulario?plano=${plan.name}`}
                   whileHover={{
                     scale: 1.05,
                     x: [0, -2, 2, -2, 2, 0], // Shake effect
@@ -231,7 +231,7 @@ export default function Pricing() {
           >
             <p className="text-gray-600 mb-2">
               <span className="font-semibold">
-                Chamadas extra: 0,10€/chamada
+                Chamadas extra: 0,25€/chamada
               </span>
             </p>
             <p className="text-sm text-gray-500">

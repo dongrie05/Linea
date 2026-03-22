@@ -61,7 +61,7 @@ export default function FAQ() {
 
   return (
     <section ref={ref} id="faq" className="section-padding bg-gray-50">
-      <div className="container-custom">
+      <div className="container-custom" data-scroll-reveal>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -166,7 +166,7 @@ export default function FAQ() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="/Linea/formulario"
+                href="/formulario"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
@@ -177,7 +177,7 @@ export default function FAQ() {
                 Contactar Suporte
               </motion.a>
               <motion.a
-                href="/Linea/formulario"
+                href="/formulario"
                 whileHover={{
                   scale: 1.05,
                   backgroundColor: "rgba(255,255,255,0.1)",

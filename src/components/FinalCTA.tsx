@@ -9,12 +9,15 @@ import {
   staggerContainer,
   staggerItem,
 } from "@/hooks/useAnimationOnScroll";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { motionDuration, tapScale } from "@/lib/motion";
 
 export default function FinalCTA() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+  const reducedMotion = useReducedMotion();
 
   const benefits = [
     { icon: CheckCircle, text: "Configuração em 1 dia" },
@@ -32,35 +35,29 @@ export default function FinalCTA() {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary-900/50 to-transparent"></div>
         <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-l from-accent-900/50 to-transparent"></div>
 
-        {/* Animated Circles */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-500/20 rounded-full blur-3xl"
-        />
+        {/* Animated Circles — desativados com reduced-motion */}
+        {!reducedMotion && (
+          <>
+            <motion.div
+              animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/4 left-1/4 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"
+            />
+            <motion.div
+              animate={{ scale: [1.15, 1, 1.15], opacity: [0.2, 0.45, 0.2] }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+              className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-500/20 rounded-full blur-3xl"
+            />
+          </>
+        )}
       </div>
 
-      <div className="container-custom relative z-10">
+      <div className="container-custom relative z-10" data-scroll-reveal>
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -91,15 +88,15 @@ export default function FinalCTA() {
               <motion.div
                 key={index}
                 variants={staggerItem}
-                whileHover={{
-                  scale: 1.05,
-                  y: -5,
-                }}
+                whileHover={reducedMotion ? undefined : { scale: 1.03, y: -4 }}
+                transition={{ duration: motionDuration.fast / 1000 }}
                 className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3"
               >
                 <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.5 }}
+                  whileHover={
+                    reducedMotion ? undefined : { rotate: 360, scale: 1.15 }
+                  }
+                  transition={{ duration: motionDuration.base / 1000 }}
                 >
                   <benefit.icon className="w-5 h-5 text-secondary-400" />
                 </motion.div>
@@ -111,25 +108,30 @@ export default function FinalCTA() {
           {/* CTA Button */}
           <motion.div variants={fadeInUp} className="mb-12">
             <motion.a
-              href="/Linea/formulario"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 40px rgba(34, 197, 94, 0.6)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              animate={{
-                boxShadow: [
-                  "0 0 20px rgba(34, 197, 94, 0.3)",
-                  "0 0 40px rgba(34, 197, 94, 0.6)",
-                  "0 0 20px rgba(34, 197, 94, 0.3)",
-                ],
-              }}
+              href="/formulario"
+              whileHover={
+                reducedMotion
+                  ? undefined
+                  : {
+                      scale: 1.03,
+                      boxShadow: "0 0 36px rgba(34, 197, 94, 0.5)",
+                    }
+              }
+              whileTap={reducedMotion ? undefined : tapScale}
+              animate={
+                reducedMotion
+                  ? {}
+                  : {
+                      boxShadow: [
+                        "0 0 20px rgba(34, 197, 94, 0.3)",
+                        "0 0 36px rgba(34, 197, 94, 0.5)",
+                        "0 0 20px rgba(34, 197, 94, 0.3)",
+                      ],
+                    }
+              }
               transition={{
-                boxShadow: {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                },
+                duration: motionDuration.base / 1000,
+                boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
               }}
               className="bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-bold text-xl md:text-2xl py-6 px-12 rounded-2xl shadow-2xl transition-all duration-300 flex items-center space-x-3 mx-auto relative overflow-hidden"
             >
@@ -150,32 +152,26 @@ export default function FinalCTA() {
         </motion.div>
       </div>
 
-      {/* Floating Elements */}
-      <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-20 left-10 w-16 h-16 bg-secondary-500/30 rounded-full blur-sm"
-      />
-      <motion.div
-        animate={{
-          y: [0, 20, 0],
-          rotate: [0, -5, 0],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-        className="absolute bottom-20 right-10 w-20 h-20 bg-accent-500/30 rounded-full blur-sm"
-      />
+      {/* Floating orbs — só com motion ativo */}
+      {!reducedMotion && (
+        <>
+          <motion.div
+            animate={{ y: [0, -14, 0], rotate: [0, 4, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-20 left-10 w-16 h-16 bg-secondary-500/30 rounded-full blur-sm"
+          />
+          <motion.div
+            animate={{ y: [0, 14, 0], rotate: [0, -4, 0] }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+            className="absolute bottom-20 right-10 w-20 h-20 bg-accent-500/30 rounded-full blur-sm"
+          />
+        </>
+      )}
     </section>
   );
 }

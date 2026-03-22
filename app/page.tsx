@@ -8,21 +8,24 @@ import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollRevealProvider from "@/components/ScrollRevealProvider";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">
-        <HeroSection />
-        <ProblemSolution />
-        <Features />
-        <Pricing />
-        <BusinessSummary />
-        <AISearchOptimization />
-        <FAQ />
-        <FinalCTA />
-      </main>
+      <ScrollRevealProvider>
+        <main className="flex-1">
+          <HeroSection />
+          <ProblemSolution />
+          <Features />
+          <Pricing />
+          <BusinessSummary />
+          <AISearchOptimization />
+          <FAQ />
+          <FinalCTA />
+        </main>
+      </ScrollRevealProvider>
       <Footer />
     </div>
   );

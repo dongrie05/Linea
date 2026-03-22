@@ -1,75 +1,43 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Phone, ArrowRight, Play, CheckCircle } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ArrowRight, CheckCircle, ShieldCheck, Clock3 } from "lucide-react";
 import {
   useAnimationOnScroll,
   fadeInUp,
   fadeInLeft,
   fadeInRight,
 } from "@/hooks/useAnimationOnScroll";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { motionDuration, tapScale } from "@/lib/motion";
+import Hero3D from "@/components/hero/Hero3D";
+
+const trustItems = ["Sem compromisso", "Configuração em 1 dia", "Suporte 24/7"];
+const stats = [
+  { value: "2s", label: "Tempo médio de resposta" },
+  { value: "24/7", label: "Atendimento contínuo" },
+  { value: "-70%", label: "Redução média de custo" },
+];
 
 export default function HeroSection() {
-  const [isCallActive, setIsCallActive] = useState(false);
   const { ref, controls } = useAnimationOnScroll();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsCallActive(prev => !prev);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const reducedMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-accent-800 pt-20">
-      {/* Animated Background Gradient */}
-      <motion.div
-        className="absolute inset-0"
-        animate={{
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-primary-950 pt-24">
+      <Hero3D />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
           background: [
-            "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #7c3aed 100%)",
-            "linear-gradient(135deg, #0369a1 0%, #7c3aed 50%, #0c4a6e 100%)",
-            "linear-gradient(135deg, #7c3aed 0%, #0c4a6e 50%, #0369a1 100%)",
-            "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #7c3aed 100%)",
-          ],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
+            "radial-gradient(75% 55% at 18% 32%, rgba(14,165,233,0.22) 0%, transparent 55%)",
+            "linear-gradient(105deg, rgba(2,6,23,0.88) 0%, rgba(15,23,42,0.5) 38%, rgba(15,23,42,0.22) 55%, rgba(15,23,42,0.4) 100%)",
+          ].join(", "),
         }}
       />
 
-      {/* Animated Background Particles */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 4 + 2}px`,
-              height: `${Math.random() * 4 + 2}px`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: Math.random() * 3 + 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-12 items-center">
-          {/* Left Content */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-14 items-center">
           <motion.div
             ref={ref}
             initial="hidden"
@@ -77,35 +45,31 @@ export default function HeroSection() {
             variants={fadeInLeft}
             className="text-center xl:text-left"
           >
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs sm:text-sm text-gray-200 mb-6"
+            >
+              <ShieldCheck className="w-4 h-4 text-secondary-300" />
+              <span>A Dongrie Labs product</span>
+            </motion.div>
+
             <motion.h1
               variants={fadeInUp}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-semibold tracking-tight text-white leading-[1.08] mb-6"
             >
-              <span className="block">Atendedor de Chamadas IA</span>
-              <span className="block">
-                Atendimento Telefónico Automático Portugal
-              </span>
-              <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-2 text-secondary-300">
-                Poupe 70% em custos - Resposta em 2 segundos
+              Atendimento telefónico com IA
+              <span className="block text-secondary-300 mt-2">
+                para empresas em Portugal
               </span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-4xl"
+              className="text-base sm:text-lg text-gray-200/90 leading-relaxed max-w-2xl mb-8 mx-auto xl:mx-0"
             >
-              O melhor <strong>atendedor de chamadas com IA</strong> em
-              Portugal.
-              <strong>Atendedor de chamadas automático</strong> com Inteligência
-              Artificial que responde, agenda e organiza chamadas
-              automaticamente 24/7.
-              <span className="block sm:inline mt-2">
-                {" "}
-                Mais rápido, mais barato e sempre disponível. O{" "}
-                <strong>atendedor de chamadas IA</strong> que a sua empresa
-                precisa. <strong>Linea</strong> - atendimento telefónico
-                automático em português.
-              </span>
+              A Linea atende chamadas, responde dúvidas e agenda marcações em
+              segundos. Um fluxo profissional que melhora experiência do cliente
+              e reduz custos operacionais desde o primeiro dia.
             </motion.p>
 
             <motion.div
@@ -113,196 +77,107 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start"
             >
               <motion.a
-                href="/Linea/formulario"
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 30px rgba(34, 197, 94, 0.6)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 glow inline-flex items-center justify-center w-full sm:w-auto"
+                href="/formulario"
+                whileHover={
+                  reducedMotion
+                    ? undefined
+                    : {
+                        scale: 1.02,
+                        boxShadow: "0 0 24px rgba(34,197,94,0.35)",
+                      }
+                }
+                whileTap={reducedMotion ? undefined : tapScale}
+                transition={{ duration: motionDuration.fast / 1000 }}
+                className="btn-primary inline-flex items-center justify-center gap-2 px-7 py-4 text-base sm:text-lg"
               >
-                Experimente Já
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 inline" />
+                Pedir demonstração
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.a>
+
               <motion.a
                 href="#pricing"
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 inline-flex items-center justify-center w-full sm:w-auto"
+                whileHover={reducedMotion ? undefined : { scale: 1.02 }}
+                whileTap={reducedMotion ? undefined : tapScale}
+                transition={{ duration: motionDuration.fast / 1000 }}
+                className="inline-flex items-center justify-center rounded-xl border border-white/35 bg-white/5 text-white px-7 py-4 text-base sm:text-lg font-medium hover:bg-white/10 transition-colors"
               >
-                <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2 inline" />
-                Ver Planos e Preços
+                Ver planos
               </motion.a>
             </motion.div>
 
-            {/* Trust Indicators */}
             <motion.div
               variants={fadeInUp}
-              className="mt-8 sm:mt-12 flex flex-col sm:flex-row flex-wrap justify-center xl:justify-start gap-4 sm:gap-6 text-gray-300"
+              className="mt-8 flex flex-wrap items-center justify-center xl:justify-start gap-x-6 gap-y-3 text-gray-300"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-sm sm:text-base"
-              >
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
-                <span>Sem compromisso</span>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-sm sm:text-base"
-              >
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
-                <span>Configuração em 1 dia</span>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center space-x-2 text-sm sm:text-base"
-              >
-                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400 flex-shrink-0" />
-                <span>Suporte 24/7</span>
-              </motion.div>
+              {trustItems.map(item => (
+                <div key={item} className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="w-4 h-4 text-secondary-300" />
+                  <span>{item}</span>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Phone Mockup */}
           <motion.div
-            ref={ref}
             initial="hidden"
             animate={controls}
             variants={fadeInRight}
-            className="flex justify-center xl:justify-end"
+            className="w-full max-w-xl mx-auto xl:mx-0 xl:ml-auto"
           >
-            <div className="relative">
-              {/* Phone Mockup */}
-              <motion.div
-                animate={{
-                  y: [0, -10, 0],
-                  rotateY: [0, 2, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="phone-mockup w-64 h-80 sm:w-72 sm:h-88 md:w-80 md:h-96 lg:w-80 lg:h-96 xl:w-80 xl:h-96 relative"
-              >
-                <div className="phone-screen h-full flex flex-col">
-                  {/* Status Bar */}
-                  <div className="flex justify-between items-center text-white text-sm mb-4">
-                    <span>9:41</span>
-                    <div className="flex space-x-1">
-                      <div className="w-1 h-1 bg-white rounded-full"></div>
-                      <div className="w-1 h-1 bg-white rounded-full"></div>
-                      <div className="w-1 h-1 bg-white rounded-full"></div>
-                    </div>
-                  </div>
-
-                  {/* Call Interface */}
-                  <div className="flex-1 flex flex-col justify-center items-center text-white pt-8">
-                    <motion.div
-                      animate={{
-                        scale: isCallActive ? 1.1 : 1,
-                        rotate: isCallActive ? [0, -5, 5, 0] : 0,
-                      }}
-                      transition={{
-                        duration: 0.5,
-                        ease: "easeInOut",
-                      }}
-                      className="w-20 h-20 bg-secondary-500 rounded-full flex items-center justify-center mb-8"
-                    >
-                      <Phone className="w-8 h-8" />
-                    </motion.div>
-
-                    <h3 className="text-lg font-semibold mb-3">
-                      Chamada Recebida
-                    </h3>
-                    <p className="text-gray-300 text-center mb-6">
-                      {isCallActive ? "IA a atender..." : "Aguardando..."}
-                    </p>
-
-                    {/* Call Status */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{
-                        opacity: isCallActive ? 1 : 0,
-                        scale: isCallActive ? 1 : 0.8,
-                      }}
-                      transition={{ duration: 0.3 }}
-                      className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 w-full"
-                    >
-                      <div className="flex items-center space-x-2 text-green-400">
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                          }}
-                          className="w-2 h-2 bg-green-400 rounded-full"
-                        />
-                        <span className="text-sm">
-                          IA ativa - Respondeu em 2s
-                        </span>
-                      </div>
-                    </motion.div>
-                  </div>
+            <div className="rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 sm:p-8 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm uppercase tracking-[0.14em] text-gray-300">
+                  Performance
+                </p>
+                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 border border-emerald-300/30 px-3 py-1 text-xs text-emerald-200">
+                  <Clock3 className="w-3 h-3" />
+                  IA ativa
                 </div>
-              </motion.div>
+              </div>
 
-              {/* Floating Elements */}
-              <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute -top-4 -right-4 bg-secondary-500 text-white p-3 rounded-full shadow-lg"
-              >
-                <CheckCircle className="w-6 h-6" />
-              </motion.div>
+              <div className="space-y-3 mb-6">
+                <p className="text-white text-xl sm:text-2xl font-semibold leading-tight">
+                  Cada chamada é atendida com contexto e resposta imediata.
+                </p>
+                <p className="text-gray-300 text-sm sm:text-base">
+                  Sem chamadas perdidas, sem esperas longas, sem imagem de marca
+                  amadora.
+                </p>
+              </div>
 
-              <motion.div
-                animate={{
-                  y: [0, 20, 0],
-                  rotate: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-                className="absolute -bottom-4 -left-4 bg-accent-500 text-white p-3 rounded-full shadow-lg"
-              >
-                <Phone className="w-6 h-6" />
-              </motion.div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {stats.map(stat => (
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl border border-white/15 bg-white/5 p-4"
+                  >
+                    <p className="text-white text-2xl font-semibold">
+                      {stat.value}
+                    </p>
+                    <p className="text-gray-300 text-xs mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        transition={{ duration: 0.8, delay: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+          animate={reducedMotion ? {} : { y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-6 h-10 border border-white/40 rounded-full flex justify-center pt-2"
         >
           <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-3 bg-white/60 rounded-full mt-2"
+            animate={reducedMotion ? {} : { y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-3 bg-white/70 rounded-full"
           />
         </motion.div>
       </motion.div>

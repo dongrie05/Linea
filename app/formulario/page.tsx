@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Phone, Mail, CheckCircle } from "lucide-react";
+import { LEADS_EMAIL, CONTACT_PHONE_WHATSAPP } from "@/lib/contact";
 
 export default function FormularioPage() {
   const router = useRouter();
@@ -80,7 +81,7 @@ ${mensagem}
 
     if (envioMethod === "whatsapp") {
       const whatsappMessage = generateWhatsAppMessage();
-      const whatsappUrl = `https://wa.me/351927699882?text=${whatsappMessage}`;
+      const whatsappUrl = `https://wa.me/${CONTACT_PHONE_WHATSAPP}?text=${whatsappMessage}`;
       window.open(whatsappUrl, "_blank");
     } else if (envioMethod === "email") {
       // Envia email real
@@ -106,7 +107,7 @@ ${formData.mensagem}
 ---
 Enviado via formulário Linea`;
 
-      const emailUrl = `mailto:goncalodongrie@icloud.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      const emailUrl = `mailto:${LEADS_EMAIL}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
       window.open(emailUrl, "_blank");
     }
 
