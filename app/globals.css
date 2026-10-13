@@ -100,8 +100,8 @@
 }
 
 .display {
-  font-size: clamp(2.5rem, 5.2vw, 4.25rem);
-  line-height: 1.05;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  line-height: 1.08;
   letter-spacing: -0.022em;
   font-weight: 600;
 }
