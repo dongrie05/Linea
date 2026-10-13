@@ -2,196 +2,234 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+/*
+ * Tokens semânticos. Um acento só, para a acção principal e para o estado
+ * da chamada. Claro e escuro seguem o sistema. Sem interruptor na página.
+ *
+ * Contraste aproximado (WCAG):
+ * ink #1D1D1F sobre elevated #FFFFFF ≈ 19:1
+ * muted #424245 sobre surface #F5F5F7 ≈ 9:1
+ * branco sobre accent #0E4D8A ≈ 8.5:1
+ * accent escuro #8EBAFF sobre #1C1C1E ≈ 8.9:1
+ * texto do botão escuro #0B1220 sobre #8EBAFF ≈ 9.8:1
+ */
+:root {
+  --c-surface: 245 245 247;
+  --c-elevated: 255 255 255;
+  --c-ink: 29 29 31;
+  --c-muted: 66 66 69;
+  --c-line: 210 210 215;
+  --c-accent: 14 77 138;
+  --c-accent-ink: 255 255 255;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-surface: 28 28 30;
+    --c-elevated: 44 44 46;
+    --c-ink: 245 245 247;
+    --c-muted: 174 174 178;
+    --c-line: 72 72 74;
+    --c-accent: 142 186 255;
+    --c-accent-ink: 11 18 32;
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --c-muted: 29 29 31;
+    --c-line: 29 29 31;
+    --c-accent: 0 51 102;
+  }
+}
+
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+  :root {
+    --c-muted: 245 245 247;
+    --c-line: 245 245 247;
+    --c-accent: 186 216 255;
+    --c-accent-ink: 0 0 0;
+  }
+}
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: rgb(var(--c-surface));
+    color: rgb(var(--c-ink));
   }
 
   body {
-    font-family: "Inter", system-ui, sans-serif;
+    min-height: 100%;
+    font-size: 1.0625rem;
+    line-height: 1.47;
+    letter-spacing: 0;
+    background: rgb(var(--c-surface));
+    color: rgb(var(--c-ink));
+  }
+
+  ::selection {
+    background: rgb(var(--c-accent) / 0.22);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 3px;
+  }
+
+  label:has(:focus-visible) {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 }
 
-@layer components {
-  .btn-primary {
-    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm sm:text-base;
-  }
-
-  .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-primary-700 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-xl border-2 border-primary-200 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm sm:text-base;
-  }
-
-  .card {
-    @apply bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent;
-  }
-
-  .section-padding {
-    @apply py-12 px-4 sm:py-16 sm:px-6 lg:py-20 lg:px-8;
-  }
-
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
+.display {
+  font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+}
+
+.lede {
+  font-size: 1.125rem;
+  line-height: 1.45;
+  letter-spacing: -0.011em;
+  color: rgb(var(--c-muted));
+}
+
+.caption {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: rgb(var(--c-muted));
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.65rem 1.15rem;
+  border-radius: 980px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.011em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 100ms ease-out;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: rgb(var(--c-accent));
+  color: rgb(var(--c-accent-ink));
+}
+
+.btn-secondary {
+  background: transparent;
+  color: rgb(var(--c-ink));
+  border-color: rgb(var(--c-line));
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.material {
+  background: rgb(var(--c-surface) / 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .material {
+    background: rgb(var(--c-surface));
+    backdrop-filter: none;
+  }
+}
+
+.product-card {
+  background: rgb(var(--c-elevated));
+  border: 1px solid rgb(var(--c-line));
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  .product-card {
+    box-shadow: 0 18px 50px rgb(0 0 0 / 0.35);
+  }
+}
+
+.field {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgb(var(--c-line));
+  background: rgb(var(--c-elevated));
+  color: rgb(var(--c-ink));
+  font-size: 1.0625rem;
+  line-height: 1.35;
+}
+
+.field::placeholder {
+  color: rgb(var(--c-muted));
+}
+
+.section-anchor {
+  scroll-margin-top: 5.5rem;
+}
+
+.call-dot {
   width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgb(var(--c-accent));
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #0ea5e9;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #0284c7;
-}
-
-/* Particle animation */
-.particle {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
-}
-
-.particle:nth-child(1) {
-  animation-delay: 0s;
-}
-.particle:nth-child(2) {
-  animation-delay: 1s;
-}
-.particle:nth-child(3) {
-  animation-delay: 2s;
-}
-.particle:nth-child(4) {
-  animation-delay: 3s;
-}
-.particle:nth-child(5) {
-  animation-delay: 4s;
-}
-.particle:nth-child(6) {
-  animation-delay: 5s;
-}
-
-/* Glow effect */
-.glow {
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-/* Mobile phone mockup */
-.phone-mockup {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
-
-.phone-screen {
-  background: #000;
-  border-radius: 15px;
-  padding: 15px;
-  position: relative;
-  overflow: hidden;
-}
-
-@media (min-width: 640px) {
-  .phone-mockup {
-    border-radius: 25px;
-    padding: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-
-  .phone-screen {
-    border-radius: 18px;
-    padding: 18px;
-  }
-}
-
-@media (min-width: 768px) {
-  .phone-mockup {
-    border-radius: 30px;
-    padding: 20px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-  }
-
-  .phone-screen {
-    border-radius: 20px;
-    padding: 20px;
-  }
-}
-
-/* Loading animation */
-.loading-dots {
-  display: inline-block;
-}
-
-.loading-dots::after {
-  content: "";
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0%,
-  20% {
-    content: "";
-  }
-  40% {
-    content: ".";
-  }
-  60% {
-    content: "..";
-  }
-  80%,
-  100% {
-    content: "...";
-  }
-}
-
-/* Fallback for when JavaScript/animations don't load */
 @media (prefers-reduced-motion: no-preference) {
-  /* Only apply fallback if user hasn't disabled animations */
-  [style*="opacity:0"] {
-    opacity: 1 !important;
-  }
-
-  [style*="transform:translateY"] {
-    transform: none !important;
-  }
-
-  [style*="transform:translateX"] {
-    transform: none !important;
-  }
-
-  [style*="transform:scale"] {
-    transform: none !important;
+  .call-dot.is-live {
+    animation: call-dot 1.4s ease-in-out infinite;
   }
 }
 
-/* Force visibility after 1 second as ultimate fallback */
-@keyframes forceVisible {
-  to {
-    opacity: 1 !important;
-    transform: none !important;
+@keyframes call-dot {
+  0%,
+  100% {
+    opacity: 1;
   }
-}
-
-[style*="opacity:0"] {
-  animation: forceVisible 0.1s ease-in-out 1s forwards;
+  50% {
+    opacity: 0.35;
+  }
 }
