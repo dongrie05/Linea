@@ -34,7 +34,7 @@ export default function FAQ() {
   const baseId = useId();
 
   return (
-    <section id="faq" className="band-sand section-anchor">
+    <section id="faq" className="section-anchor">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
         <div className="max-w-measure">
           <h2 className="section-title">Perguntas</h2>

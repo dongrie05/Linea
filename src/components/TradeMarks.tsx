@@ -19,7 +19,7 @@ export function BarberMark({ className = "h-20 w-32" }: MarkProps) {
       <circle cx="58" cy="26" r="9" {...stroke} />
       <circle cx="86" cy="54" r="9" {...stroke} />
       <path d="M64 32l28 28M70 40L46 64" {...stroke} />
-      <circle cx="67" cy="37" r="3.2" className="fill-warm" />
+      <circle cx="67" cy="37" r="3.2" className="fill-cyan" />
     </svg>
   );
 }
@@ -30,7 +30,7 @@ export function ClinicMark({ className = "h-20 w-32" }: MarkProps) {
       <path d="M16 58h96" {...stroke} />
       <path d="M28 58V46h72v12" {...stroke} />
       <path d="M46 46v-8c0-8 6-14 14-14s14 6 14 14v8" {...stroke} />
-      <circle cx="60" cy="22" r="2.4" className="fill-warm" />
+      <circle cx="60" cy="22" r="2.4" className="fill-cyan" />
       <rect x="86" y="18" width="22" height="30" rx="2" {...stroke} />
       <path d="M92 28h10M92 34h8" {...stroke} />
     </svg>
@@ -45,7 +45,7 @@ export function RestaurantMark({ className = "h-20 w-32" }: MarkProps) {
       <circle cx="72" cy="46" r="9" {...stroke} />
       <path d="M96 24h12l-2 16a4 4 0 0 1-8 0l-2-16z" {...stroke} />
       <path d="M102 40v14" {...stroke} />
-      <circle cx="102" cy="20" r="2.4" className="fill-warm" />
+      <circle cx="102" cy="20" r="2.4" className="fill-cyan" />
     </svg>
   );
 }
@@ -57,7 +57,7 @@ export function ListenBars() {
       {bars.map((height, index) => (
         <span
           key={height + index}
-          className={index % 3 === 0 ? "bg-warm" : "bg-ink"}
+          className={index % 3 === 0 ? "bg-cyan" : "bg-blue"}
           style={{ height, width: 6, borderRadius: 999 }}
         />
       ))}

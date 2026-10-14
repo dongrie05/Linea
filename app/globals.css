@@ -3,85 +3,55 @@
 @tailwind utilities;
 
 /*
- * Pinho (primário) e cobre (secundário quente). Superfícies tingidas,
- * nunca branco puro. Claro e escuro seguem o sistema.
+ * Base quase preta e azul elétrico. Violeta marca o exemplo, ciano a voz.
+ * Uma faixa clara (preços) quebra o escuro. O sítio fica escuro nos dois
+ * modos do sistema: é a marca, não um tema invertido.
  *
- * Contraste aproximado (WCAG), modo claro:
- * ink #12211E sobre surface #E7EEEA ≈ 12:1
- * muted #3E524C sobre surface ≈ 7:1
- * pine-ink #F4F7F5 sobre pine #0F3D36 ≈ 11:1
- * warm #A6481A sobre surface ≈ 5.0:1 (serve também em texto pequeno)
- * warm-on-dark #F0C9A0 sobre pine ≈ 7.8:1
- * warm-fill-ink #1A120C sobre warm-fill #E8A06A ≈ 8.6:1
- * wood-ink #F6EDE3 sobre wood #3A2418 ≈ 12:1
- * muted claro #D6E4DE sobre pine ≈ 9:1
+ * Contraste WCAG, texto sobre o fundo:
+ * ink #F4F6FB sobre #07080C ≈ 18:1
+ * muted #B4BCCE sobre #07080C ≈ 10:1
+ * blue #9CC7FF sobre #07080C ≈ 11:1
+ * violet #C9B8FF sobre #07080C ≈ 11:1
+ * cyan #8EEDFF sobre #07080C ≈ 15:1
+ * blue-ink #07080C sobre blue-fill #7EB0FF ≈ 9:1
+ * light ink #0C0E14 sobre light #F2F4F8 ≈ 17:1
+ * light blue #154FD8 sobre light ≈ 6:1
  */
 :root {
-  --c-surface: 231 238 234;
-  --c-elevated: 247 243 238;
-  --c-ink: 18 33 30;
-  --c-muted: 62 82 76;
-  --c-line: 186 201 194;
-  --c-pine: 15 61 54;
-  --c-pine-ink: 244 247 245;
-  --c-wood: 58 36 24;
-  --c-wood-ink: 246 237 227;
-  --c-warm: 166 72 26;
-  --c-warm-on-dark: 240 201 160;
-  --c-warm-fill: 232 160 106;
-  --c-warm-fill-ink: 26 18 12;
-  --c-sand: 243 228 212;
-  --c-paper: 247 243 238;
-  --c-paper-ink: 18 33 30;
-  --c-paper-muted: 62 82 76;
-  --c-paper-field: 243 236 228;
-  --c-paper-line: 214 204 192;
-  --c-accent: 15 61 54;
-  --c-accent-ink: 244 247 245;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --c-surface: 16 24 22;
-    --c-elevated: 28 38 34;
-    --c-ink: 236 242 238;
-    --c-muted: 186 204 196;
-    --c-line: 58 78 72;
-    --c-pine: 19 78 69;
-    --c-pine-ink: 244 247 245;
-    --c-wood: 74 46 34;
-    --c-wood-ink: 246 237 227;
-    --c-warm: 240 201 160;
-    --c-warm-on-dark: 240 201 160;
-    --c-warm-fill: 232 160 106;
-    --c-warm-fill-ink: 26 18 12;
-    --c-sand: 42 33 28;
-    --c-paper: 28 40 36;
-    --c-paper-ink: 236 242 238;
-    --c-paper-muted: 186 204 196;
-    --c-paper-field: 18 28 25;
-    --c-paper-line: 70 92 84;
-    --c-accent: 232 160 106;
-    --c-accent-ink: 26 18 12;
-    color-scheme: dark;
-  }
+  --c-surface: 7 8 12;
+  --c-elevated: 18 21 32;
+  --c-ink: 244 246 251;
+  --c-muted: 180 188 206;
+  --c-line: 58 65 88;
+  --c-blue: 156 199 255;
+  --c-blue-fill: 126 176 255;
+  --c-blue-fill-hover: 168 204 255;
+  --c-blue-ink: 7 8 12;
+  --c-violet: 201 184 255;
+  --c-cyan: 142 237 255;
+  --c-light: 242 244 248;
+  --c-light-ink: 12 14 20;
+  --c-light-muted: 62 70 88;
+  --c-light-line: 198 206 220;
+  --c-light-blue: 21 79 216;
+  --c-paper: 244 246 251;
+  --c-paper-ink: 12 14 20;
+  --c-paper-muted: 62 70 88;
+  --c-paper-field: 255 255 255;
+  --c-paper-line: 206 212 224;
+  --c-accent: 126 176 255;
+  --c-accent-ink: 7 8 12;
+  color-scheme: dark;
 }
 
 @media (prefers-contrast: more) {
   :root {
-    --c-muted: 18 33 30;
-    --c-line: 18 33 30;
-    --c-warm: 122 48 14;
-  }
-}
-
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  :root {
-    --c-muted: 244 247 245;
-    --c-line: 244 247 245;
-    --c-warm: 255 220 180;
-    --c-warm-on-dark: 255 220 180;
+    --c-muted: 226 230 240;
+    --c-line: 186 196 216;
+    --c-blue: 198 220 255;
+    --c-cyan: 210 248 255;
+    --c-violet: 226 216 255;
+    --c-light-blue: 12 58 190;
   }
 }
 
@@ -104,16 +74,16 @@
   }
 
   ::selection {
-    background: rgb(var(--c-warm) / 0.28);
+    background: rgb(var(--c-blue) / 0.32);
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--c-warm));
+    outline: 2px solid rgb(var(--c-blue));
     outline-offset: 3px;
   }
 
   label:has(:focus-visible) {
-    outline: 2px solid rgb(var(--c-warm));
+    outline: 2px solid rgb(var(--c-blue));
     outline-offset: 3px;
   }
 
@@ -167,40 +137,28 @@
   color: rgb(var(--c-muted));
 }
 
-.tone-warm {
-  color: rgb(var(--c-warm));
+.tone-blue {
+  color: rgb(var(--c-blue));
 }
 
-.band-pine {
-  background: rgb(var(--c-pine));
-  color: rgb(var(--c-pine-ink));
-  --c-ink: var(--c-pine-ink);
-  --c-muted: 214 228 222;
-  --c-line: 90 130 122;
+.tone-violet {
+  color: rgb(var(--c-violet));
 }
 
-.band-wood {
-  background: rgb(var(--c-wood));
-  color: rgb(var(--c-wood-ink));
-  --c-ink: var(--c-wood-ink);
-  --c-muted: 230 214 198;
-  --c-line: 120 90 72;
-}
-
-.band-sand {
-  background: rgb(var(--c-sand));
-}
-
-.band-pine .tone-warm,
-.band-wood .tone-warm {
-  color: rgb(var(--c-warm-on-dark));
-}
-
-.band-pine :focus-visible,
-.band-wood :focus-visible,
-.band-pine label:has(:focus-visible),
-.band-wood label:has(:focus-visible) {
-  outline-color: rgb(var(--c-warm-on-dark));
+.band-light {
+  color: rgb(var(--c-light-ink));
+  color-scheme: light;
+  --c-ink: var(--c-light-ink);
+  --c-muted: var(--c-light-muted);
+  --c-line: var(--c-light-line);
+  --c-blue: var(--c-light-blue);
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--c-surface)) 0,
+    rgb(var(--c-light)) 72px,
+    rgb(var(--c-light)) calc(100% - 72px),
+    rgb(var(--c-surface)) 100%
+  );
 }
 
 .btn {
@@ -218,7 +176,6 @@
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 100ms ease-out;
 }
 
 .btn:active {
@@ -226,27 +183,14 @@
 }
 
 .btn-primary {
-  background: rgb(var(--c-accent));
-  color: rgb(var(--c-accent-ink));
-}
-
-.band-pine .btn-primary,
-.band-wood .btn-primary {
-  background: rgb(var(--c-warm-fill));
-  color: rgb(var(--c-warm-fill-ink));
+  background: rgb(var(--c-blue-fill));
+  color: rgb(var(--c-blue-ink));
 }
 
 .btn-secondary {
   background: transparent;
   color: rgb(var(--c-ink));
-  border-color: rgb(var(--c-line));
-}
-
-.band-pine .btn-secondary,
-.band-wood .btn-secondary {
-  color: inherit;
-  border-color: rgb(255 255 255 / 0.45);
-  background: transparent;
+  border-color: rgb(158 168 190);
 }
 
 .btn:disabled {
@@ -255,9 +199,26 @@
   transform: none;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition:
+      transform 100ms ease-out,
+      background-color 160ms ease-out,
+      border-color 160ms ease-out;
+  }
+
+  .btn-primary:hover {
+    background: rgb(var(--c-blue-fill-hover));
+  }
+
+  .btn-secondary:hover {
+    border-color: rgb(var(--c-ink) / 0.55);
+  }
+}
+
 .material {
-  background: rgb(var(--c-surface) / 0.84);
-  backdrop-filter: saturate(160%) blur(18px);
+  background: rgb(var(--c-surface) / 0.78);
+  backdrop-filter: saturate(140%) blur(18px);
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -267,55 +228,48 @@
   }
 }
 
-.paper,
-.product-card {
+.paper {
   background: rgb(var(--c-paper));
   color: rgb(var(--c-paper-ink));
+  color-scheme: light;
   --c-ink: var(--c-paper-ink);
   --c-muted: var(--c-paper-muted);
   --c-line: var(--c-paper-line);
   --c-elevated: var(--c-paper-field);
   --c-surface: var(--c-paper-field);
-  --c-accent: 15 61 54;
-  --c-accent-ink: 244 247 245;
-}
-
-.paper .tone-warm,
-.product-card .tone-warm {
-  color: rgb(var(--c-warm));
+  --c-accent: var(--c-light-blue);
+  --c-accent-ink: 244 246 251;
+  --c-blue: var(--c-light-blue);
 }
 
 .paper .btn-primary,
-.product-card .btn-primary {
-  background: rgb(var(--c-pine));
-  color: rgb(var(--c-pine-ink));
+.band-light .btn-primary {
+  background: rgb(var(--c-blue-fill));
+  color: rgb(var(--c-blue-ink));
+}
+
+.paper .btn-secondary,
+.band-light .btn-secondary {
+  border-color: rgb(var(--c-light-muted));
 }
 
 .paper :focus-visible,
-.product-card :focus-visible,
-.paper label:has(:focus-visible),
-.product-card label:has(:focus-visible) {
-  outline-color: rgb(var(--c-warm));
-}
-
-@media (prefers-color-scheme: dark) {
-  .paper,
-  .product-card {
-    --c-accent: 232 160 106;
-    --c-accent-ink: 26 18 12;
-  }
-
-  .paper .btn-primary,
-  .product-card .btn-primary {
-    background: rgb(var(--c-warm-fill));
-    color: rgb(var(--c-warm-fill-ink));
-  }
+.paper label:has(:focus-visible) {
+  outline-color: rgb(var(--c-light-blue));
 }
 
 .product-card {
-  border: 1px solid rgb(var(--c-paper-line));
+  background: rgb(var(--c-elevated));
+  color: rgb(var(--c-ink));
+  --c-ink: 244 246 251;
+  --c-muted: 180 188 206;
+  --c-line: 58 65 88;
+  --c-blue: 156 199 255;
+  --c-accent: 126 176 255;
+  --c-accent-ink: 7 8 12;
+  border: 1px solid rgb(var(--c-line));
   border-radius: 18px;
-  box-shadow: 0 22px 48px rgb(0 0 0 / 0.16);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.28);
   overflow: hidden;
 }
 
@@ -343,12 +297,122 @@
   width: 9px;
   height: 9px;
   border-radius: 999px;
-  background: rgb(var(--c-warm-fill));
+  background: rgb(var(--c-cyan));
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 28px;
+}
+
+.wave i {
+  display: block;
+  width: 3px;
+  height: 100%;
+  border-radius: 99px;
+  background: rgb(var(--c-cyan));
+  transform: scaleY(0.28);
+  transform-origin: center;
+}
+
+.wave i:nth-child(3n) {
+  background: rgb(var(--c-blue));
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: rgb(var(--c-blue));
+}
+
+.ticker-window {
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+}
+
+.ticker-track ul {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 0.75rem 0 0;
+  list-style: none;
+}
+
+.ticker-item {
+  flex: none;
+  border: 1px solid rgb(var(--c-line));
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  color: rgb(var(--c-ink));
+  font-size: 0.95rem;
+  letter-spacing: -0.011em;
+  background: rgb(var(--c-elevated));
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .wave.is-live i {
+    animation: wave 0.9s ease-in-out infinite;
+  }
+
+  .wave.is-talk i {
+    animation-duration: 0.55s;
+  }
+
   .call-dot.is-live {
-    animation: call-dot 1.4s ease-in-out infinite;
+    animation: call-dot 1.2s ease-in-out infinite;
+  }
+
+  .ticker-track {
+    animation: ticker 32s linear infinite;
+  }
+
+  .ticker:hover .ticker-track,
+  .ticker:focus-within .ticker-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-window {
+    overflow: visible;
+  }
+
+  .ticker-track {
+    width: auto;
+    flex-wrap: wrap;
+    padding: 0 1.25rem 0.25rem;
+  }
+
+  .ticker-track ul {
+    flex-wrap: wrap;
+  }
+
+  .ticker-track ul.ticker-clone {
+    display: none;
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.28);
+  }
+  50% {
+    transform: scaleY(1);
   }
 }
 
@@ -359,5 +423,14 @@
   }
   50% {
     opacity: 0.35;
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }

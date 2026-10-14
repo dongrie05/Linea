@@ -7,7 +7,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="band-pine border-t border-white/15">
+    <footer className="border-t border-line">
       <div className="mx-auto flex max-w-page flex-col gap-8 px-5 py-14 sm:px-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-[1.125rem] font-semibold tracking-[-0.02em]">

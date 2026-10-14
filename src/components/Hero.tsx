@@ -3,12 +3,12 @@ import CallStage from "@/components/CallStage";
 
 export default function Hero() {
   return (
-    <section className="band-pine -mt-16">
+    <section className="-mt-16">
       <div className="mx-auto grid max-w-page items-center gap-12 px-5 pb-20 pt-32 sm:px-8 sm:pb-24 sm:pt-36 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-16 lg:pt-40">
         <div className="max-w-[40rem]">
           <h1 className="display-hero">
             Nunca mais perca uma chamada.
-            <span className="tone-warm mt-4 block">
+            <span className="tone-blue mt-4 block">
               A Linea atende por si, em português.
             </span>
           </h1>

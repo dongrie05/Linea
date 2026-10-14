@@ -39,11 +39,11 @@ export default function ExampleAudio() {
   }, [src]);
 
   return (
-    <section id="ouvir" className="band-sand section-anchor">
+    <section id="ouvir" className="section-anchor">
       <div className="mx-auto grid max-w-page items-end gap-10 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,1fr)_auto]">
         <div className="max-w-measure">
           <h2 className="display-hero">
-            Ouça a <span className="tone-warm">Linea</span>
+            Ouça a <span className="tone-blue">Linea</span>
           </h2>
           <p className="lede mt-4">
             Um exemplo encenado, cerca de 30 segundos. Não é a chamada de um

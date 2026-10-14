@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import LiveTicker from "@/components/LiveTicker";
 import Pilot from "@/components/Pilot";
 import Pricing from "@/components/Pricing";
 
@@ -21,6 +22,7 @@ export default function Home() {
       <Header />
       <main id="conteudo" className="flex-1">
         <Hero />
+        <LiveTicker />
         <ExampleAudio />
         <HowItWorks />
         <Audiences />

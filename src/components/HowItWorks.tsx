@@ -1,3 +1,5 @@
+import Reveal from "@/components/Reveal";
+
 const STEPS = [
   {
     title: "A chamada entra",
@@ -17,22 +19,24 @@ export default function HowItWorks() {
   return (
     <section id="como-funciona" className="section-anchor">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
-        <div className="max-w-measure">
+        <Reveal className="max-w-measure">
           <h2 className="section-title">
-            Como <span className="tone-warm">funciona</span>
+            Como <span className="tone-blue">funciona</span>
           </h2>
           <p className="lede mt-4">Três momentos, na mesma chamada.</p>
-        </div>
+        </Reveal>
         <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
           {STEPS.map((step, index) => (
             <li key={step.title}>
-              <p className="text-[2rem] font-semibold tabular-nums tracking-[-0.04em] text-warm">
-                {index + 1}
-              </p>
-              <h3 className="mt-3 text-[1.35rem] font-semibold tracking-[-0.02em]">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-muted">{step.text}</p>
+              <Reveal delay={index * 0.06}>
+                <p className="text-[2rem] font-semibold tabular-nums tracking-[-0.04em] text-blue">
+                  {index + 1}
+                </p>
+                <h3 className="mt-3 text-[1.35rem] font-semibold tracking-[-0.02em]">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-muted">{step.text}</p>
+              </Reveal>
             </li>
           ))}
         </ol>

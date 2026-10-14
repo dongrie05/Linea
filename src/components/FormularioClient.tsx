@@ -9,10 +9,10 @@ export default function FormularioClient() {
 
   return (
     <div>
-      <div className="band-pine -mt-16 px-5 pb-16 pt-32 sm:px-8 sm:pt-36">
+      <div className="-mt-16 px-5 pb-16 pt-32 sm:px-8 sm:pt-36">
         <div className="mx-auto max-w-measure">
           <h1 className="display-hero">
-            Entrar no <span className="tone-warm">piloto</span>
+            Entrar no <span className="tone-blue">piloto</span>
           </h1>
           <p className="lede mt-4">
             Diga o negócio e o plano. O pedido abre no WhatsApp ou no email. Não

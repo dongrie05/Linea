@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 import { PILOT_OFFER } from "@/lib/site";
 
 export default function Pilot() {
@@ -14,13 +15,15 @@ export default function Pilot() {
     : "A configuração não está incluída nesta proposta.";
 
   return (
-    <section id="piloto" className="band-wood section-anchor">
+    <section id="piloto" className="section-anchor">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
-        <div className="max-w-measure">
-          <p className="caption uppercase tracking-[0.08em]">Programa piloto</p>
+        <Reveal className="max-w-measure">
+          <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-violet">
+            Programa piloto
+          </p>
           <h2 className="display-hero mt-4">
             Os primeiros{" "}
-            <span className="tone-warm">{PILOT_OFFER.maxBusinesses}</span>
+            <span className="tone-blue">{PILOT_OFFER.maxBusinesses}</span>
           </h2>
           <p className="lede mt-4">
             Uma oferta de quem está a construir a Linea. A proposta é {price}.{" "}
@@ -35,7 +38,7 @@ export default function Pilot() {
           <Link href="/formulario" className="btn btn-primary mt-8">
             Entrar no piloto
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -19,7 +19,7 @@ export default function Header() {
           href="/"
           className="flex items-center gap-2 text-[1.125rem] font-semibold tracking-[-0.02em]"
         >
-          <span className="h-4 w-1 rounded-full bg-warm" aria-hidden="true" />
+          <span className="h-4 w-1 rounded-full bg-blue" aria-hidden="true" />
           Linea
         </Link>
 

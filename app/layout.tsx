@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { CONTACT_EMAIL, CONTACT_PHONE_E164 } from "@/lib/contact";
 import { PLANS, SITE_URL } from "@/lib/site";
@@ -55,10 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0F3D36" },
-    { media: "(prefers-color-scheme: dark)", color: "#101816" },
-  ],
+  themeColor: "#07080C",
 };
 
 export default function RootLayout({
@@ -101,6 +99,9 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <head>
+        <Script id="js-flag" strategy="beforeInteractive">
+          {`document.documentElement.classList.add("js")`}
+        </Script>
         <link rel="canonical" href={SITE_URL} />
         <meta name="geo.region" content="PT" />
         <meta name="language" content="Portuguese" />
