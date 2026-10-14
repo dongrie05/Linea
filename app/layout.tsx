@@ -1,73 +1,45 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
-import AnimationFallback from "@/components/AnimationFallback";
+import { CONTACT_EMAIL, CONTACT_PHONE_E164 } from "@/lib/contact";
+import { PLANS, SITE_URL } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"] });
-
-const siteUrl = "https://dongrie05.github.io/Linea";
+const description =
+  "A Linea atende chamadas, responde a perguntas e marca compromissos, em português, para pequenos negócios em Portugal. Planos de 99€, 199€ e 899€ por mês.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
-    template: "%s | Linea - Atendimento Telefónico IA",
+    default: "Linea | Atendedor de chamadas com IA para empresas em Portugal",
+    template: "%s | Linea",
   },
-  description:
-    "Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Experimente grátis hoje!",
+  description,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
-    "atendedor de chamadas automático",
-    "atendimento telefónico IA",
-    "atendimento telefónico automático",
+    "atendimento telefónico",
     "assistente telefónico Portugal",
-    "IA atendimento",
-    "atendedor automático de chamadas",
-    "automatização chamadas",
-    "chatbot telefónico",
-    "atendimento 24/7",
-    "poupar custos atendimento",
-    "inteligência artificial Portugal",
-    "atendimento telefónico inteligente",
-    "sistema de atendimento automático",
-    "atendedor virtual",
-    "IA para telefone",
-    "atendimento telefónico barato",
-    "atendimento automático português",
+    "marcações por telefone",
     "linea",
   ].join(", "),
-  authors: [{ name: "Linea", url: siteUrl }],
-  creator: "Linea",
-  publisher: "Linea",
+  authors: [{ name: "Dongrie Labs", url: SITE_URL }],
+  creator: "Dongrie Labs",
+  publisher: "Dongrie Labs",
   alternates: {
-    canonical: siteUrl,
+    canonical: SITE_URL,
   },
   openGraph: {
-    title:
-      "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
-    description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento telefónico automático 24/7. Resposta em 2 segundos.",
-    url: siteUrl,
+    title: "Linea | Atendedor de chamadas com IA",
+    description,
+    url: SITE_URL,
     siteName: "Linea",
     type: "website",
     locale: "pt_PT",
-    images: [
-      {
-        url: `${siteUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Linea - Atendimento Telefónico IA Portugal",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas",
-    description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento automático 24/7.",
-    images: [`${siteUrl}/og-image.jpg`],
+    title: "Linea | Atendedor de chamadas com IA",
+    description,
   },
   robots: {
     index: true,
@@ -80,11 +52,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    // Adicione aqui o código de verificação do Google Search Console quando tiver
-    // google: "seu-codigo-de-verificacao",
-  },
   category: "technology",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#07080C",
 };
 
 export default function RootLayout({
@@ -95,94 +67,43 @@ export default function RootLayout({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Linea - Atendedor de Chamadas com IA | Atendimento Telefónico Automático",
-    description:
-      "Linea é o melhor atendedor de chamadas automático com Inteligência Artificial em Portugal. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe até 70% em custos de atendimento.",
+    name: "Linea",
+    description,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    url: siteUrl,
-    datePublished: "2024-01-16",
-    dateModified: "2025-01-27",
-    keywords:
-      "linea, atendedor de chamadas, atendimento telefónico IA, atendimento automático, IA Portugal",
-    about: {
-      "@type": "Thing",
-      name: "Atendimento Telefónico com Inteligência Artificial",
-    },
+    url: SITE_URL,
+    inLanguage: "pt-PT",
     provider: {
       "@type": "Organization",
-      name: "Linea",
-      url: siteUrl,
-      logo: `${siteUrl}/logo.png`,
-      sameAs: [
-        // Adicione aqui links para redes sociais quando tiver
-      ],
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "PT",
-        addressLocality: "Portugal",
-      },
+      name: "Dongrie Labs",
+      url: SITE_URL,
+      email: CONTACT_EMAIL,
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+351-927-699-882",
-        contactType: "customer service",
-        availableLanguage: ["Portuguese", "pt"],
+        telephone: CONTACT_PHONE_E164,
+        contactType: "sales",
+        availableLanguage: ["Portuguese"],
         areaServed: "PT",
       },
     },
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Starter - Atendedor de Chamadas",
-        price: "99",
-        priceCurrency: "EUR",
-        description: "250 chamadas por mês - Atendimento telefónico automático",
-        availability: "https://schema.org/InStock",
-      },
-      {
-        "@type": "Offer",
-        name: "Growth - Atendedor de Chamadas",
-        price: "199",
-        priceCurrency: "EUR",
-        description: "500 chamadas por mês - Atendimento telefónico automático",
-        availability: "https://schema.org/InStock",
-      },
-      {
-        "@type": "Offer",
-        name: "Pro - Atendedor de Chamadas",
-        price: "899",
-        priceCurrency: "EUR",
-        description:
-          "2500 chamadas por mês - Atendimento telefónico automático",
-        availability: "https://schema.org/InStock",
-      },
-    ],
-    featureList: [
-      "Atendimento telefónico 24/7",
-      "Resposta em 2 segundos",
-      "Português natural",
-      "Agendamento automático",
-      "Encaminhamento inteligente",
-      "Relatórios detalhados",
-      "Configuração em 1 dia",
-      "Suporte técnico português",
-    ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "150",
-      bestRating: "5",
-      worstRating: "1",
-    },
+    offers: PLANS.map(plan => ({
+      "@type": "Offer",
+      name: plan.name,
+      price: String(plan.priceEur),
+      priceCurrency: "EUR",
+      description: `${plan.callsPerMonth} chamadas por mês`,
+      url: `${SITE_URL}/formulario/?plano=${plan.id}`,
+    })),
   };
 
   return (
     <html lang="pt">
       <head>
-        <link rel="canonical" href={siteUrl} />
-        <meta name="theme-color" content="#0369a1" />
+        <Script id="js-flag" strategy="beforeInteractive">
+          {`document.documentElement.classList.add("js")`}
+        </Script>
+        <link rel="canonical" href={SITE_URL} />
         <meta name="geo.region" content="PT" />
-        <meta name="geo.placename" content="Portugal" />
         <meta name="language" content="Portuguese" />
         <script
           type="application/ld+json"
@@ -191,10 +112,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        <AnimationFallback />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

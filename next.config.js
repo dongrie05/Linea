@@ -9,7 +9,7 @@ const nextConfig = {
   assetPrefix: process.env.NODE_ENV === "production" ? "/Linea/" : "",
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["framer-motion"],
   },
   // Configurações de SEO
   compress: true,

@@ -4,21 +4,15 @@ Site moderno e responsivo para a startup Linea (SaaS / Atendedor de chamadas com
 
 ## 🚀 Características
 
-- **Design Moderno**: Inspirado em Stripe, Linear e Notion
-- **Totalmente Responsivo**: Mobile-first design
-- **Animações Suaves**: Fade-in, parallax leve, microinterações
-- **Multilíngue**: Suporte para Português, Inglês, Espanhol, Francês e Alemão
-- **Otimizado para SEO**: Meta tags e estrutura clean
-- **GitHub Pages Ready**: Configurado para deploy automático
+- **Texto em português**: não há traduções publicadas
+- **Export estático**: GitHub Pages, só a partir de `main`
 
 ## 🛠️ Tecnologias
 
 - **Next.js 14** - Framework React
 - **TypeScript** - Tipagem estática
 - **Tailwind CSS** - Estilização
-- **Framer Motion** - Animações
-- **next-intl** - Internacionalização
-- **Lucide React** - Ícones
+- **Framer Motion** - Animação do exemplo de chamada
 
 ## 📦 Instalação
 
@@ -79,57 +73,15 @@ git subtree push --prefix out origin gh-pages
 ## 📁 Estrutura do Projeto
 
 ```
-├── app/
-│   ├── [locale]/          # Páginas com suporte multilíngue
-│   ├── globals.css        # Estilos globais
-│   └── layout.tsx         # Layout raiz
-├── components/            # Componentes React
-│   ├── Header.tsx
-│   ├── Footer.tsx
-│   ├── HeroSection.tsx
-│   ├── ProblemSolution.tsx
-│   ├── Features.tsx
-│   ├── Pricing.tsx
-│   ├── Testimonials.tsx
-│   ├── FAQ.tsx
-│   └── FinalCTA.tsx
-├── messages/              # Traduções
-│   ├── pt.json
-│   ├── en.json
-│   ├── es.json
-│   ├── fr.json
-│   └── de.json
-├── public/                # Arquivos estáticos
-└── styles/                # Estilos adicionais
+├── app/                   # Páginas (português)
+├── src/components/        # Secções do site
+├── src/lib/site.ts        # Planos, piloto e caminho do áudio
+└── public/audio/          # exemplo.mp3 (ainda por adicionar)
 ```
 
-## 🎨 Personalização
+## Conteúdo
 
-### Cores
-
-As cores podem ser personalizadas no arquivo `tailwind.config.js`:
-
-```javascript
-colors: {
-  primary: {
-    // Azul-escuro para confiança
-  },
-  secondary: {
-    // Verde para poupança
-  },
-  accent: {
-    // Roxo tech para IA
-  }
-}
-```
-
-### Conteúdo
-
-O conteúdo pode ser editado nos arquivos JSON em `messages/` para cada idioma.
-
-### Animações
-
-As animações podem ser personalizadas no arquivo `globals.css` e nos componentes individuais.
+Os termos do piloto estão em `src/lib/site.ts` (`PILOT_OFFER`). O exemplo de áudio é `public/audio/exemplo.mp3`.
 
 ## 📱 Responsividade
 
