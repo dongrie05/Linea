@@ -17,8 +17,9 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-page items-center justify-between gap-4 px-5 sm:px-8">
         <Link
           href="/"
-          className="text-[1.125rem] font-semibold tracking-[-0.02em]"
+          className="flex items-center gap-2 text-[1.125rem] font-semibold tracking-[-0.02em]"
         >
+          <span className="h-4 w-1 rounded-full bg-warm" aria-hidden="true" />
           Linea
         </Link>
 
@@ -62,7 +63,7 @@ export default function Header() {
             animate={reduced ? { opacity: 1 } : { height: "auto", opacity: 1 }}
             exit={reduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
             transition={panelTransition}
-            className="overflow-hidden border-t border-line/80 md:hidden"
+            className="overflow-hidden border-t border-line/80 bg-surface md:hidden"
           >
             <div className="flex flex-col gap-1 px-5 py-3">
               {NAV_ITEMS.map(item => (

@@ -11,6 +11,15 @@ module.exports = {
         line: "rgb(var(--c-line) / <alpha-value>)",
         accent: "rgb(var(--c-accent) / <alpha-value>)",
         "accent-ink": "rgb(var(--c-accent-ink) / <alpha-value>)",
+        pine: "rgb(var(--c-pine) / <alpha-value>)",
+        "pine-ink": "rgb(var(--c-pine-ink) / <alpha-value>)",
+        wood: "rgb(var(--c-wood) / <alpha-value>)",
+        "wood-ink": "rgb(var(--c-wood-ink) / <alpha-value>)",
+        warm: "rgb(var(--c-warm) / <alpha-value>)",
+        "warm-fill": "rgb(var(--c-warm-fill) / <alpha-value>)",
+        "warm-fill-ink": "rgb(var(--c-warm-fill-ink) / <alpha-value>)",
+        sand: "rgb(var(--c-sand) / <alpha-value>)",
+        paper: "rgb(var(--c-paper) / <alpha-value>)",
       },
       fontFamily: {
         sans: [

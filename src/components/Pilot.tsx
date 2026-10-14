@@ -14,24 +14,28 @@ export default function Pilot() {
     : "A configuração não está incluída nesta proposta.";
 
   return (
-    <section
-      id="piloto"
-      className="section-anchor mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28"
-    >
-      <div className="max-w-measure">
-        <h2 className="section-title">Programa piloto</h2>
-        <p className="lede mt-4">
-          Uma oferta de quem está a construir a Linea, para os primeiros{" "}
-          {PILOT_OFFER.maxBusinesses} negócios. A proposta é {price}. {setup}
-        </p>
-        {PILOT_OFFER.status !== "confirmed" && (
-          <p className="mt-4 text-[1.0625rem]">
-            Estes termos ainda estão por confirmar. Não são uma oferta fechada.
+    <section id="piloto" className="band-wood section-anchor">
+      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
+        <div className="max-w-measure">
+          <p className="caption uppercase tracking-[0.08em]">Programa piloto</p>
+          <h2 className="display-hero mt-4">
+            Os primeiros{" "}
+            <span className="tone-warm">{PILOT_OFFER.maxBusinesses}</span>
+          </h2>
+          <p className="lede mt-4">
+            Uma oferta de quem está a construir a Linea. A proposta é {price}.{" "}
+            {setup}
           </p>
-        )}
-        <Link href="/formulario" className="btn btn-primary mt-8">
-          Entrar no piloto
-        </Link>
+          {PILOT_OFFER.status !== "confirmed" && (
+            <p className="mt-4 text-[1.0625rem]">
+              Estes termos ainda estão por confirmar. Não são uma oferta
+              fechada.
+            </p>
+          )}
+          <Link href="/formulario" className="btn btn-primary mt-8">
+            Entrar no piloto
+          </Link>
+        </div>
       </div>
     </section>
   );

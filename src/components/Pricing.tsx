@@ -8,10 +8,12 @@ export default function Pricing() {
   });
 
   return (
-    <section id="precos" className="section-anchor border-t border-line">
+    <section id="precos" className="section-anchor">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
         <div className="max-w-measure">
-          <h2 className="section-title">Preços</h2>
+          <h2 className="section-title">
+            Preços <span className="tone-warm">claros</span>
+          </h2>
           <p className="lede mt-4">Três planos. O preço é por mês, em euros.</p>
         </div>
 
@@ -25,7 +27,7 @@ export default function Pricing() {
                 {plan.name}
               </h3>
               <p className="mt-4 flex items-baseline gap-1">
-                <span className="text-[2.5rem] font-semibold tracking-[-0.03em] tabular-nums">
+                <span className="text-[2.75rem] font-semibold tracking-[-0.04em] text-warm tabular-nums">
                   {plan.priceEur}€
                 </span>
                 <span className="text-muted">/mês</span>

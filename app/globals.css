@@ -3,54 +3,85 @@
 @tailwind utilities;
 
 /*
- * Tokens semânticos. Um acento só, para a acção principal e para o estado
- * da chamada. Claro e escuro seguem o sistema. Sem interruptor na página.
+ * Pinho (primário) e cobre (secundário quente). Superfícies tingidas,
+ * nunca branco puro. Claro e escuro seguem o sistema.
  *
- * Contraste aproximado (WCAG):
- * ink #1D1D1F sobre elevated #FFFFFF ≈ 19:1
- * muted #424245 sobre surface #F5F5F7 ≈ 9:1
- * branco sobre accent #0E4D8A ≈ 8.5:1
- * accent escuro #8EBAFF sobre #1C1C1E ≈ 8.9:1
- * texto do botão escuro #0B1220 sobre #8EBAFF ≈ 9.8:1
+ * Contraste aproximado (WCAG), modo claro:
+ * ink #12211E sobre surface #E7EEEA ≈ 12:1
+ * muted #3E524C sobre surface ≈ 7:1
+ * pine-ink #F4F7F5 sobre pine #0F3D36 ≈ 11:1
+ * warm #A6481A sobre surface ≈ 5.0:1 (serve também em texto pequeno)
+ * warm-on-dark #F0C9A0 sobre pine ≈ 7.8:1
+ * warm-fill-ink #1A120C sobre warm-fill #E8A06A ≈ 8.6:1
+ * wood-ink #F6EDE3 sobre wood #3A2418 ≈ 12:1
+ * muted claro #D6E4DE sobre pine ≈ 9:1
  */
 :root {
-  --c-surface: 245 245 247;
-  --c-elevated: 255 255 255;
-  --c-ink: 29 29 31;
-  --c-muted: 66 66 69;
-  --c-line: 210 210 215;
-  --c-accent: 14 77 138;
-  --c-accent-ink: 255 255 255;
+  --c-surface: 231 238 234;
+  --c-elevated: 247 243 238;
+  --c-ink: 18 33 30;
+  --c-muted: 62 82 76;
+  --c-line: 186 201 194;
+  --c-pine: 15 61 54;
+  --c-pine-ink: 244 247 245;
+  --c-wood: 58 36 24;
+  --c-wood-ink: 246 237 227;
+  --c-warm: 166 72 26;
+  --c-warm-on-dark: 240 201 160;
+  --c-warm-fill: 232 160 106;
+  --c-warm-fill-ink: 26 18 12;
+  --c-sand: 243 228 212;
+  --c-paper: 247 243 238;
+  --c-paper-ink: 18 33 30;
+  --c-paper-muted: 62 82 76;
+  --c-paper-field: 243 236 228;
+  --c-paper-line: 214 204 192;
+  --c-accent: 15 61 54;
+  --c-accent-ink: 244 247 245;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --c-surface: 28 28 30;
-    --c-elevated: 44 44 46;
-    --c-ink: 245 245 247;
-    --c-muted: 174 174 178;
-    --c-line: 72 72 74;
-    --c-accent: 142 186 255;
-    --c-accent-ink: 11 18 32;
+    --c-surface: 16 24 22;
+    --c-elevated: 28 38 34;
+    --c-ink: 236 242 238;
+    --c-muted: 186 204 196;
+    --c-line: 58 78 72;
+    --c-pine: 19 78 69;
+    --c-pine-ink: 244 247 245;
+    --c-wood: 74 46 34;
+    --c-wood-ink: 246 237 227;
+    --c-warm: 240 201 160;
+    --c-warm-on-dark: 240 201 160;
+    --c-warm-fill: 232 160 106;
+    --c-warm-fill-ink: 26 18 12;
+    --c-sand: 42 33 28;
+    --c-paper: 28 40 36;
+    --c-paper-ink: 236 242 238;
+    --c-paper-muted: 186 204 196;
+    --c-paper-field: 18 28 25;
+    --c-paper-line: 70 92 84;
+    --c-accent: 232 160 106;
+    --c-accent-ink: 26 18 12;
     color-scheme: dark;
   }
 }
 
 @media (prefers-contrast: more) {
   :root {
-    --c-muted: 29 29 31;
-    --c-line: 29 29 31;
-    --c-accent: 0 51 102;
+    --c-muted: 18 33 30;
+    --c-line: 18 33 30;
+    --c-warm: 122 48 14;
   }
 }
 
 @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
   :root {
-    --c-muted: 245 245 247;
-    --c-line: 245 245 247;
-    --c-accent: 186 216 255;
-    --c-accent-ink: 0 0 0;
+    --c-muted: 244 247 245;
+    --c-line: 244 247 245;
+    --c-warm: 255 220 180;
+    --c-warm-on-dark: 255 220 180;
   }
 }
 
@@ -73,16 +104,16 @@
   }
 
   ::selection {
-    background: rgb(var(--c-accent) / 0.22);
+    background: rgb(var(--c-warm) / 0.28);
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--c-accent));
+    outline: 2px solid rgb(var(--c-warm));
     outline-offset: 3px;
   }
 
   label:has(:focus-visible) {
-    outline: 2px solid rgb(var(--c-accent));
+    outline: 2px solid rgb(var(--c-warm));
     outline-offset: 3px;
   }
 
@@ -99,17 +130,26 @@
   }
 }
 
-.display {
-  font-size: clamp(2.25rem, 4vw, 3.5rem);
-  line-height: 1.08;
-  letter-spacing: -0.022em;
+.display,
+.display-hero {
+  line-height: 1.04;
+  letter-spacing: -0.028em;
   font-weight: 600;
 }
 
+.display {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.display-hero {
+  font-size: clamp(2.7rem, 5.4vw, 4.35rem);
+  letter-spacing: -0.032em;
+}
+
 .section-title {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.018em;
+  font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
   font-weight: 600;
 }
 
@@ -125,6 +165,42 @@
   line-height: 1.35;
   letter-spacing: 0.01em;
   color: rgb(var(--c-muted));
+}
+
+.tone-warm {
+  color: rgb(var(--c-warm));
+}
+
+.band-pine {
+  background: rgb(var(--c-pine));
+  color: rgb(var(--c-pine-ink));
+  --c-ink: var(--c-pine-ink);
+  --c-muted: 214 228 222;
+  --c-line: 90 130 122;
+}
+
+.band-wood {
+  background: rgb(var(--c-wood));
+  color: rgb(var(--c-wood-ink));
+  --c-ink: var(--c-wood-ink);
+  --c-muted: 230 214 198;
+  --c-line: 120 90 72;
+}
+
+.band-sand {
+  background: rgb(var(--c-sand));
+}
+
+.band-pine .tone-warm,
+.band-wood .tone-warm {
+  color: rgb(var(--c-warm-on-dark));
+}
+
+.band-pine :focus-visible,
+.band-wood :focus-visible,
+.band-pine label:has(:focus-visible),
+.band-wood label:has(:focus-visible) {
+  outline-color: rgb(var(--c-warm-on-dark));
 }
 
 .btn {
@@ -154,10 +230,23 @@
   color: rgb(var(--c-accent-ink));
 }
 
+.band-pine .btn-primary,
+.band-wood .btn-primary {
+  background: rgb(var(--c-warm-fill));
+  color: rgb(var(--c-warm-fill-ink));
+}
+
 .btn-secondary {
   background: transparent;
   color: rgb(var(--c-ink));
   border-color: rgb(var(--c-line));
+}
+
+.band-pine .btn-secondary,
+.band-wood .btn-secondary {
+  color: inherit;
+  border-color: rgb(255 255 255 / 0.45);
+  background: transparent;
 }
 
 .btn:disabled {
@@ -167,8 +256,8 @@
 }
 
 .material {
-  background: rgb(var(--c-surface) / 0.72);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgb(var(--c-surface) / 0.84);
+  backdrop-filter: saturate(160%) blur(18px);
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -178,17 +267,56 @@
   }
 }
 
+.paper,
 .product-card {
-  background: rgb(var(--c-elevated));
-  border: 1px solid rgb(var(--c-line));
-  border-radius: 18px;
-  box-shadow: 0 18px 50px rgb(0 0 0 / 0.06);
+  background: rgb(var(--c-paper));
+  color: rgb(var(--c-paper-ink));
+  --c-ink: var(--c-paper-ink);
+  --c-muted: var(--c-paper-muted);
+  --c-line: var(--c-paper-line);
+  --c-elevated: var(--c-paper-field);
+  --c-surface: var(--c-paper-field);
+  --c-accent: 15 61 54;
+  --c-accent-ink: 244 247 245;
+}
+
+.paper .tone-warm,
+.product-card .tone-warm {
+  color: rgb(var(--c-warm));
+}
+
+.paper .btn-primary,
+.product-card .btn-primary {
+  background: rgb(var(--c-pine));
+  color: rgb(var(--c-pine-ink));
+}
+
+.paper :focus-visible,
+.product-card :focus-visible,
+.paper label:has(:focus-visible),
+.product-card label:has(:focus-visible) {
+  outline-color: rgb(var(--c-warm));
 }
 
 @media (prefers-color-scheme: dark) {
+  .paper,
   .product-card {
-    box-shadow: 0 18px 50px rgb(0 0 0 / 0.35);
+    --c-accent: 232 160 106;
+    --c-accent-ink: 26 18 12;
   }
+
+  .paper .btn-primary,
+  .product-card .btn-primary {
+    background: rgb(var(--c-warm-fill));
+    color: rgb(var(--c-warm-fill-ink));
+  }
+}
+
+.product-card {
+  border: 1px solid rgb(var(--c-paper-line));
+  border-radius: 18px;
+  box-shadow: 0 22px 48px rgb(0 0 0 / 0.16);
+  overflow: hidden;
 }
 
 .field {
@@ -212,10 +340,10 @@
 }
 
 .call-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 999px;
-  background: rgb(var(--c-accent));
+  background: rgb(var(--c-warm-fill));
 }
 
 @media (prefers-reduced-motion: no-preference) {

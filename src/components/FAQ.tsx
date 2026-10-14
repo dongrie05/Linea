@@ -34,58 +34,61 @@ export default function FAQ() {
   const baseId = useId();
 
   return (
-    <section
-      id="faq"
-      className="section-anchor mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28"
-    >
-      <div className="max-w-measure">
-        <h2 className="section-title">Perguntas</h2>
-      </div>
-      <div className="mt-10 max-w-measure border-t border-line">
-        {FAQS.map((item, index) => {
-          const isOpen = open === index;
-          const panelId = `${baseId}-panel-${index}`;
-          const buttonId = `${baseId}-button-${index}`;
-          return (
-            <div key={item.question} className="border-b border-line">
-              <h3>
-                <button
-                  id={buttonId}
-                  type="button"
-                  className="flex min-h-11 w-full items-center justify-between gap-4 py-4 text-left text-[1.125rem] font-semibold tracking-[-0.015em]"
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  onClick={() => setOpen(isOpen ? null : index)}
-                >
-                  {item.question}
-                  <span className="caption" aria-hidden="true">
-                    {isOpen ? "Fechar" : "Abrir"}
-                  </span>
-                </button>
-              </h3>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    initial={
-                      reduced ? { opacity: 0 } : { height: 0, opacity: 0 }
-                    }
-                    animate={
-                      reduced ? { opacity: 1 } : { height: "auto", opacity: 1 }
-                    }
-                    exit={reduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                    transition={reduced ? fadeTransition : springSettle}
-                    className="overflow-hidden"
+    <section id="faq" className="band-sand section-anchor">
+      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
+        <div className="max-w-measure">
+          <h2 className="section-title">Perguntas</h2>
+        </div>
+        <div className="mt-10 max-w-measure border-t border-line">
+          {FAQS.map((item, index) => {
+            const isOpen = open === index;
+            const panelId = `${baseId}-panel-${index}`;
+            const buttonId = `${baseId}-button-${index}`;
+            return (
+              <div key={item.question} className="border-b border-line">
+                <h3>
+                  <button
+                    id={buttonId}
+                    type="button"
+                    className="flex min-h-11 w-full items-center justify-between gap-4 py-4 text-left text-[1.125rem] font-semibold tracking-[-0.015em]"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpen(isOpen ? null : index)}
                   >
-                    <p className="pb-5 text-muted">{item.answer}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
+                    {item.question}
+                    <span className="caption" aria-hidden="true">
+                      {isOpen ? "Fechar" : "Abrir"}
+                    </span>
+                  </button>
+                </h3>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      initial={
+                        reduced ? { opacity: 0 } : { height: 0, opacity: 0 }
+                      }
+                      animate={
+                        reduced
+                          ? { opacity: 1 }
+                          : { height: "auto", opacity: 1 }
+                      }
+                      exit={
+                        reduced ? { opacity: 0 } : { height: 0, opacity: 0 }
+                      }
+                      transition={reduced ? fadeTransition : springSettle}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-5 text-muted">{item.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
