@@ -10,28 +10,27 @@ export default function Pricing() {
   });
 
   return (
-    <section id="precos" className="band-light section-anchor">
+    <section id="precos" className="section-anchor bg-section">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
         <Reveal className="max-w-measure">
-          <h2 className="section-title">
-            Preços <span className="tone-blue">claros</span>
-          </h2>
-          <p className="lede mt-4">Três planos. O preço é por mês, em euros.</p>
+          <h2 className="section-title">Preços</h2>
+          <p className="mt-4 max-w-measure">
+            O plano muda o volume de chamadas. O que a Linea faz é igual em
+            todos.
+          </p>
         </Reveal>
 
         <ul className="mt-12 grid gap-4 md:grid-cols-3">
           {PLANS.map((plan, index) => (
             <li key={plan.id}>
               <Reveal className="h-full" delay={index * 0.06}>
-                <HoverLift className="product-card flex h-full flex-col p-6">
-                  <h3 className="text-[1.25rem] font-semibold tracking-[-0.02em]">
-                    {plan.name}
-                  </h3>
+                <HoverLift className="surface-card flex h-full flex-col p-6">
+                  <h3 className="title-sm">{plan.name}</h3>
                   <p className="mt-4 flex items-baseline gap-1">
-                    <span className="text-[2.75rem] font-semibold tabular-nums tracking-[-0.04em] text-blue">
-                      {plan.priceEur}€
+                    <span className="text-[2.75rem] font-semibold tabular-nums tracking-[-0.03em]">
+                      {plan.priceEur} €
                     </span>
-                    <span className="text-muted">/mês</span>
+                    <span className="text-muted">por mês</span>
                   </p>
                   <p className="mt-2 text-muted">
                     {plan.callsPerMonth.toLocaleString("pt-PT")} chamadas por
@@ -41,7 +40,7 @@ export default function Pricing() {
                     href={`/formulario?plano=${plan.id}`}
                     className="btn btn-primary mt-8"
                   >
-                    Entrar no piloto
+                    Quero entrar no piloto
                   </Link>
                 </HoverLift>
               </Reveal>
@@ -49,10 +48,7 @@ export default function Pricing() {
           ))}
         </ul>
 
-        <p className="caption mt-6">
-          Chamada extra: {extra}€. O plano não muda o que a Linea faz: atende,
-          responde e marca.
-        </p>
+        <p className="caption mt-6">Chamada extra: {extra} €.</p>
       </div>
     </section>
   );

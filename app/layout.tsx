@@ -2,34 +2,43 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { CONTACT_EMAIL, CONTACT_PHONE_E164 } from "@/lib/contact";
-import { PLANS, SITE_URL } from "@/lib/site";
+import { jetbrainsMono, monaSans } from "@/lib/fonts";
+import { BASE_PATH, SITE_URL } from "@/lib/site";
 
 const description =
-  "A Linea atende chamadas, responde a perguntas e marca compromissos, em português, para pequenos negócios em Portugal. Planos de 99€, 199€ e 899€ por mês.";
+  "A Linea atende o telefone de clínicas dentárias em Portugal. Responde em português de Portugal, com a informação da clínica, e marca a consulta na agenda.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Linea | Atendedor de chamadas com IA para empresas em Portugal",
+    default: "Linea | Assistente telefónico para clínicas dentárias",
     template: "%s | Linea",
   },
   description,
   keywords: [
-    "atendedor de chamadas",
-    "atendedor de chamadas IA",
+    "assistente telefónico",
+    "clínica dentária",
     "atendimento telefónico",
-    "assistente telefónico Portugal",
-    "marcações por telefone",
+    "marcações",
+    "Portugal",
     "linea",
   ].join(", "),
-  authors: [{ name: "Dongrie Labs", url: SITE_URL }],
-  creator: "Dongrie Labs",
-  publisher: "Dongrie Labs",
+  authors: [{ name: "Gonçalo Dongrie", url: SITE_URL }],
+  creator: "Gonçalo Dongrie",
   alternates: {
     canonical: SITE_URL,
   },
+  icons: {
+    icon: [{ url: `${BASE_PATH}/favicon.svg`, type: "image/svg+xml" }],
+    apple: [
+      {
+        url: `${BASE_PATH}/brand/linea-app-icon.svg`,
+        type: "image/svg+xml",
+      },
+    ],
+  },
   openGraph: {
-    title: "Linea | Atendedor de chamadas com IA",
+    title: "Linea | Assistente telefónico para clínicas dentárias",
     description,
     url: SITE_URL,
     siteName: "Linea",
@@ -38,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Linea | Atendedor de chamadas com IA",
+    title: "Linea | Assistente telefónico para clínicas dentárias",
     description,
   },
   robots: {
@@ -56,7 +65,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07080C",
+  themeColor: "#0A0C10",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -74,30 +84,18 @@ export default function RootLayout({
     url: SITE_URL,
     inLanguage: "pt-PT",
     provider: {
-      "@type": "Organization",
-      name: "Dongrie Labs",
-      url: SITE_URL,
+      "@type": "Person",
+      name: "Gonçalo Dongrie",
       email: CONTACT_EMAIL,
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: CONTACT_PHONE_E164,
-        contactType: "sales",
-        availableLanguage: ["Portuguese"],
-        areaServed: "PT",
-      },
+      telephone: CONTACT_PHONE_E164,
     },
-    offers: PLANS.map(plan => ({
-      "@type": "Offer",
-      name: plan.name,
-      price: String(plan.priceEur),
-      priceCurrency: "EUR",
-      description: `${plan.callsPerMonth} chamadas por mês`,
-      url: `${SITE_URL}/formulario/?plano=${plan.id}`,
-    })),
   };
 
   return (
-    <html lang="pt">
+    <html
+      lang="pt-PT"
+      className={`${monaSans.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
         <Script id="js-flag" strategy="beforeInteractive">
           {`document.documentElement.classList.add("js")`}

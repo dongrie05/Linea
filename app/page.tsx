@@ -1,14 +1,15 @@
-import Audiences from "@/components/Audiences";
-import ExampleAudio from "@/components/ExampleAudio";
+import Capabilities from "@/components/Capabilities";
 import FAQ from "@/components/FAQ";
 import FinalCta from "@/components/FinalCta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import HowItWorks from "@/components/HowItWorks";
-import LiveTicker from "@/components/LiveTicker";
 import Pilot from "@/components/Pilot";
 import Pricing from "@/components/Pricing";
+import Privacy from "@/components/Privacy";
+import Start from "@/components/Start";
+import Story from "@/components/Story";
+import { SHOW_PUBLIC_PRICING } from "@/lib/site";
 
 export default function Home() {
   return (
@@ -22,12 +23,12 @@ export default function Home() {
       <Header />
       <main id="conteudo" className="flex-1">
         <Hero />
-        <LiveTicker />
-        <ExampleAudio />
-        <HowItWorks />
-        <Audiences />
+        <Story />
+        <Capabilities />
+        <Start />
+        <Privacy />
         <Pilot />
-        <Pricing />
+        {SHOW_PUBLIC_PRICING ? <Pricing /> : null}
         <FAQ />
         <FinalCta />
       </main>

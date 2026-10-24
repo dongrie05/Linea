@@ -1,43 +1,42 @@
 import Link from "next/link";
+import Pending from "@/components/Pending";
 import Reveal from "@/components/Reveal";
 import { PILOT_OFFER } from "@/lib/site";
 
 export default function Pilot() {
-  const price =
-    PILOT_OFFER.founderPriceEur == null
-      ? "um preço de fundador, ainda sem valor em euros"
-      : `${PILOT_OFFER.founderPriceEur}€ por mês`;
-
-  const setup = PILOT_OFFER.includesSetup
-    ? PILOT_OFFER.setupNotes
-      ? `A configuração está incluída: ${PILOT_OFFER.setupNotes}.`
-      : "A configuração está incluída."
-    : "A configuração não está incluída nesta proposta.";
-
   return (
-    <section id="piloto" className="section-anchor">
+    <section id="piloto" className="section-anchor bg-section">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
-        <Reveal className="max-w-measure">
-          <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-violet">
-            Programa piloto
-          </p>
-          <h2 className="display-hero mt-4">
-            Os primeiros{" "}
-            <span className="tone-blue">{PILOT_OFFER.maxBusinesses}</span>
-          </h2>
-          <p className="lede mt-4">
-            Uma oferta de quem está a construir a Linea. A proposta é {price}.{" "}
-            {setup}
-          </p>
-          {PILOT_OFFER.status !== "confirmed" && (
-            <p className="mt-4 text-[1.0625rem]">
-              Estes termos ainda estão por confirmar. Não são uma oferta
-              fechada.
+        <Reveal>
+          <div className="pilot-card max-w-measure p-6 sm:p-10">
+            <p className="label">Piloto</p>
+            <h2 className="section-title mt-4">
+              Piloto para as primeiras clínicas.
+            </h2>
+            <Pending>Número de vagas.</Pending>
+            <p className="mt-6">
+              Configuro a Linea com o guião da sua clínica, ativamos juntos o
+              reencaminhamento e no fim vemos quantas chamadas a Linea atendeu e
+              quantas marcações fez.
             </p>
-          )}
-          <Link href="/formulario" className="btn btn-primary mt-8">
-            Entrar no piloto
-          </Link>
+            <Pending>
+              Duração e custo do piloto. O plano interno propõe 14 dias grátis,
+              ainda sem confirmação.
+            </Pending>
+            <p className="mt-6">
+              Quem entra no piloto fica com o preço de fundador, por mês,
+              durante um prazo ainda por fechar.
+            </p>
+            <Pending>Valor em euros e durante quanto tempo.</Pending>
+            {PILOT_OFFER.status !== "confirmed" ? (
+              <p className="caption mt-6">
+                Termos ainda por fechar. Falamos antes de qualquer compromisso.
+              </p>
+            ) : null}
+            <Link href="/#contacto" className="btn btn-primary mt-8">
+              Quero entrar no piloto
+            </Link>
+          </div>
         </Reveal>
       </div>
     </section>

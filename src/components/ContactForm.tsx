@@ -6,8 +6,15 @@ import { PLANS, type PlanId } from "@/lib/site";
 
 type SendMethod = "whatsapp" | "email";
 
-const STAFF = ["1-5", "6-20", "21-50", "50+"];
-const VOLUME = ["0-100", "101-250", "251-500", "501-1000", "1000+"];
+const STAFF = ["1 a 5", "6 a 20", "21 a 50", "mais de 50"];
+const VOLUME = [
+  "0 a 100",
+  "101 a 250",
+  "251 a 500",
+  "501 a 1000",
+  "mais de 1000",
+];
+const RAMOS = ["Clínica dentária", "Outro"];
 const URGENCY = ["Imediata", "Esta semana", "Este mês", "Próximos meses"];
 
 function isPlanId(value: string | undefined): value is PlanId {
@@ -27,7 +34,8 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
     const nome = String(data.get("nome") ?? "");
     const email = String(data.get("email") ?? "");
     const telefone = String(data.get("telefone") ?? "");
-    const empresa = String(data.get("empresa") ?? "");
+    const clinica = String(data.get("clinica") ?? "");
+    const cidade = String(data.get("cidade") ?? "");
     const ramo = String(data.get("ramo") ?? "");
     const funcionarios = String(data.get("funcionarios") ?? "");
     const chamadasMes = String(data.get("chamadasMes") ?? "");
@@ -40,7 +48,8 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
       `Nome: ${nome}`,
       `Email: ${email}`,
       `Telefone: ${telefone}`,
-      `Empresa: ${empresa}`,
+      `Clínica: ${clinica}`,
+      `Cidade: ${cidade}`,
       `Ramo: ${ramo}`,
       `Plano: ${plano}`,
       `Funcionários: ${funcionarios || "não indicado"}`,
@@ -58,7 +67,7 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
     }
 
     const mailto = `mailto:${LEADS_EMAIL}?subject=${encodeURIComponent(
-      `Piloto Linea - ${plano}`
+      `Piloto Linea, ${plano}`
     )}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
     setStatus("email");
@@ -74,7 +83,7 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
           type="email"
           autoComplete="email"
           required
-          placeholder="nome@empresa.pt"
+          placeholder="nome@clinica.pt"
         />
         <Field
           label="Telefone"
@@ -85,18 +94,32 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
           placeholder="+351"
         />
         <Field
-          label="Empresa"
-          name="empresa"
+          label="Nome da clínica"
+          name="clinica"
           autoComplete="organization"
           required
         />
         <Field
-          label="Ramo"
-          name="ramo"
+          label="Cidade"
+          name="cidade"
+          autoComplete="address-level2"
           required
-          placeholder="Barbearia, clínica, restaurante"
-          className="sm:col-span-2"
         />
+        <label className="block sm:col-span-2">
+          <span className="text-[0.95rem] font-semibold">Ramo *</span>
+          <select
+            name="ramo"
+            className="field mt-2"
+            defaultValue="Clínica dentária"
+            required
+          >
+            {RAMOS.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
 
       <fieldset>
@@ -109,8 +132,8 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
                 key={plan.id}
                 className={`cursor-pointer rounded-2xl border px-4 py-3 ${
                   selected
-                    ? "border-accent bg-elevated"
-                    : "border-line bg-elevated"
+                    ? "border-accent bg-surface"
+                    : "border-line bg-surface"
                 }`}
               >
                 <input
@@ -123,8 +146,8 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
                 />
                 <span className="block font-semibold">{plan.name}</span>
                 <span className="caption mt-1 block">
-                  {plan.priceEur}€ / mês
-                  {selected ? " · Selecionado" : ""}
+                  {plan.priceEur} € por mês
+                  {selected ? ". Selecionado." : ""}
                 </span>
               </label>
             );
@@ -144,7 +167,7 @@ export default function ContactForm({ initialPlan }: { initialPlan?: string }) {
           name="mensagem"
           rows={4}
           className="field mt-2"
-          placeholder="O que a Linea precisa de saber sobre o negócio"
+          placeholder="O que a Linea precisa de saber sobre a clínica"
         />
       </label>
 

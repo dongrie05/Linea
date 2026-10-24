@@ -1,30 +1,71 @@
 "use client";
 
 import { useId, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { fadeTransition, springSettle } from "@/lib/motion";
+import Pending from "@/components/Pending";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { fadeTransition, springSettle } from "@/lib/motion";
 
-const FAQS = [
+const FAQS: {
+  question: string;
+  answer: React.ReactNode;
+  pending?: string;
+}[] = [
   {
-    question: "E o RGPD?",
+    question: "A Linea substitui a receção?",
     answer:
-      "Uma chamada pode ter nomes, números e o motivo do contacto. Este site ainda não publica uma política de privacidade. O tratamento desses dados tem de cumprir o RGPD. Se precisar do detalhe antes de avançar, pergunte no formulário.",
+      "Não. Atende o que a receção não consegue atender. Quando alguém pede para falar com uma pessoa, toma recado.",
   },
   {
-    question: "Uso o meu número?",
+    question: "Fico com o meu número?",
     answer:
-      "A descrição do produto diz que a Linea usa a linha que a empresa já tem, fixa ou móvel, sem instalar equipamento. O site não explica o passo técnico de como o número fica ligado.",
+      "Sim. A Linea usa o reencaminhamento da sua operadora. Os pacientes ligam para o número de sempre.",
   },
   {
-    question: "O que acontece se a IA não souber?",
+    question: "Funciona com telefone fixo?",
     answer:
-      "A chamada pode ser passada para si, com o que foi dito na conversa. Também pode definir respostas para perguntas habituais do seu ramo. A Linea é uma IA: o que diz pode estar errado, e uma marcação importante deve ser confirmada por si.",
+      "Depende da operadora e da central telefónica. Nos telemóveis NOS e Vodafone os códigos estão documentados. No fixo confirmamos caso a caso, antes de começar.",
   },
   {
-    question: "Em que línguas responde?",
+    question: "E se a Linea não souber responder?",
     answer:
-      "O produto está descrito como atendimento em português. O site anterior dizia que respondia em várias línguas, sem as nomear, e o menu de idiomas não mudava a página. Neste momento só há português.",
+      "Diz que não sabe e toma recado: nome, telemóvel e motivo. Não inventa.",
+  },
+  {
+    question: "Que agenda usa?",
+    answer: "Google Calendar.",
+    pending: "Outros softwares de gestão de clínica, ou nenhum por agora.",
+  },
+  {
+    question: "A chamada é gravada?",
+    answer:
+      "Não, por defeito. Fica a transcrição e um resumo para a clínica, com prazo de apagamento.",
+    pending: "Prazo de apagamento.",
+  },
+  {
+    question: "Em que língua fala?",
+    answer: "Português de Portugal.",
+    pending: "Outras línguas, só depois de testadas.",
+  },
+  {
+    question: "Quanto custa?",
+    answer: (
+      <>
+        Durante o piloto, o valor está por decidir. Depois, o preço de fundador.
+        Está tudo na secção{" "}
+        <Link href="/#piloto" className="link">
+          Piloto
+        </Link>
+        .
+      </>
+    ),
+    pending: "Custo do piloto.",
+  },
+  {
+    question: "Quem está por trás da Linea?",
+    answer:
+      "Eu, Gonçalo Dongrie. Trabalho por conta própria e sou eu que configuro cada clínica. Fala diretamente comigo.",
   },
 ];
 
@@ -34,7 +75,7 @@ export default function FAQ() {
   const baseId = useId();
 
   return (
-    <section id="faq" className="section-anchor">
+    <section id="perguntas" className="section-anchor">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
         <div className="max-w-measure">
           <h2 className="section-title">Perguntas</h2>
@@ -81,7 +122,12 @@ export default function FAQ() {
                       transition={reduced ? fadeTransition : springSettle}
                       className="overflow-hidden"
                     >
-                      <p className="pb-5 text-muted">{item.answer}</p>
+                      <div className="pb-5 text-muted">
+                        <p>{item.answer}</p>
+                        {item.pending ? (
+                          <Pending>{item.pending}</Pending>
+                        ) : null}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>

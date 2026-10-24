@@ -65,9 +65,15 @@ export const PILOT_OFFER = {
   status: "pending-confirmation" as "pending-confirmation" | "confirmed",
 };
 
+/**
+ * D3: a tabela 99 €, 199 € e 899 € fica fora da página até ao fim do piloto.
+ * Os valores continuam em PLANS para o formulário.
+ */
+export const SHOW_PUBLIC_PRICING = false;
+
 export const NAV_ITEMS = [
-  { href: "/#como-funciona", label: "Como funciona" },
-  { href: "/#para-quem", label: "Para quem" },
-  { href: "/#precos", label: "Preços" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/#ouvir", label: "Ouvir" },
+  { href: "/#o-que-faz", label: "O que faz" },
+  { href: "/#piloto", label: "Piloto" },
+  { href: "/#perguntas", label: "Perguntas" },
 ] as const;

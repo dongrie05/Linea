@@ -2,11 +2,10 @@
 
 import { animate } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { springSettle } from "@/lib/motion";
 
 /**
  * Entrada ao scroll. O CSS esconde o bloco só com movimento ligado e com JS.
- * A mola parte do valor já no ecrã. Com movimento reduzido o bloco fica quieto.
+ * Com movimento reduzido o bloco fica quieto.
  */
 export default function Reveal({
   children,
@@ -30,8 +29,8 @@ export default function Reveal({
         obs.disconnect();
         animate(
           el,
-          { opacity: [0, 1], y: [16, 0] },
-          { ...springSettle, delay }
+          { opacity: [0, 1], y: [8, 0], filter: ["blur(8px)", "blur(0px)"] },
+          { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }
         );
       },
       { threshold: 0.18 }

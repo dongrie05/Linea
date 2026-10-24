@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 
 const description =
-  "Peça para entrar no piloto da Linea. A Linea atende chamadas, responde a perguntas e marca compromissos, em português.";
+  "Fale com o Gonçalo sobre a Linea na sua clínica dentária. O pedido abre no WhatsApp ou no email. Não fica gravado neste site.";
 
 export const metadata: Metadata = {
-  title: "Entrar no piloto",
+  title: "Fale comigo",
   description,
   keywords: [
-    "atendedor de chamadas",
-    "atendedor de chamadas IA",
+    "assistente telefónico",
+    "clínica dentária",
     "piloto linea",
-    "assistente telefónico Portugal",
+    "Portugal",
   ].join(", "),
   robots: {
     index: true,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/formulario/`,
   },
   openGraph: {
-    title: "Entrar no piloto | Linea",
+    title: "Fale comigo | Linea",
     description,
     url: `${SITE_URL}/formulario/`,
     type: "website",
