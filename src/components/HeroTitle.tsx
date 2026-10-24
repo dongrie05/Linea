@@ -51,7 +51,7 @@ export default function HeroTitle() {
   return (
     <h1
       ref={rootRef}
-      className="display-hero mx-auto mt-5 max-w-[18ch] lg:mx-0 lg:max-w-[12ch]"
+      className="display-hero mx-auto mt-5 max-w-[14ch] sm:max-w-none lg:mx-0"
     >
       {LINES.map((line, lineIndex) => (
         <span
@@ -61,7 +61,7 @@ export default function HeroTitle() {
           {line.map((word, wordIndex) => (
             <span key={word} className="hero-word">
               {word}
-              {wordIndex < line.length - 1 ? " " : ""}
+              {wordIndex < line.length - 1 ? "\u00A0" : ""}
             </span>
           ))}
         </span>
