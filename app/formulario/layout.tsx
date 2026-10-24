@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
+
+const description =
+  "Fale com o Gonçalo sobre a Linea na sua clínica dentária. O pedido abre no WhatsApp ou no email. Não fica gravado neste site.";
 
 export const metadata: Metadata = {
-  title: "Contacto - Atendedor de Chamadas IA | Linea Portugal",
-  description:
-    "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Entre em contacto com a Linea - o melhor atendedor de chamadas automático. Configuração em 1 dia!",
+  title: "Fale comigo",
+  description,
   keywords: [
-    "atendedor de chamadas",
-    "atendedor de chamadas IA",
-    "atendimento telefónico automático",
-    "atendedor automático de chamadas",
-    "atendimento telefónico IA Portugal",
-    "assistente telefónico Portugal",
+    "assistente telefónico",
+    "clínica dentária",
+    "piloto linea",
+    "Portugal",
   ].join(", "),
   robots: {
     index: true,
@@ -24,14 +25,14 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://dongrie05.github.io/Linea/formulario/",
+    canonical: `${SITE_URL}/formulario/`,
   },
   openGraph: {
-    title: "Contacto - Atendedor de Chamadas IA | Linea",
-    description:
-      "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Configuração em 1 dia!",
-    url: "https://dongrie05.github.io/Linea/formulario/",
+    title: "Fale comigo | Linea",
+    description,
+    url: `${SITE_URL}/formulario/`,
     type: "website",
+    locale: "pt_PT",
   },
 };
 
@@ -40,5 +41,5 @@ export default function FormularioLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return children;
 }

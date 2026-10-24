@@ -69,7 +69,6 @@ Após a instalação, verifique se:
 - [ ] Site carrega em http://localhost:3000
 - [ ] Todas as seções estão visíveis
 - [ ] Animações funcionam
-- [ ] Menu de idiomas funciona
 - [ ] Site é responsivo (teste em mobile)
 
 ## 🆘 Problemas Comuns
