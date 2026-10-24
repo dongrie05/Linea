@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Pending from "@/components/Pending";
-import Reveal from "@/components/Reveal";
 import StoryAudio from "@/components/StoryAudio";
+import StoryStage from "@/components/StoryStage";
 
 const STAGES = [
   {
@@ -30,31 +30,36 @@ const STAGES = [
 export default function Story() {
   return (
     <section id="ouvir" className="section-anchor bg-section">
-      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
-        <Reveal className="max-w-measure">
-          <h2 className="section-title">Uma chamada, do toque à agenda.</h2>
-          <StoryAudio />
-        </Reveal>
-        <ol className="mt-12 grid gap-8 md:grid-cols-2">
-          {STAGES.map((stage, index) => (
-            <li key={stage.title} className="surface-card p-5 sm:p-6">
-              <p className="label">
-                {index + 1} {stage.title}
-              </p>
-              <p className="mt-3">{stage.text}</p>
-              {"pending" in stage ? <Pending>{stage.pending}</Pending> : null}
+      <StoryStage />
+      <div className="story-still">
+        <div className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-24">
+          <h2 className="section-title max-w-measure">
+            Uma chamada, do toque à agenda.
+          </h2>
+          <ol className="mt-10 grid gap-4">
+            {STAGES.map((stage, index) => (
+              <li key={stage.title} className="surface-card p-5">
+                <p className="label">
+                  {index + 1} {stage.title}
+                </p>
+                <p className="mt-3">{stage.text}</p>
+                {"pending" in stage ? <Pending>{stage.pending}</Pending> : null}
+              </li>
+            ))}
+            <li className="surface-card p-5">
+              <p className="label">Agenda</p>
+              <p className="title-sm mt-3">Marcado pela Linea</p>
+              <Pending>
+                Serviço, dia e hora do exemplo. Têm de bater com o áudio.
+              </Pending>
             </li>
-          ))}
-          <li className="surface-card p-5 sm:p-6">
-            <p className="label">Agenda</p>
-            <p className="title-sm mt-3">Marcado pela Linea</p>
-            <Pending>
-              Serviço, dia e hora do exemplo. Têm de bater com o áudio.
-            </Pending>
-          </li>
-        </ol>
-        <div className="mt-10 max-w-measure">
-          <p>
+          </ol>
+        </div>
+      </div>
+      <div className="mx-auto max-w-page px-5 pb-20 sm:px-8 sm:pb-28">
+        <div className="max-w-measure">
+          <StoryAudio />
+          <p className="mt-8">
             Exemplo encenado com uma clínica inventada. A transcrição completa
             está{" "}
             <Link href="/#transcricao" className="link">
@@ -66,6 +71,7 @@ export default function Story() {
             <Pending>A transcrição completa ainda não está publicada.</Pending>
           </div>
           <Pending>Quem fez de paciente.</Pending>
+          <Pending>Hora do exemplo. Tem de bater com o áudio.</Pending>
         </div>
       </div>
     </section>

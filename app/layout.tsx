@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
+import Grain from "@/components/Grain";
+import MotionRoot from "@/components/MotionRoot";
 import { CONTACT_EMAIL, CONTACT_PHONE_E164 } from "@/lib/contact";
 import { jetbrainsMono, monaSans } from "@/lib/fonts";
 import { BASE_PATH, SITE_URL } from "@/lib/site";
@@ -110,7 +112,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Grain />
+        <MotionRoot>{children}</MotionRoot>
+      </body>
     </html>
   );
 }

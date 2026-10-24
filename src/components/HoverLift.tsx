@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import { springSettle } from "@/lib/motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -14,12 +14,12 @@ export default function HoverLift({
   const reduced = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={className}
-      whileHover={reduced ? undefined : { y: -4 }}
+      whileHover={reduced ? undefined : { y: -2 }}
       transition={springSettle}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

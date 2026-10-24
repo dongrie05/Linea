@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "motion/react";
 import Pending from "@/components/Pending";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { fadeTransition, springSettle } from "@/lib/motion";
@@ -104,7 +104,7 @@ export default function FAQ() {
                 </h3>
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       id={panelId}
                       role="region"
                       aria-labelledby={buttonId}
@@ -128,7 +128,7 @@ export default function FAQ() {
                           <Pending>{item.pending}</Pending>
                         ) : null}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

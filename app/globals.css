@@ -224,17 +224,34 @@
   transform: none;
 }
 
+.btn-primary {
+  position: relative;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .btn {
     transition:
       transform 160ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 160ms ease,
-      box-shadow 160ms ease;
+      border-color 160ms ease;
+  }
+
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    box-shadow: 0 0 24px rgb(91 155 240 / 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms linear;
   }
 
   .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 0 24px rgb(91 155 240 / 0.35);
+  }
+
+  .btn-primary:hover::after {
+    opacity: 1;
   }
 
   .btn-secondary:hover {
@@ -243,11 +260,11 @@
 
   .btn:active {
     transform: scale(0.98);
+    transition-duration: 90ms;
   }
 }
 
 .pilot-card {
-  border: 1px solid rgb(91 155 240 / 0.55);
   border-radius: 20px;
   background:
     radial-gradient(
@@ -392,5 +409,495 @@
     opacity: 0;
     transform: translateY(8px);
     filter: blur(8px);
+  }
+
+  html.js .hero-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(8px);
+  }
+}
+
+.hero-word {
+  display: inline-block;
+}
+
+.hero-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-copy,
+.hero-actions {
+  width: 100%;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+.orb-slot {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 1.5rem auto;
+  flex: none;
+}
+
+.orb-slot::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  background: radial-gradient(circle, rgb(47 125 235 / 0.18), transparent 68%);
+  pointer-events: none;
+}
+
+.orb-poster,
+.orb-canvas-wrap,
+.orb-canvas {
+  position: absolute;
+  inset: 8%;
+}
+
+.orb-canvas-wrap,
+.orb-canvas {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.orb-poster {
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 38% 34%,
+      #f2f4f8 0%,
+      #a3c6f5 18%,
+      transparent 46%
+    ),
+    radial-gradient(circle at 50% 52%, #5b9bf0 0%, #2f7deb 42%, #1a55b5 76%);
+}
+
+.orb-canvas-wrap {
+  opacity: 0;
+}
+
+.orb-canvas {
+  display: block;
+}
+
+.edge {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  padding: 1.5px;
+  vertical-align: middle;
+}
+
+.edge-pill {
+  border-radius: 980px;
+}
+
+.edge-card {
+  display: block;
+  width: 100%;
+  border-radius: 22px;
+}
+
+.edge-mask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.edge-spin {
+  position: absolute;
+  inset: -45%;
+  animation: edge-spin 6s linear infinite;
+  animation-play-state: paused;
+}
+
+.edge.is-visible .edge-spin {
+  animation-play-state: running;
+}
+
+.edge-rotor {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 230deg,
+    #5b9bf0 292deg,
+    #2f7deb 328deg,
+    transparent 360deg
+  );
+}
+
+.edge-face {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  border-radius: inherit;
+}
+
+.edge-pill .edge-face {
+  background: rgb(var(--c-surface));
+}
+
+.edge-card .edge-face {
+  display: block;
+}
+
+.edge .btn {
+  border-color: transparent;
+}
+
+.story-scroll {
+  position: relative;
+  height: 320vh;
+  height: 320svh;
+}
+
+.story-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.story-pin-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5.5rem 1.25rem 2.5rem;
+}
+
+.story-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 50% 42% at 50% 42%,
+    rgb(47 125 235 / 0.14),
+    transparent 70%
+  );
+}
+
+.story-visual {
+  position: relative;
+  height: 280px;
+  margin-top: 1.25rem;
+}
+
+.story-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.phone {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  display: grid;
+  place-items: center;
+}
+
+.phone-svg {
+  position: relative;
+  z-index: 1;
+}
+
+.ring {
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgb(91 155 240 / 0.55);
+  border-radius: 999px;
+  opacity: 0;
+  transform: scale(1);
+}
+
+.story-wave {
+  width: min(320px, 86%);
+  height: 72px;
+  overflow: visible;
+  transform-origin: center;
+}
+
+.story-words {
+  max-width: 34rem;
+  padding: 0 1rem;
+  text-align: center;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 600;
+  font-stretch: 110%;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.story-word {
+  display: inline;
+}
+
+.beam {
+  display: grid;
+  place-items: center;
+}
+
+.beam-h {
+  display: none;
+  width: min(320px, 70vw);
+  height: 14px;
+}
+
+.beam-v {
+  width: 14px;
+  height: 160px;
+}
+
+.beam-grow {
+  position: relative;
+  display: block;
+}
+
+.beam-grow-x {
+  width: 100%;
+  height: 2px;
+  transform-origin: left center;
+}
+
+.beam-grow-y {
+  width: 2px;
+  height: 100%;
+  transform-origin: center bottom;
+}
+
+.beam-body {
+  position: absolute;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2f7deb, #5b9bf0);
+}
+
+.beam-body-x {
+  inset: 0 10px 0 0;
+}
+
+.beam-body-y {
+  inset: 10px 0 0 0;
+  background: linear-gradient(0deg, #2f7deb, #5b9bf0);
+}
+
+.beam-head {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #c6f3ff;
+}
+
+.beam-head-x {
+  top: 50%;
+  right: 0;
+  transform-origin: right center;
+  margin-top: -5px;
+}
+
+.beam-head-y {
+  left: 50%;
+  top: 0;
+  transform-origin: center top;
+  margin-left: -5px;
+}
+
+.story-card {
+  width: min(22rem, calc(100vw - 2.5rem));
+  padding: 1.25rem;
+  text-align: left;
+}
+
+.story-caption {
+  position: relative;
+  min-height: 4.75rem;
+  max-width: 36rem;
+  margin: 0.5rem auto 0;
+  text-align: center;
+}
+
+.story-caption p {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+
+.story-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  transform-origin: left center;
+  background: rgb(var(--c-blue-fill));
+}
+
+.story-still {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .story-scroll {
+    height: 400vh;
+    height: 400svh;
+  }
+
+  .beam-v {
+    display: none;
+  }
+
+  .beam-h {
+    display: block;
+  }
+
+  .story-visual {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "copy orb"
+      "actions orb";
+    align-items: center;
+    column-gap: 2.5rem;
+    text-align: left;
+  }
+
+  .hero-copy {
+    grid-area: copy;
+  }
+
+  .hero-actions {
+    grid-area: actions;
+  }
+
+  .orb-slot {
+    grid-area: orb;
+    width: 440px;
+    height: 440px;
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .orb-breathe {
+    animation: orb-breathe 6s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .orb-poster,
+  .orb-canvas-wrap {
+    transition: opacity 400ms linear;
+  }
+
+  .orb-poster.is-covered {
+    opacity: 0;
+  }
+
+  .orb-canvas-wrap.is-shown {
+    opacity: 1;
+  }
+
+  .is-ringing .ring {
+    animation: ring-out 1.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  .ring-b {
+    animation-delay: 0.4s;
+  }
+
+  .ring-c {
+    animation-delay: 0.8s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-scroll {
+    display: none;
+  }
+
+  .story-still {
+    display: block;
+  }
+
+  .edge-rotor {
+    background: linear-gradient(135deg, #5b9bf0, #2f7deb);
+  }
+
+  .edge-spin,
+  .orb-breathe,
+  .ring {
+    animation: none;
+  }
+
+  html.js .reveal,
+  html.js .hero-word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+html[data-motion="off"] .can-spin,
+html[data-motion="off"] .orb-breathe,
+html[data-motion="off"] .ring {
+  animation-play-state: paused;
+}
+
+@keyframes orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.015);
+  }
+}
+
+@keyframes edge-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes ring-out {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
   }
 }

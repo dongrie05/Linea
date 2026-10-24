@@ -1,6 +1,6 @@
 "use client";
 
-import { animate } from "framer-motion";
+import { animate } from "motion/react";
 import { useEffect, useRef } from "react";
 
 /**
@@ -33,7 +33,12 @@ export default function Reveal({
           { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }
         );
       },
-      { threshold: 0.18 }
+      {
+        threshold:
+          el.getBoundingClientRect().height > window.innerHeight * 0.7
+            ? 0.2
+            : 0.4,
+      }
     );
     obs.observe(el);
     return () => obs.disconnect();

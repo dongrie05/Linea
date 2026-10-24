@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "motion/react";
 import Logo from "@/components/Logo";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { fadeTransition, springSettle } from "@/lib/motion";
@@ -75,7 +75,7 @@ export default function Header() {
 
       <AnimatePresence initial={false}>
         {open && (
-          <motion.nav
+          <m.nav
             id="menu-movel"
             aria-label="Secções"
             initial={reduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
@@ -103,7 +103,7 @@ export default function Header() {
                 Falar com a Linea
               </button>
             </div>
-          </motion.nav>
+          </m.nav>
         )}
       </AnimatePresence>
     </header>
