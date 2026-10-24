@@ -56,14 +56,14 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            className="btn btn-primary hidden md:inline-flex"
+            className="btn btn-primary hidden whitespace-nowrap md:inline-flex"
             onClick={openTalk}
           >
             Falar com a Linea
           </button>
           <button
             type="button"
-            className="btn btn-secondary px-3 md:hidden"
+            className="btn btn-secondary shrink-0 whitespace-nowrap px-3 md:hidden"
             aria-expanded={open}
             aria-controls="menu-movel"
             onClick={() => setOpen(value => !value)}

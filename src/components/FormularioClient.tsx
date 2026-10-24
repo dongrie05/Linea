@@ -10,8 +10,8 @@ export default function FormularioClient() {
 
   return (
     <div>
-      <div className="px-5 pb-16 pt-28 sm:px-8 sm:pt-36">
-        <div className="mx-auto max-w-measure">
+      <div className="mx-auto max-w-page px-5 pb-16 pt-28 sm:px-8 sm:pt-36">
+        <div className="max-w-measure">
           <h1 className="display-hero">Fale comigo.</h1>
           <p className="mt-4">
             Diga-me o nome da clínica e a cidade. Respondo eu.

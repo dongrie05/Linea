@@ -113,14 +113,6 @@ export default function StoryStage() {
     { stiffness: 380, damping: 26 }
   );
 
-  const captions = [
-    useTransform(scrollYProgress, [0, 0.08, 0.12, 0.18], [1, 1, 1, 0]),
-    useTransform(scrollYProgress, [0.1, 0.16, 0.24, 0.3], [0, 1, 1, 0]),
-    useTransform(scrollYProgress, [0.24, 0.32, 0.64, 0.72], [0, 1, 1, 0]),
-    useTransform(scrollYProgress, [0.66, 0.74, 0.84, 0.9], [0, 1, 1, 0]),
-    useTransform(scrollYProgress, [0.86, 0.94, 1, 1], [0, 1, 1, 1]),
-  ];
-
   useEffect(() => {
     const pin = pinRef.current;
     if (!pin) return;
@@ -155,120 +147,119 @@ export default function StoryStage() {
       <div ref={pinRef} className="story-pin">
         <div className="story-glow" aria-hidden="true" />
         <div className="story-pin-inner">
-          <h2 className="section-title">Uma chamada, do toque à agenda.</h2>
-          <p className="label mt-6">{STAGES[step].title}</p>
-          <p className="sr-only" aria-live="polite">
-            {STAGES[step].title}. {STAGES[step].text}
-          </p>
-          <div className="story-visual">
-            <m.div
-              className={`story-layer${ringing ? " is-ringing" : ""}`}
-              style={{ opacity: phoneOpacity }}
-            >
-              <div className="phone">
-                <span className="ring ring-a" />
-                <span className="ring ring-b" />
-                <span className="ring ring-c" />
-                <svg
-                  className="phone-svg"
-                  viewBox="0 0 72 120"
-                  width="72"
-                  height="120"
-                  aria-hidden="true"
-                >
-                  <rect
-                    x="10"
-                    y="6"
-                    width="52"
-                    height="108"
-                    rx="14"
-                    fill="#141821"
-                    stroke="#A3C6F5"
-                    strokeWidth="2"
-                  />
-                  <circle cx="36" cy="102" r="3.5" fill="#5B9BF0" />
-                </svg>
-              </div>
-            </m.div>
-            <m.div className="story-layer" style={{ opacity: waveOpacity }}>
-              <m.svg
-                className="story-wave"
-                viewBox="0 0 240 48"
-                aria-hidden="true"
-                style={{ scaleY: waveY }}
-              >
-                <path
-                  d="M2 28 C 22 28, 28 8, 48 8 S 74 40, 96 28 S 122 8, 144 20 S 176 42, 198 24 S 220 16, 238 22"
-                  fill="none"
-                  stroke="#C6F3FF"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </m.svg>
-            </m.div>
-            <m.div className="story-layer" style={{ opacity: talkOpacity }}>
-              <p className="story-words">
-                {WORDS.map((word, index) => (
-                  <StoryWord
-                    key={`${word}-${index}`}
-                    progress={scrollYProgress}
-                    text={word}
-                    index={index}
-                    total={WORDS.length}
-                  />
-                ))}
-              </p>
-            </m.div>
-            <m.div className="story-layer" style={{ opacity: beamOpacity }}>
-              <div className="beam beam-h" aria-hidden="true">
-                <m.div
-                  className="beam-grow beam-grow-x"
-                  style={{ scaleX: beam }}
-                >
-                  <span className="beam-body beam-body-x" />
-                  <m.span
-                    className="beam-head beam-head-x"
-                    style={{ scaleX: beamInv }}
-                  />
-                </m.div>
-              </div>
-              <div className="beam beam-v" aria-hidden="true">
-                <m.div
-                  className="beam-grow beam-grow-y"
-                  style={{ scaleY: beam }}
-                >
-                  <span className="beam-body beam-body-y" />
-                  <m.span
-                    className="beam-head beam-head-y"
-                    style={{ scaleY: beamInv }}
-                  />
-                </m.div>
-              </div>
-            </m.div>
-            <m.div className="story-layer" style={{ opacity: cardOpacity }}>
+          <div className="story-frame">
+            <h2 className="section-title">Uma chamada, do toque à agenda.</h2>
+            <p className="label mt-6">{STAGES[step].title}</p>
+            <p className="sr-only" aria-live="polite">
+              {STAGES[step].title}. {STAGES[step].text}
+            </p>
+            <div className="story-visual">
               <m.div
-                className="surface-card story-card"
-                style={{ y: cardY, scale: cardScale }}
+                className={`story-layer${ringing ? " is-ringing" : ""}`}
+                style={{ opacity: phoneOpacity }}
               >
-                <p className="label">Agenda</p>
-                <p className="title-sm mt-3">Marcado pela Linea</p>
-                <Pending>
-                  Serviço, dia e hora do exemplo. Têm de bater com o áudio.
-                </Pending>
+                <div className="phone">
+                  <span className="ring ring-a" />
+                  <span className="ring ring-b" />
+                  <span className="ring ring-c" />
+                  <svg
+                    className="phone-svg"
+                    viewBox="0 0 72 120"
+                    width="72"
+                    height="120"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="10"
+                      y="6"
+                      width="52"
+                      height="108"
+                      rx="14"
+                      fill="#141821"
+                      stroke="#A3C6F5"
+                      strokeWidth="2"
+                    />
+                    <circle cx="36" cy="102" r="3.5" fill="#5B9BF0" />
+                  </svg>
+                </div>
               </m.div>
-            </m.div>
+              <m.div className="story-layer" style={{ opacity: waveOpacity }}>
+                <m.svg
+                  className="story-wave"
+                  viewBox="0 0 240 48"
+                  aria-hidden="true"
+                  style={{ scaleY: waveY }}
+                >
+                  <path
+                    d="M2 28 C 22 28, 28 8, 48 8 S 74 40, 96 28 S 122 8, 144 20 S 176 42, 198 24 S 220 16, 238 22"
+                    fill="none"
+                    stroke="#C6F3FF"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                </m.svg>
+              </m.div>
+              <m.div className="story-layer" style={{ opacity: talkOpacity }}>
+                <p className="story-words">
+                  {WORDS.map((word, index) => (
+                    <StoryWord
+                      key={`${word}-${index}`}
+                      progress={scrollYProgress}
+                      text={word}
+                      index={index}
+                      total={WORDS.length}
+                    />
+                  ))}
+                </p>
+              </m.div>
+              <m.div className="story-layer" style={{ opacity: beamOpacity }}>
+                <div className="beam beam-h" aria-hidden="true">
+                  <m.div
+                    className="beam-grow beam-grow-x"
+                    style={{ scaleX: beam }}
+                  >
+                    <span className="beam-body beam-body-x" />
+                    <m.span
+                      className="beam-head beam-head-x"
+                      style={{ scaleX: beamInv }}
+                    />
+                  </m.div>
+                </div>
+                <div className="beam beam-v" aria-hidden="true">
+                  <m.div
+                    className="beam-grow beam-grow-y"
+                    style={{ scaleY: beam }}
+                  >
+                    <span className="beam-body beam-body-y" />
+                    <m.span
+                      className="beam-head beam-head-y"
+                      style={{ scaleY: beamInv }}
+                    />
+                  </m.div>
+                </div>
+              </m.div>
+              <m.div className="story-layer" style={{ opacity: cardOpacity }}>
+                <m.div
+                  className="surface-card story-card"
+                  style={{ y: cardY, scale: cardScale }}
+                >
+                  <p className="label">Agenda</p>
+                  <p className="title-sm mt-3">Marcado pela Linea</p>
+                  <Pending>
+                    Serviço, dia e hora do exemplo. Têm de bater com o áudio.
+                  </Pending>
+                </m.div>
+              </m.div>
+            </div>
+            <p className="story-caption" aria-hidden={step === 2}>
+              {step === 2 ? "\u00A0" : STAGES[step].text}
+            </p>
           </div>
-          <div className="story-caption">
-            {STAGES.map((stage, index) => (
-              <m.p key={stage.key} style={{ opacity: captions[index] }}>
-                {stage.text}
-              </m.p>
-            ))}
-          </div>
+        </div>
+        <div className="story-progress-track" aria-hidden="true">
           <m.div
             className="story-progress"
-            style={{ scaleX: scrollYProgress }}
-            aria-hidden="true"
+            style={{ scaleX: scrollYProgress, originX: 0 }}
           />
         </div>
       </div>

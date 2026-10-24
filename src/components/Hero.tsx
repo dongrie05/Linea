@@ -47,9 +47,9 @@ export default function Hero() {
   return (
     <section
       id="topo"
-      className="relative px-5 pb-16 pt-28 sm:px-8 sm:pb-24 sm:pt-36"
+      className="relative overflow-clip pb-16 pt-28 sm:pb-24 sm:pt-36"
     >
-      <div className="hero-layout mx-auto max-w-page">
+      <div className="hero-layout mx-auto max-w-page px-5 sm:px-8">
         <div className="hero-copy">
           <p className="label">Para clínicas dentárias em Portugal</p>
           <HeroTitle />
