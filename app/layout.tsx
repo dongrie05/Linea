@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AnimationFallback from "@/components/AnimationFallback";
+import { PILOT, PLANS, formatEuro } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,8 +15,7 @@ export const metadata: Metadata = {
       "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
-  description:
-    "Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Experimente grátis hoje!",
+  description: `Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Piloto de duas semanas, com caução de ${PILOT.depositEur}€.`,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
@@ -130,33 +130,14 @@ export default function RootLayout({
         areaServed: "PT",
       },
     },
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Starter - Atendedor de Chamadas",
-        price: "99",
-        priceCurrency: "EUR",
-        description: "250 chamadas por mês - Atendimento telefónico automático",
-        availability: "https://schema.org/InStock",
-      },
-      {
-        "@type": "Offer",
-        name: "Growth - Atendedor de Chamadas",
-        price: "199",
-        priceCurrency: "EUR",
-        description: "500 chamadas por mês - Atendimento telefónico automático",
-        availability: "https://schema.org/InStock",
-      },
-      {
-        "@type": "Offer",
-        name: "Pro - Atendedor de Chamadas",
-        price: "899",
-        priceCurrency: "EUR",
-        description:
-          "2500 chamadas por mês - Atendimento telefónico automático",
-        availability: "https://schema.org/InStock",
-      },
-    ],
+    offers: PLANS.map(plan => ({
+      "@type": "Offer",
+      name: `${plan.name}. Atendedor de chamadas`,
+      price: String(plan.priceEur),
+      priceCurrency: "EUR",
+      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês durante ${PILOT.founderMonths} meses, para quem entra no piloto.`,
+      availability: "https://schema.org/InStock",
+    })),
     featureList: [
       "Atendimento telefónico 24/7",
       "Resposta em 2 segundos",

@@ -3,6 +3,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { CheckCircle, Clock, Euro, MapPin, Users, Phone } from "lucide-react";
+import {
+  PILOT_SENTENCES,
+  extraMinuteSentence,
+  listPricesSentence,
+} from "@/lib/site";
 
 export default function BusinessSummary() {
   const [ref, inView] = useInView({
@@ -32,8 +37,7 @@ export default function BusinessSummary() {
     {
       icon: Euro,
       title: "Preços",
-      description:
-        "Desde 99€/mês (250 chamadas) até 899€/mês (2500 chamadas). Poupe até 70% comparado com atendimento humano (1200€/mês)",
+      description: `${listPricesSentence()} ${extraMinuteSentence()} ${PILOT_SENTENCES.join(" ")} Poupe até 70% comparado com atendimento humano (1200€/mês).`,
     },
     {
       icon: MapPin,
