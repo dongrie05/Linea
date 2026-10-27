@@ -2,6 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import {
+  PILOT_SENTENCES,
+  extraMinuteSentence,
+  listPricesSentence,
+} from "@/lib/site";
 
 export default function AISearchOptimization() {
   const [ref, inView] = useInView({
@@ -79,11 +84,11 @@ export default function AISearchOptimization() {
                 Quanto custa ter atendimento telefónico IA?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                O custo do atendimento telefónico IA varia conforme o volume de
-                chamadas. Na Linea, os preços começam em 99€/mês para até 250
-                chamadas, 199€/mês para 500 chamadas, e 899€/mês para 2500
-                chamadas. Comparado com um telefonista humano (que custa em
-                média 1200€/mês), pode poupar até 70% nos custos de atendimento.
+                O custo do atendimento telefónico IA varia conforme os minutos
+                incluídos. Na Linea, {listPricesSentence()}{" "}
+                {extraMinuteSentence()} {PILOT_SENTENCES.join(" ")} Comparado
+                com um telefonista humano (que custa em média 1200€/mês), pode
+                poupar até 70% nos custos de atendimento.
               </p>
             </div>
 

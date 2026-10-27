@@ -9,6 +9,42 @@ import {
   staggerContainer,
   staggerItem,
 } from "@/hooks/useAnimationOnScroll";
+import {
+  PLANS,
+  PILOT_SENTENCES,
+  extraMinuteSentence,
+  formatEuro,
+} from "@/lib/site";
+
+const planStyle = {
+  Starter: {
+    features: ["Suporte por email", "Configuração básica"],
+    popular: false,
+    color: "from-gray-500 to-gray-600",
+    bgColor: "bg-gray-50",
+  },
+  Growth: {
+    features: [
+      "Suporte prioritário",
+      "Configuração avançada",
+      "Relatórios detalhados",
+    ],
+    popular: true,
+    color: "from-secondary-500 to-secondary-600",
+    bgColor: "bg-secondary-50",
+  },
+  Pro: {
+    features: [
+      "Suporte 24/7",
+      "Configuração personalizada",
+      "Relatórios avançados",
+      "Integração CRM",
+    ],
+    popular: false,
+    color: "from-accent-500 to-accent-600",
+    bgColor: "bg-accent-50",
+  },
+} as const;
 
 export default function Pricing() {
   const [ref, inView] = useInView({
@@ -16,56 +52,22 @@ export default function Pricing() {
     threshold: 0.1,
   });
 
-  const plans = [
-    {
-      name: "Starter",
-      price: "99",
-      calls: "250",
+  const plans = PLANS.map(plan => {
+    const style = planStyle[plan.id];
+    return {
+      ...plan,
+      ...style,
+      price: String(plan.priceEur),
       period: "mês",
+      minutesLabel: `${plan.minutesPerMonth} minutos/mês`,
       features: [
-        "Até 250 chamadas/mês",
-        "Suporte por email",
-        "Configuração básica",
+        `${plan.minutesPerMonth} minutos incluídos`,
+        `Minuto extra: ${formatEuro(plan.extraMinuteEur)}€`,
+        ...style.features,
       ],
       cta: "Começar Agora",
-      popular: false,
-      color: "from-gray-500 to-gray-600",
-      bgColor: "bg-gray-50",
-    },
-    {
-      name: "Growth",
-      price: "199",
-      calls: "500",
-      period: "mês",
-      features: [
-        "Até 500 chamadas/mês",
-        "Suporte prioritário",
-        "Configuração avançada",
-        "Relatórios detalhados",
-      ],
-      cta: "Começar Agora",
-      popular: true,
-      color: "from-secondary-500 to-secondary-600",
-      bgColor: "bg-secondary-50",
-    },
-    {
-      name: "Pro",
-      price: "899",
-      calls: "2500",
-      period: "mês",
-      features: [
-        "Até 2500 chamadas/mês",
-        "Suporte 24/7",
-        "Configuração personalizada",
-        "Relatórios avançados",
-        "Integração CRM",
-      ],
-      cta: "Começar Agora",
-      popular: false,
-      color: "from-accent-500 to-accent-600",
-      bgColor: "bg-accent-50",
-    },
-  ];
+    };
+  });
 
   return (
     <section ref={ref} id="pricing" className="section-padding bg-gray-50">
@@ -168,7 +170,7 @@ export default function Pricing() {
                     className={`inline-flex items-center space-x-2 ${plan.bgColor} px-4 py-2 rounded-full`}
                   >
                     <span className="text-sm font-medium text-gray-700">
-                      {plan.calls} chamadas/{plan.period}
+                      {plan.minutesLabel}
                     </span>
                   </motion.div>
                 </div>
@@ -218,7 +220,7 @@ export default function Pricing() {
           ))}
         </motion.div>
 
-        {/* Extra Calls Info */}
+        {/* Minuto extra */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -230,15 +232,33 @@ export default function Pricing() {
             className="bg-white rounded-2xl p-6 shadow-lg inline-block"
           >
             <p className="text-gray-600 mb-2">
-              <span className="font-semibold">
-                Chamadas extra: 0,25€/chamada
-              </span>
+              <span className="font-semibold">{extraMinuteSentence()}</span>
             </p>
             <p className="text-sm text-gray-500">
               Sem taxas de setup • Cancelamento a qualquer momento • Suporte
               incluído
             </p>
           </motion.div>
+        </motion.div>
+
+        <motion.div
+          id="piloto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="max-w-3xl mx-auto mt-8"
+        >
+          <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Piloto</h3>
+            <div className="space-y-3 text-gray-600 mb-8">
+              {PILOT_SENTENCES.map(sentence => (
+                <p key={sentence}>{sentence}</p>
+              ))}
+            </div>
+            <a href="/formulario?piloto=1" className="btn-primary inline-flex">
+              Entrar no piloto
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>

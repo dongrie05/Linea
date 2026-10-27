@@ -10,6 +10,11 @@ import {
   staggerContainer,
   staggerItem,
 } from "@/hooks/useAnimationOnScroll";
+import {
+  PILOT_SENTENCES,
+  extraMinuteSentence,
+  listPricesSentence,
+} from "@/lib/site";
 
 export default function FAQ() {
   const [ref, inView] = useInView({
@@ -27,8 +32,11 @@ export default function FAQ() {
     {
       question:
         "Quanto custa um atendimento telefónico IA comparado com humano?",
-      answer:
-        "O atendimento humano custa em média 1200€/mês. Com a Linea IA, poupa até 70% - desde 99€/mês para 250 chamadas até 899€/mês para 2500 chamadas. Sem custos de formação, férias ou subsídios.",
+      answer: `O atendimento humano custa em média 1200€/mês. Com a Linea poupa até 70%. ${listPricesSentence()} ${extraMinuteSentence()} Sem custos de formação, férias ou subsídios.`,
+    },
+    {
+      question: "Como funciona o piloto?",
+      answer: PILOT_SENTENCES.join(" "),
     },
     {
       question:

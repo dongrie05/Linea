@@ -4,11 +4,16 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Phone, Mail, CheckCircle } from "lucide-react";
 import { LEADS_EMAIL, CONTACT_PHONE_WHATSAPP } from "@/lib/contact";
+import { PILOT_SENTENCES, PLANS, formatEuro, type PlanId } from "@/lib/site";
 
 export default function FormularioPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const planoPreSelecionado = searchParams.get("plano") || "Starter";
+  const planoParam = searchParams.get("plano");
+  const planoConhecido = PLANS.some(plan => plan.id === planoParam);
+  const planoPreSelecionado: PlanId = planoConhecido
+    ? (planoParam as PlanId)
+    : "Starter";
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -18,7 +23,8 @@ export default function FormularioPage() {
     ramo: "",
     plano: planoPreSelecionado,
     funcionarios: "",
-    chamadasMes: "",
+    minutosMes: "",
+    piloto: searchParams.get("piloto") === "1" || planoParam === "Piloto",
     urgencia: "",
     mensagem: "",
   });
@@ -44,7 +50,8 @@ export default function FormularioPage() {
       ramo,
       plano,
       funcionarios,
-      chamadasMes,
+      minutosMes,
+      piloto,
       urgencia,
       mensagem,
     } = formData;
@@ -61,9 +68,12 @@ export default function FormularioPage() {
 *Plano Selecionado:*
 📋 ${plano}
 
+*Piloto:*
+${piloto ? `Sim. ${PILOT_SENTENCES[0]} ${PILOT_SENTENCES[1]}` : "Não"}
+
 *Detalhes do Negócio:*
 👥 Funcionários: ${funcionarios}
-📞 Chamadas/mês: ${chamadasMes}
+⏱️ Minutos/mês: ${minutosMes}
 ⚡ Urgência: ${urgencia}
 
 *Mensagem:*
@@ -85,7 +95,7 @@ ${mensagem}
       window.open(whatsappUrl, "_blank");
     } else if (envioMethod === "email") {
       // Envia email real
-      const emailSubject = `Nova solicitação - Linea AI - ${formData.plano}`;
+      const emailSubject = `Nova solicitação Linea AI. ${formData.plano}`;
       const emailBody = `Nova solicitação recebida via formulário Linea:
 
 DADOS DO CLIENTE:
@@ -95,10 +105,11 @@ Telefone: ${formData.telefone}
 Empresa: ${formData.empresa}
 
 PLANO SELECIONADO: ${formData.plano}
+PILOTO: ${formData.piloto ? `Sim. ${PILOT_SENTENCES[0]} ${PILOT_SENTENCES[1]}` : "Não"}
 
 DETALHES DO NEGÓCIO:
 Funcionários: ${formData.funcionarios}
-Chamadas/mês: ${formData.chamadasMes}
+Minutos/mês: ${formData.minutosMes}
 Urgência: ${formData.urgencia}
 
 MENSAGEM:
@@ -253,33 +264,26 @@ Enviado via formulário Linea`;
                   Escolha o seu Plano
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[
-                    {
-                      name: "Starter",
-                      price: "€99/mês",
-                      calls: "250 chamadas",
-                      color: "from-gray-500 to-gray-600",
-                      bgColor: "bg-gray-50",
-                      borderColor: "border-gray-200",
-                    },
-                    {
-                      name: "Growth",
-                      price: "€199/mês",
-                      calls: "500 chamadas",
-                      color: "from-secondary-500 to-secondary-600",
-                      bgColor: "bg-secondary-50",
-                      borderColor: "border-secondary-200",
-                      popular: true,
-                    },
-                    {
-                      name: "Pro",
-                      price: "€899/mês",
-                      calls: "2500 chamadas",
-                      color: "from-accent-500 to-accent-600",
-                      bgColor: "bg-accent-50",
-                      borderColor: "border-accent-200",
-                    },
-                  ].map(plan => (
+                  {PLANS.map(plan => {
+                    const style = {
+                      Starter: {
+                        bgColor: "bg-gray-50",
+                        borderColor: "border-gray-200",
+                        popular: false,
+                      },
+                      Growth: {
+                        bgColor: "bg-secondary-50",
+                        borderColor: "border-secondary-200",
+                        popular: true,
+                      },
+                      Pro: {
+                        bgColor: "bg-accent-50",
+                        borderColor: "border-accent-200",
+                        popular: false,
+                      },
+                    }[plan.id];
+                    return { ...plan, ...style };
+                  }).map(plan => (
                     <div
                       key={plan.name}
                       onClick={() =>
@@ -303,10 +307,13 @@ Enviado via formulário Linea`;
                           {plan.name}
                         </h3>
                         <p className="text-2xl font-bold text-primary-600 mb-1">
-                          {plan.price}
+                          €{plan.priceEur}/mês
+                        </p>
+                        <p className="text-sm text-gray-600 mb-1">
+                          {plan.minutesPerMonth} minutos
                         </p>
                         <p className="text-sm text-gray-600 mb-3">
-                          {plan.calls}
+                          Minuto extra: {formatEuro(plan.extraMinuteEur)}€
                         </p>
                         {formData.plano === plan.name && (
                           <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center mx-auto">
@@ -316,6 +323,33 @@ Enviado via formulário Linea`;
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.piloto}
+                      onChange={e =>
+                        setFormData(prev => ({
+                          ...prev,
+                          piloto: e.target.checked,
+                        }))
+                      }
+                      className="mt-1 h-4 w-4"
+                    />
+                    <span>
+                      <span className="block font-semibold text-gray-900">
+                        Quero entrar no piloto
+                      </span>
+                      <span className="mt-2 block space-y-1 text-sm text-gray-600">
+                        {PILOT_SENTENCES.map(sentence => (
+                          <span key={sentence} className="block">
+                            {sentence}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                  </label>
                 </div>
               </div>
 
@@ -340,20 +374,21 @@ Enviado via formulário Linea`;
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Chamadas por Mês
+                    Minutos por mês
                   </label>
                   <select
-                    name="chamadasMes"
-                    value={formData.chamadasMes}
+                    name="minutosMes"
+                    value={formData.minutosMes}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
                   >
                     <option value="">Selecione...</option>
-                    <option value="0-100">0-100 chamadas</option>
-                    <option value="101-250">101-250 chamadas</option>
-                    <option value="251-500">251-500 chamadas</option>
-                    <option value="501-1000">501-1000 chamadas</option>
-                    <option value="1000+">Mais de 1000 chamadas</option>
+                    <option value="Até 400 minutos">Até 400 minutos</option>
+                    <option value="Até 1000 minutos">Até 1000 minutos</option>
+                    <option value="Até 2500 minutos">Até 2500 minutos</option>
+                    <option value="Mais de 2500 minutos">
+                      Mais de 2500 minutos
+                    </option>
                   </select>
                 </div>
               </div>
