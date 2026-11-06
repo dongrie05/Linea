@@ -11,8 +11,10 @@ import {
   staggerItem,
 } from "@/hooks/useAnimationOnScroll";
 import {
+  PILOT,
   PILOT_SENTENCES,
   extraMinuteSentence,
+  founderPricesSentence,
   listPricesSentence,
 } from "@/lib/site";
 
@@ -32,7 +34,7 @@ export default function FAQ() {
     {
       question:
         "Quanto custa um atendimento telefónico IA comparado com humano?",
-      answer: `O atendimento humano custa em média 1200€/mês. Com a Linea poupa até 70%. ${listPricesSentence()} ${extraMinuteSentence()} Sem custos de formação, férias ou subsídios.`,
+      answer: `${listPricesSentence()} Preço de fundador durante ${PILOT.founderMonths} meses: ${founderPricesSentence()} ${extraMinuteSentence()}`,
     },
     {
       question: "Como funciona o piloto?",
@@ -42,7 +44,7 @@ export default function FAQ() {
       question:
         "A IA de atendimento telefónico funciona com qualquer empresa portuguesa?",
       answer:
-        "Sim, funciona com qualquer tipo de empresa em Portugal - restaurantes, clínicas, barbearias, escritórios, lojas. Funciona com números fixos e móveis, e pode ser configurada em menos de 1 dia.",
+        "Sim, funciona com qualquer tipo de empresa em Portugal: restaurantes, clínicas, barbearias, escritórios, lojas. Funciona com números fixos e móveis, e pode ser configurada em menos de 1 dia.",
     },
     {
       question:
@@ -54,7 +56,7 @@ export default function FAQ() {
       question:
         "Como configurar atendimento telefónico IA para a minha empresa?",
       answer:
-        "É muito simples: escolha o plano, forneça informações sobre a sua empresa, configure as respostas personalizadas e em 1 dia o sistema está ativo. Não precisa de instalar nada - funciona através da sua linha telefónica existente.",
+        "É muito simples: escolha o plano, forneça informações sobre a sua empresa, configure as respostas personalizadas e em 1 dia o sistema está ativo. Não precisa de instalar nada. Funciona através da sua linha telefónica existente.",
     },
     {
       question: "A IA de atendimento telefónico funciona 24 horas por dia?",

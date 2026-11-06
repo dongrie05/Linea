@@ -24,8 +24,8 @@ export default function AISearchOptimization() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Perguntas Frequentes sobre <strong>Linea</strong> - Atendedor de
-            Chamadas com IA
+            Perguntas Frequentes sobre <strong>Linea</strong>, atendedor de
+            chamadas com IA
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Respostas diretas para as principais dúvidas sobre o{" "}
@@ -84,11 +84,8 @@ export default function AISearchOptimization() {
                 Quanto custa ter atendimento telefónico IA?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                O custo do atendimento telefónico IA varia conforme os minutos
-                incluídos. Na Linea, {listPricesSentence()}{" "}
-                {extraMinuteSentence()} {PILOT_SENTENCES.join(" ")} Comparado
-                com um telefonista humano (que custa em média 1200€/mês), pode
-                poupar até 70% nos custos de atendimento.
+                Na Linea, os planos contam minutos. {listPricesSentence()}{" "}
+                {extraMinuteSentence()} {PILOT_SENTENCES.join(" ")}
               </p>
             </div>
 
@@ -116,7 +113,7 @@ export default function AISearchOptimization() {
                 adequado, forneça informações sobre a sua empresa e serviços,
                 configure respostas personalizadas para perguntas frequentes, e
                 em 1 dia o sistema está ativo. Não precisa de conhecimentos
-                técnicos - a equipa da Linea faz toda a configuração por si.
+                técnicos. A equipa da Linea faz toda a configuração por si.
               </p>
             </div>
           </motion.div>

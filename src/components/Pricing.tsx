@@ -3,48 +3,36 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Check, Star, ArrowRight } from "lucide-react";
-import {
-  useAnimationOnScroll,
-  fadeInUp,
-  staggerContainer,
-  staggerItem,
-} from "@/hooks/useAnimationOnScroll";
-import {
-  PLANS,
-  PILOT_SENTENCES,
-  extraMinuteSentence,
-  formatEuro,
-} from "@/lib/site";
+import { staggerContainer, staggerItem } from "@/hooks/useAnimationOnScroll";
+import { PLANS, PILOT, formatEuro } from "@/lib/site";
 
 const planStyle = {
   Starter: {
-    features: ["Suporte por email", "Configuração básica"],
+    config: "Configuração básica",
     popular: false,
     color: "from-gray-500 to-gray-600",
     bgColor: "bg-gray-50",
   },
   Growth: {
-    features: [
-      "Suporte prioritário",
-      "Configuração avançada",
-      "Relatórios detalhados",
-    ],
+    config: "Configuração avançada",
     popular: true,
     color: "from-secondary-500 to-secondary-600",
     bgColor: "bg-secondary-50",
   },
   Pro: {
-    features: [
-      "Suporte 24/7",
-      "Configuração personalizada",
-      "Relatórios avançados",
-      "Integração CRM",
-    ],
+    config: "Configuração personalizada",
     popular: false,
     color: "from-accent-500 to-accent-600",
     bgColor: "bg-accent-50",
   },
 } as const;
+
+const comparisonRows = [
+  { key: "founder", label: "Preço de fundador" },
+  { key: "normal", label: "Preço normal" },
+  { key: "minutes", label: "Minutos incluídos" },
+  { key: "extra", label: "Minuto extra" },
+] as const;
 
 export default function Pricing() {
   const [ref, inView] = useInView({
@@ -57,15 +45,14 @@ export default function Pricing() {
     return {
       ...plan,
       ...style,
-      price: String(plan.priceEur),
       period: "mês",
       minutesLabel: `${plan.minutesPerMonth} minutos/mês`,
       features: [
         `${plan.minutesPerMonth} minutos incluídos`,
-        `Minuto extra: ${formatEuro(plan.extraMinuteEur)}€`,
-        ...style.features,
+        `Minuto extra: ${formatEuro(plan.extraMinuteEur)} €`,
+        style.config,
       ],
-      cta: "Começar Agora",
+      cta: "Começar agora",
     };
   });
 
@@ -76,39 +63,66 @@ export default function Pricing() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Preços do Atendimento Telefónico IA
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Planos flexíveis para empresas portuguesas. Poupe até 70% comparado
-            com atendimento humano tradicional (1200€/mês).
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Planos mensais com minutos incluídos. O preço de fundador tem{" "}
+            {PILOT.founderDiscountPercent}% de desconto e vale{" "}
+            {PILOT.founderMonths} meses.
           </p>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center space-x-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium"
-          >
-            <span>💸</span>
-            <span>Contratar telefonista: 1200€/mês</span>
-          </motion.div>
+        </motion.div>
+
+        <motion.div
+          id="piloto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mb-16"
+        >
+          <div className="bg-white rounded-2xl shadow-lg border border-primary-100 p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div className="text-center lg:text-left">
+              <p className="text-sm font-semibold uppercase tracking-wide text-primary-700 mb-2">
+                Piloto
+              </p>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Duas semanas grátis
+              </h3>
+              <p className="text-gray-600 max-w-2xl">
+                A caução é de {PILOT.depositEur} € e é devolvida se avançar para
+                um plano. Quem entra no piloto fica com o preço de fundador
+                durante {PILOT.founderMonths} meses.
+              </p>
+            </div>
+            <motion.a
+              href="/formulario?piloto=1"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap"
+            >
+              <span>Entrar no piloto</span>
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
+          </div>
         </motion.div>
 
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16 pt-4"
         >
           {plans.map((plan, index) => (
             <motion.div
-              key={index}
+              key={plan.id}
               variants={staggerItem}
               whileHover={{
                 y: -8,
                 transition: { duration: 0.3 },
               }}
-              className={`relative ${plan.popular ? "md:-mt-8" : ""}`}
+              className={`relative ${plan.popular ? "lg:-mt-8" : ""}`}
             >
               {plan.popular && (
                 <motion.div
@@ -129,7 +143,7 @@ export default function Pricing() {
                     className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1 whitespace-nowrap"
                   >
                     <Star className="w-3 h-3" />
-                    <span>Mais Popular</span>
+                    <span>Mais popular</span>
                   </motion.div>
                 </motion.div>
               )}
@@ -146,10 +160,10 @@ export default function Pricing() {
                 } transition-all duration-300`}
               >
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
                     {plan.name}
                   </h3>
-                  <div className="flex items-baseline justify-center mb-4">
+                  <div className="flex items-end justify-center gap-3 mb-2">
                     <motion.span
                       initial={{ scale: 0 }}
                       animate={inView ? { scale: 1 } : {}}
@@ -159,12 +173,18 @@ export default function Pricing() {
                         type: "spring",
                         stiffness: 200,
                       }}
-                      className="text-5xl font-bold text-gray-900"
+                      className="text-5xl font-bold text-gray-900 leading-none"
                     >
-                      €{plan.price}
+                      {formatEuro(plan.founderPriceEur)} €
                     </motion.span>
-                    <span className="text-gray-600 ml-2">/{plan.period}</span>
+                    <span className="text-xl text-gray-400 line-through leading-none mb-1">
+                      {formatEuro(plan.priceEur)} €
+                    </span>
                   </div>
+                  <p className="text-gray-600 mb-3">por {plan.period}</p>
+                  <p className="text-sm font-medium text-primary-700 mb-4">
+                    Preço de fundador, vale {PILOT.founderMonths} meses
+                  </p>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     className={`inline-flex items-center space-x-2 ${plan.bgColor} px-4 py-2 rounded-full`}
@@ -178,7 +198,7 @@ export default function Pricing() {
                 <ul className="space-y-4 mb-8 flex-grow">
                   {plan.features.map((feature, featureIndex) => (
                     <motion.li
-                      key={featureIndex}
+                      key={feature}
                       initial={{ opacity: 0, x: -20 }}
                       animate={inView ? { opacity: 1, x: 0 } : {}}
                       transition={{
@@ -203,7 +223,7 @@ export default function Pricing() {
                   href={`/formulario?plano=${plan.name}`}
                   whileHover={{
                     scale: 1.05,
-                    x: [0, -2, 2, -2, 2, 0], // Shake effect
+                    x: [0, -2, 2, -2, 2, 0],
                   }}
                   whileTap={{ scale: 0.95 }}
                   transition={{
@@ -220,44 +240,130 @@ export default function Pricing() {
           ))}
         </motion.div>
 
-        {/* Minuto extra */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center"
+          transition={{ duration: 0.8, delay: 0.45 }}
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="bg-white rounded-2xl p-6 shadow-lg inline-block"
-          >
-            <p className="text-gray-600 mb-2">
-              <span className="font-semibold">{extraMinuteSentence()}</span>
-            </p>
-            <p className="text-sm text-gray-500">
-              Sem taxas de setup • Cancelamento a qualquer momento • Suporte
-              incluído
-            </p>
-          </motion.div>
-        </motion.div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-3 text-center">
+            Comparação dos planos
+          </h3>
+          <p className="text-gray-600 text-center mb-6">
+            O preço de fundador tem {PILOT.founderDiscountPercent}% de desconto
+            e vale {PILOT.founderMonths} meses. Depois aplica-se o preço normal.
+          </p>
 
-        <motion.div
-          id="piloto"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="max-w-3xl mx-auto mt-8"
-        >
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Piloto</h3>
-            <div className="space-y-3 text-gray-600 mb-8">
-              {PILOT_SENTENCES.map(sentence => (
-                <p key={sentence}>{sentence}</p>
-              ))}
+          <div className="md:hidden space-y-4">
+            {plans.map(plan => (
+              <div
+                key={plan.id}
+                className={`bg-white rounded-2xl shadow-lg p-5 ${
+                  plan.popular ? "border-2 border-secondary-200" : ""
+                }`}
+              >
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <h4 className="text-lg font-bold text-gray-900">
+                    {plan.name}
+                  </h4>
+                  {plan.popular && (
+                    <span className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap">
+                      Mais popular
+                    </span>
+                  )}
+                </div>
+                <dl className="space-y-3 text-sm">
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className="text-gray-500">Preço de fundador</dt>
+                    <dd className="font-semibold text-gray-900">
+                      {formatEuro(plan.founderPriceEur)} €
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className="text-gray-500">Preço normal</dt>
+                    <dd className="text-gray-500 line-through">
+                      {formatEuro(plan.priceEur)} €
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className="text-gray-500">Minutos incluídos</dt>
+                    <dd className="font-medium text-gray-900">
+                      {plan.minutesPerMonth}
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className="text-gray-500">Minuto extra</dt>
+                    <dd className="font-medium text-gray-900">
+                      {formatEuro(plan.extraMinuteEur)} €
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden md:block bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[40rem] text-left">
+                <caption className="sr-only">
+                  Plano, preço de fundador, preço normal, minutos incluídos e
+                  minuto extra
+                </caption>
+                <thead>
+                  <tr className="bg-gray-50 text-gray-500 text-sm">
+                    <th scope="col" className="px-6 py-4 font-semibold">
+                      Plano
+                    </th>
+                    {comparisonRows.map(row => (
+                      <th
+                        key={row.key}
+                        scope="col"
+                        className="px-6 py-4 font-semibold"
+                      >
+                        {row.label}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {plans.map(plan => (
+                    <tr
+                      key={plan.id}
+                      className={
+                        plan.popular
+                          ? "bg-secondary-50 border-t border-secondary-100"
+                          : "border-t border-gray-100"
+                      }
+                    >
+                      <th
+                        scope="row"
+                        className="px-6 py-5 font-semibold text-gray-900"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          {plan.name}
+                          {plan.popular && (
+                            <span className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                              Mais popular
+                            </span>
+                          )}
+                        </span>
+                      </th>
+                      <td className="px-6 py-5 font-semibold text-gray-900">
+                        {formatEuro(plan.founderPriceEur)} €
+                      </td>
+                      <td className="px-6 py-5 text-gray-400 line-through">
+                        {formatEuro(plan.priceEur)} €
+                      </td>
+                      <td className="px-6 py-5 text-gray-700">
+                        {plan.minutesPerMonth}
+                      </td>
+                      <td className="px-6 py-5 text-gray-700">
+                        {formatEuro(plan.extraMinuteEur)} €
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <a href="/formulario?piloto=1" className="btn-primary inline-flex">
-              Entrar no piloto
-            </a>
           </div>
         </motion.div>
       </div>
