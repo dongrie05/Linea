@@ -33,6 +33,8 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          # Pages fica em /Linea. A Vercel não define BASE_PATH e publica na raiz.
+          BASE_PATH: /Linea
 
       - name: Add .nojekyll (GitHub Pages)
         run: touch out/.nojekyll
