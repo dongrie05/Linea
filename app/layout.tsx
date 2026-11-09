@@ -3,10 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AnimationFallback from "@/components/AnimationFallback";
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
+import { siteUrl } from "@/lib/site-url";
 
 const inter = Inter({ subsets: ["latin"] });
-
-const siteUrl = "https://dongrie05.github.io/Linea";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

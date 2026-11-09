@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/lib/site-url";
+
+const formularioUrl = `${siteUrl}/formulario/`;
 
 export const metadata: Metadata = {
   title: "Contacto - Atendedor de Chamadas IA | Linea Portugal",
@@ -24,13 +27,13 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://dongrie05.github.io/Linea/formulario/",
+    canonical: formularioUrl,
   },
   openGraph: {
     title: "Contacto - Atendedor de Chamadas IA | Linea",
     description:
       "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Configuração em 1 dia!",
-    url: "https://dongrie05.github.io/Linea/formulario/",
+    url: formularioUrl,
     type: "website",
   },
 };
