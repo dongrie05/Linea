@@ -75,8 +75,7 @@ export default function FinalCTA() {
             variants={fadeInUp}
             className="text-xl md:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed"
           >
-            Junte-se a centenas de empresas que já poupam milhares de euros com
-            a Linea. Comece hoje mesmo e veja a diferença em menos de 24 horas.
+            Comece hoje mesmo e veja a diferença em menos de 24 horas.
           </motion.p>
 
           {/* Benefits */}

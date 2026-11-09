@@ -4,7 +4,13 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Phone, Mail, CheckCircle } from "lucide-react";
 import { LEADS_EMAIL, CONTACT_PHONE_WHATSAPP } from "@/lib/contact";
-import { PILOT_SENTENCES, PLANS, formatEuro, type PlanId } from "@/lib/site";
+import {
+  PILOT,
+  PILOT_SENTENCES,
+  PLANS,
+  formatEuro,
+  type PlanId,
+} from "@/lib/site";
 
 export default function FormularioPage() {
   const router = useRouter();
@@ -56,7 +62,7 @@ export default function FormularioPage() {
       mensagem,
     } = formData;
 
-    const message = `🚀 *Nova solicitação - Linea AI*
+    const message = `🚀 *Nova solicitação Linea AI*
 
 *Dados do Cliente:*
 👤 Nome: ${nome}
@@ -157,14 +163,16 @@ Enviado via formulário Linea`;
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              <span className="gradient-text">Atendedor de Chamadas IA</span> -
-              Comece a Poupar Hoje
+              <span className="gradient-text">
+                Atendedor de chamadas com IA.
+              </span>{" "}
+              Comece hoje
             </h1>
             <p className="text-xl text-gray-200 mb-6">
               O melhor <strong>atendedor de chamadas automático</strong> com
-              Inteligência Artificial em Portugal. Preencha o formulário e nossa
-              equipa entrará em contacto em menos de 1 dia para configurar o seu{" "}
-              <strong>atendimento telefónico IA</strong>.
+              Inteligência Artificial em Portugal. Preencha o formulário e a
+              nossa equipa entra em contacto em menos de 1 dia para configurar o
+              seu <strong>atendimento telefónico IA</strong>.
             </p>
             <div className="flex items-center justify-center space-x-6 text-gray-300">
               <div className="flex items-center space-x-2">
@@ -298,7 +306,7 @@ Enviado via formulário Linea`;
                       {plan.popular && (
                         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
                           <span className="bg-secondary-500 text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
-                            Mais Popular
+                            Mais popular
                           </span>
                         </div>
                       )}
@@ -307,13 +315,19 @@ Enviado via formulário Linea`;
                           {plan.name}
                         </h3>
                         <p className="text-2xl font-bold text-primary-600 mb-1">
-                          €{plan.priceEur}/mês
+                          {plan.founderPriceEur} €
+                        </p>
+                        <p className="text-sm text-gray-400 line-through mb-1">
+                          {plan.priceEur} €/mês
+                        </p>
+                        <p className="text-xs font-medium text-primary-700 mb-1">
+                          Preço de fundador, {PILOT.founderMonths} meses
                         </p>
                         <p className="text-sm text-gray-600 mb-1">
                           {plan.minutesPerMonth} minutos
                         </p>
                         <p className="text-sm text-gray-600 mb-3">
-                          Minuto extra: {formatEuro(plan.extraMinuteEur)}€
+                          Minuto extra: {formatEuro(plan.extraMinuteEur)} €
                         </p>
                         {formData.plano === plan.name && (
                           <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center mx-auto">

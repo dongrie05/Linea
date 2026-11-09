@@ -44,6 +44,10 @@ export function formatEuro(amount: number): string {
   return `${whole},${frac}`;
 }
 
+export function euro(amount: number): string {
+  return `${formatEuro(amount)} €`;
+}
+
 function joinPt(parts: string[]): string {
   if (parts.length <= 1) return parts[0] ?? "";
   return `${parts.slice(0, -1).join(", ")} e ${parts[parts.length - 1]}`;
@@ -52,7 +56,7 @@ function joinPt(parts: string[]): string {
 export function listPricesSentence(): string {
   const parts = PLANS.map(
     plan =>
-      `${plan.name} a ${plan.priceEur}€/mês com ${plan.minutesPerMonth} minutos`
+      `${plan.name} a ${euro(plan.priceEur)}/mês com ${plan.minutesPerMonth} minutos`
   );
   return `${joinPt(parts)}.`;
 }
@@ -60,7 +64,7 @@ export function listPricesSentence(): string {
 export function extraMinuteSentence(): string {
   const groups = new Map<string, string[]>();
   for (const plan of PLANS) {
-    const amount = `${formatEuro(plan.extraMinuteEur)}€`;
+    const amount = euro(plan.extraMinuteEur);
     const names = groups.get(amount) ?? [];
     names.push(plan.name);
     groups.set(amount, names);
@@ -79,14 +83,14 @@ export function extraMinuteSentence(): string {
 
 export function founderPricesSentence(): string {
   const parts = PLANS.map(
-    plan => `${plan.name} a ${plan.founderPriceEur}€/mês`
+    plan => `${plan.name} a ${euro(plan.founderPriceEur)}/mês`
   );
   return `${joinPt(parts)}.`;
 }
 
 export const PILOT_SENTENCES = [
   "Duas semanas grátis.",
-  `A caução é de ${PILOT.depositEur}€. É devolvida se avançar para um plano.`,
+  `A caução é de ${PILOT.depositEur} €. É devolvida se avançar para um plano.`,
   `Quem entra no piloto fica com o preço de fundador. O desconto é de ${PILOT.founderDiscountPercent}% e mantém-se fixo durante ${PILOT.founderMonths} meses.`,
   founderPricesSentence(),
 ] as const;

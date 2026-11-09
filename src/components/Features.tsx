@@ -44,7 +44,7 @@ export default function Features() {
     {
       icon: DollarSign,
       title: "Redução de Custos",
-      description: "Até 5x mais barato que um telefonista humano.",
+      description: "Planos mensais com minutos incluídos.",
       color: "from-emerald-500 to-emerald-600",
       bgColor: "bg-emerald-50",
       iconColor: "text-emerald-600",

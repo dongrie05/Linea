@@ -20,7 +20,7 @@ export default function BusinessSummary() {
       icon: Users,
       title: "Quem Somos",
       description:
-        "Linea - Primeira empresa portuguesa especializada em atendimento telefónico com Inteligência Artificial",
+        "Linea, primeira empresa portuguesa especializada em atendimento telefónico com Inteligência Artificial",
     },
     {
       icon: Phone,
@@ -37,7 +37,7 @@ export default function BusinessSummary() {
     {
       icon: Euro,
       title: "Preços",
-      description: `${listPricesSentence()} ${extraMinuteSentence()} ${PILOT_SENTENCES.join(" ")} Poupe até 70% comparado com atendimento humano (1200€/mês).`,
+      description: `${listPricesSentence()} ${extraMinuteSentence()} ${PILOT_SENTENCES.join(" ")}`,
     },
     {
       icon: MapPin,
@@ -49,7 +49,7 @@ export default function BusinessSummary() {
       icon: CheckCircle,
       title: "Tempo de Implementação",
       description:
-        "Sistema configurado e ativo em 1 dia. Sem necessidade de instalação - funciona com linha telefónica existente",
+        "Sistema configurado e ativo em 1 dia. Sem necessidade de instalação. Funciona com a linha telefónica existente",
     },
   ];
 

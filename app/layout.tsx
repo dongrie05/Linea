@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
-  description: `Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Piloto de duas semanas, com caução de ${PILOT.depositEur}€.`,
+  description: `Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Piloto de duas semanas, com caução de ${PILOT.depositEur} €. Preço de fundador com ${PILOT.founderDiscountPercent}% de desconto durante ${PILOT.founderMonths} meses.`,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title:
       "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
     description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento telefónico automático 24/7. Resposta em 2 segundos.",
+      "Linea, o melhor atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Resposta em 2 segundos. Preço de fundador durante 12 meses.",
     url: siteUrl,
     siteName: "Linea",
     type: "website",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas",
     description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento automático 24/7.",
+      "Linea, o melhor atendedor de chamadas com IA em Portugal. Atendimento automático 24/7. Preço de fundador durante 12 meses.",
     images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {
@@ -96,7 +96,7 @@ export default function RootLayout({
     "@type": "SoftwareApplication",
     name: "Linea - Atendedor de Chamadas com IA | Atendimento Telefónico Automático",
     description:
-      "Linea é o melhor atendedor de chamadas automático com Inteligência Artificial em Portugal. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe até 70% em custos de atendimento.",
+      "Linea é o melhor atendedor de chamadas automático com Inteligência Artificial em Portugal. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Preço de fundador durante 12 meses.",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: siteUrl,
@@ -132,9 +132,9 @@ export default function RootLayout({
     offers: PLANS.map(plan => ({
       "@type": "Offer",
       name: `${plan.name}. Atendedor de chamadas`,
-      price: String(plan.priceEur),
+      price: String(plan.founderPriceEur),
       priceCurrency: "EUR",
-      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês durante ${PILOT.founderMonths} meses, para quem entra no piloto.`,
+      description: `Preço de fundador ${formatEuro(plan.founderPriceEur)} € por mês durante ${PILOT.founderMonths} meses. Preço normal ${formatEuro(plan.priceEur)} € por mês. ${plan.minutesPerMonth} minutos incluídos. Minuto extra ${formatEuro(plan.extraMinuteEur)} €.`,
       availability: "https://schema.org/InStock",
     })),
     featureList: [
@@ -143,7 +143,6 @@ export default function RootLayout({
       "Português natural",
       "Agendamento automático",
       "Encaminhamento inteligente",
-      "Relatórios detalhados",
       "Configuração em 1 dia",
       "Suporte técnico português",
     ],

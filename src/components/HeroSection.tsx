@@ -11,12 +11,20 @@ import {
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { motionDuration, tapScale } from "@/lib/motion";
 import Hero3D from "@/components/hero/Hero3D";
+import { PILOT } from "@/lib/site";
 
-const trustItems = ["Sem compromisso", "Configuração em 1 dia", "Suporte 24/7"];
+const trustItems = [
+  "Sem compromisso",
+  "Configuração em 1 dia",
+  "Piloto de duas semanas",
+];
 const stats = [
   { value: "2s", label: "Tempo médio de resposta" },
   { value: "24/7", label: "Atendimento contínuo" },
-  { value: "-70%", label: "Redução média de custo" },
+  {
+    value: `${PILOT.founderDiscountPercent}%`,
+    label: `Desconto de fundador, ${PILOT.founderMonths} meses`,
+  },
 ];
 
 export default function HeroSection() {

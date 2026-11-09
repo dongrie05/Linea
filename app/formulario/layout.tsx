@@ -6,7 +6,7 @@ const formularioUrl = `${siteUrl}/formulario/`;
 export const metadata: Metadata = {
   title: "Contacto - Atendedor de Chamadas IA | Linea Portugal",
   description:
-    "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Entre em contacto com a Linea - o melhor atendedor de chamadas automático. Configuração em 1 dia!",
+    "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Entre em contacto com a Linea, o melhor atendedor de chamadas automático. Configuração em 1 dia!",
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",

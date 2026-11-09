@@ -18,14 +18,14 @@ export default function ProblemSolution() {
 
   const problemPoints = [
     { icon: Clock, text: "Perde clientes por não atender a tempo" },
-    { icon: DollarSign, text: "Contratar telefonista custa 1200€/mês" },
+    { icon: DollarSign, text: "Um telefonista humano é um custo fixo mensal" },
     { icon: Users, text: "Funcionários limitados por horários" },
     { icon: X, text: "Chamadas perdidas = receita perdida" },
   ];
 
   const solutionPoints = [
     { icon: CheckCircle, text: "Atendimento 24/7 sem interrupções" },
-    { icon: DollarSign, text: "Custa até 5x menos que um funcionário" },
+    { icon: DollarSign, text: "Planos mensais com minutos incluídos" },
     { icon: Zap, text: "Resposta instantânea em segundos" },
     { icon: CheckCircle, text: "Nunca mais perde uma chamada" },
   ];
@@ -118,7 +118,9 @@ export default function ProblemSolution() {
                 <p className="text-red-700 font-semibold">
                   Telefonista stressado
                   <br />
-                  <span className="text-sm text-red-600">Custo: 1200€/mês</span>
+                  <span className="text-sm text-red-600">
+                    Custo fixo mensal
+                  </span>
                 </p>
               </motion.div>
             </motion.div>
@@ -194,7 +196,7 @@ export default function ProblemSolution() {
                   IA Eficiente 24/7
                   <br />
                   <span className="text-sm text-secondary-600">
-                    Custo: até 5x menos
+                    Minutos incluídos no plano
                   </span>
                 </p>
               </motion.div>
