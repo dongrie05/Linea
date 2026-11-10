@@ -117,17 +117,8 @@ export function HomePage() {
       <SiteNav />
       <main id="top">
         <section className="hero" aria-labelledby="hero-h">
-          <div className="hero__bg" aria-hidden="true">
-            <span className="hero__aurora hero__aurora--a" />
-            <span className="hero__aurora hero__aurora--b" />
-            <span className="hero__grid" />
-          </div>
           <div className="wrap hero__inner" id="conteudo">
             <div className="hero__text">
-              <p className="pill hero__pill">
-                <span className="dot dot--live" aria-hidden="true" />
-                Atendimento telefónico com IA, em português
-              </p>
               <h1 id="hero-h" className="hero__title">
                 {"Atendemos sempre.".split(" ").map((w, i) => (
                   <span className="word" key={w}>
