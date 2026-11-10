@@ -78,7 +78,7 @@ export function LeadForm() {
         />
       </div>
       <div className="field--full form__foot">
-        <button className="btn btn--primary" type="submit">
+        <button className="btn btn--primary btn--lg" type="submit">
           Experimentar a Linea
           <ArrowIcon />
         </button>

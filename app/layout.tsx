@@ -150,12 +150,10 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="pt" className={`${mona.variable} m-enter`} data-type="software">
+    <html lang="pt" className={mona.variable}>
       <head>
         <link rel="canonical" href={`${siteUrl}/`} />
         <meta name="theme-color" content="#0A0C10" />
-        <meta name="site-kind" content="software" />
-        <meta name="page-type" content="software" />
         <meta name="geo.region" content="PT" />
         <meta name="geo.placename" content="Portugal" />
         <meta name="language" content="Portuguese" />
