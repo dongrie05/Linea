@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
@@ -81,8 +82,30 @@ export function HomePage() {
                 <div
                   className="voice-orb"
                   role="img"
-                  aria-label="Orbe de voz da Linea, azul sobre o fundo escuro"
-                />
+                  aria-label="Orbe de voz da Linea, a ouvir a chamada"
+                >
+                  <span className="voice-orb__ring" aria-hidden="true" />
+                  <span className="voice-orb__ring" aria-hidden="true" />
+                  <span className="voice-orb__ring" aria-hidden="true" />
+                  <span className="voice-orb__glow" aria-hidden="true" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="voice-orb__img"
+                    src="/brand/orb.png"
+                    alt=""
+                    width={103}
+                    height={88}
+                  />
+                </div>
+                <div className="voice-bars" aria-hidden="true">
+                  {Array.from({ length: 9 }, (_, i) => (
+                    <span key={i} style={{ "--i": i } as CSSProperties} />
+                  ))}
+                </div>
+                <p className="voice-status">
+                  <span className="voice-status__dot" aria-hidden="true" />A
+                  ouvir…
+                </p>
               </div>
             </div>
           </div>

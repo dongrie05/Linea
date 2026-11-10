@@ -1,22 +1,14 @@
 export function LogoMark({ size = 28 }: { size?: number }) {
   return (
-    <svg
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       className="logo-mark"
+      src="/brand/logo.png"
       width={size}
       height={size}
-      viewBox="0 0 32 32"
+      alt=""
       aria-hidden="true"
-    >
-      <circle cx="16" cy="16" r="16" fill="#2F7DEB" />
-      <path
-        d="M6.5 16.2c1.6 0 2.2-6.4 4.6-6.4 2.5 0 2.8 12.6 5.4 12.6 2.6 0 2.9-12.6 5.4-12.6 2.2 0 2.8 6.4 4.2 6.4"
-        fill="none"
-        stroke="#fff"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    />
   );
 }
 

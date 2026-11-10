@@ -226,6 +226,7 @@ export default function RootLayout({
         <script type="module" src="/assets/layout/layout.js" />
         <script type="module" src="/assets/ui/ui.js" />
         <script type="module" src="/assets/diagrams/mount.js" />
+        <script type="module" src="/assets/reveal.js" />
       </body>
     </html>
   );
