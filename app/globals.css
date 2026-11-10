@@ -510,21 +510,6 @@ p {
   filter: blur(16px);
   animation: orb-glow 4s ease-in-out infinite;
 }
-.orb__ring {
-  position: absolute;
-  inset: 14%;
-  border-radius: 50%;
-  border: 1px solid rgba(198, 243, 255, 0.45);
-  opacity: 0;
-  animation: orb-ring 4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-}
-.orb__ring:nth-child(2) {
-  animation-delay: 1.33s;
-}
-.orb__ring:nth-child(3) {
-  animation-delay: 2.66s;
-}
-.orb--sm .orb__ring,
 .orb--sm .orb__glow {
   inset: -10%;
 }
@@ -1985,16 +1970,6 @@ html.motion-on .pilot.is-in .pilot__facts div {
   50% {
     opacity: 1;
     transform: scale(1.08);
-  }
-}
-@keyframes orb-ring {
-  0% {
-    opacity: 0.7;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.75);
   }
 }
 @keyframes bar {

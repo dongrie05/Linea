@@ -17,9 +17,6 @@ export function LogoMark({ size = 28 }: { size?: number }) {
 export function Orb({ size = "lg" }: { size?: "lg" | "sm" }) {
   return (
     <span className={`orb orb--${size}`} aria-hidden="true">
-      <span className="orb__ring" />
-      <span className="orb__ring" />
-      <span className="orb__ring" />
       <span className="orb__glow" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="orb__img" src={asset("/brand/orb.png")} alt="" />
