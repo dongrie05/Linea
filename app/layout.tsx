@@ -12,7 +12,7 @@ export const metadata: Metadata = {
       "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
-  description: `Atendedor de chamadas para empresas em Portugal. A Linea atende, responde em português e regista a marcação ou o recado. Planos desde 99€ por mês. Piloto de duas semanas, com caução de ${PILOT.depositEur}€.`,
+  description: `A Linea atende o telefone, marca consultas e envia a confirmação por SMS. De dia e de noite. Planos desde 99€ por mês.`,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
@@ -149,13 +149,12 @@ export default function RootLayout({
       data-type="software"
       suppressHydrationWarning
       data-radius="soft"
-      data-ground="sage"
       data-buttons="pill"
       data-motion=""
     >
       <head>
         <link rel="canonical" href={`${siteUrl}/`} />
-        <meta name="theme-color" content="#161c1a" />
+        <meta name="theme-color" content="#0A0C10" />
         <meta name="site-kind" content="software" />
         <meta name="page-type" content="software" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -165,7 +164,7 @@ export default function RootLayout({
           crossOrigin=""
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wdth,wght@85..100,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+          href="https://cdn.jsdelivr.net/fontsource/css/mona-sans:vf@5.2.5/latin-wght-normal.min.css"
           rel="stylesheet"
         />
         <link rel="stylesheet" href="/assets/system.css" />
@@ -189,17 +188,19 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href="/assets/page.css" />
         <style>{`:root {
-  --p-bg: #161c1a; --p-surface: #1f2725; --p-ink: #e3e2da; --p-muted: #8e948d;
-  --p-accent: #9fc7b8; --p-accent-ink: #161c1a; --p-action: #9fc7b8; --p-action-ink: #161c1a;
-  --p-inv-bg: #e3e2da; --p-inv-surface: #d3d2cb; --p-inv-ink: #161c1a; --p-inv-muted: #555a55;
-  --p-inv-accent: #161c1a; --p-inv-accent-ink: #e3e2da; --p-inv-action: #161c1a; --p-inv-action-ink: #e3e2da;
-  --font-display: "IBM Plex Sans", system-ui, sans-serif;
-  --font-text: "IBM Plex Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --display-weight: 500;
-  --display-tracking: -0.025em;
+  --p-bg: #0A0C10; --p-surface: #0F1217; --p-ink: #F2F4F8; --p-muted: #9AA3B5;
+  --p-accent: #2F7DEB; --p-accent-ink: #F2F4F8; --p-action: #5B9BF0; --p-action-ink: #0A0C10;
+  --p-inv-bg: #F2F4F8; --p-inv-surface: #E6E9EF; --p-inv-ink: #0A0C10; --p-inv-muted: #5C6574;
+  --p-inv-accent: #2F7DEB; --p-inv-accent-ink: #F2F4F8; --p-inv-action: #2F7DEB; --p-inv-action-ink: #F2F4F8;
+  --p-line: #1C212B; --p-elevated: #141821; --p-voice: #C6F3FF;
+  --p-success: #3DD68C; --p-warning: #FFB547; --p-error: #FF686B;
+  --font-display: "Mona Sans", system-ui, sans-serif;
+  --font-text: "Mona Sans", system-ui, sans-serif;
+  --font-mono: "Mona Sans", system-ui, sans-serif;
+  --display-weight: 650;
+  --display-tracking: -0.03em;
   --display-tracking-xl: -0.035em;
-  --ly-scale: 0.98;
+  --ly-scale: 1;
 }`}</style>
         <script
           dangerouslySetInnerHTML={{

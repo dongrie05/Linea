@@ -95,7 +95,7 @@ export function LeadForm() {
       </div>
       <div className="btn-row">
         <button className="btn btn--primary" type="submit">
-          Pedir demonstração
+          Experimentar a Linea
         </button>
       </div>
       <p className="form__status" role="status" data-form-status />

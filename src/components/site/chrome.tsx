@@ -1,4 +1,6 @@
-const ACTION = "Pedir demonstração";
+import { LogoMark, PhoneIcon } from "@/components/site/logo";
+
+const ACTION = "Experimentar a Linea";
 
 export function SiteNav({ home = "" }: { home?: string }) {
   const to = (id: string) => `${home}#${id}`;
@@ -9,9 +11,7 @@ export function SiteNav({ home = "" }: { home?: string }) {
           Saltar para o conteúdo
         </a>
         <a className="nav__logo" href={home || "#top"}>
-          <span className="mark mark--initial" aria-hidden="true">
-            L
-          </span>
+          <LogoMark />
           Linea
         </a>
         <nav className="nav__links" aria-label="Secções">
@@ -67,6 +67,7 @@ export function SiteNav({ home = "" }: { home?: string }) {
         </nav>
         <div className="nav__actions">
           <a className="btn btn--primary" href={to("pedido")}>
+            <PhoneIcon />
             {ACTION}
           </a>
         </div>
@@ -98,17 +99,14 @@ export function SiteFooter({ home = "" }: { home?: string }) {
         <div className="closing__cta close--word">
           <div className="section-head--split">
             <div>
-              <h2 id="close-h">Peça a demonstração da Linea</h2>
+              <h2 id="close-h">Experimente a Linea nas suas chamadas</h2>
               <p className="t-lead">
                 Respondemos por email para marcar a chamada de demonstração.
               </p>
             </div>
             <a className="btn btn--primary" href={to("pedido")}>
+              <PhoneIcon />
               {ACTION}
-              <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
-                <path className="m-arrow__stem" d="M1 6h8" />
-                <path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
-              </svg>
             </a>
           </div>
           <p className="close__word" aria-hidden="true">
@@ -119,10 +117,11 @@ export function SiteFooter({ home = "" }: { home?: string }) {
           <div className="grid">
             <div className="span-4 stack-4">
               <a className="nav__logo" href={home || "#top"}>
+                <LogoMark />
                 Linea
               </a>
               <p className="footer__lede">
-                Atendedor de chamadas para empresas em Portugal.
+                Atende o telefone. De dia e de noite.
               </p>
             </div>
             <div className="span-2 footer__col">
@@ -187,6 +186,7 @@ export function ActionBar({ home = "" }: { home?: string }) {
   return (
     <nav className="actionbar" aria-label="Ação rápida">
       <a className="btn btn--primary" href={`${home}#pedido`}>
+        <PhoneIcon />
         {ACTION}
       </a>
     </nav>

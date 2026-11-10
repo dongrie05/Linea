@@ -1,6 +1,7 @@
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
+import { PhoneIcon } from "@/components/site/logo";
 
 const CALLS = [
   ["Clínica", "Marcação de quinta", "Em curso", "2 min"],
@@ -18,11 +19,11 @@ function CallVisual({ label }: { label: string }) {
   return (
     <div className="visual-block" role="img" aria-label={label}>
       <svg viewBox="0 0 800 360" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="800" height="360" fill="#1f2725" />
+        <rect width="800" height="360" fill="#0F1217" />
         <path
           d="M0 200 C 50 200 50 70 100 70 S 150 320 200 320 250 70 300 70 350 320 400 320 450 70 500 70 550 320 600 320 650 70 700 70 750 200 800 200"
           fill="none"
-          stroke="#9fc7b8"
+          stroke="#5B9BF0"
           strokeWidth="10"
         />
       </svg>
@@ -55,74 +56,33 @@ export function HomePage() {
           <div className="wrap">
             <div className="hero-text grid hero__grid">
               <div className="hero__text span-5">
-                <p className="hero__kicker">
-                  <span className="dot" aria-hidden="true" />
-                  Caução de {PILOT.depositEur}€ no piloto
+                <h1 id="hero-h">Atendemos sempre.</h1>
+                <p className="hero__promise">
+                  A sua clínica nunca perde uma chamada.
                 </p>
-                <h1 id="hero-h">Atendedor de chamadas para empresas</h1>
                 <p className="hero__lead">
-                  A Linea atende a chamada, responde em português e regista a
-                  marcação ou o recado. O plano Starter custa 99€ por mês e
-                  inclui 400 minutos.
+                  A Linea atende o telefone, marca consultas e envia a
+                  confirmação por SMS. De dia e de noite.
                 </p>
                 <div className="btn-row">
                   <a className="btn btn--primary" href="#pedido">
-                    Pedir demonstração
+                    <PhoneIcon />
+                    Experimentar a Linea
                   </a>
-                  <a className="btn btn--secondary" href="#precos">
+                  <a className="btn btn--secondary" href="#chamadas">
+                    Ouvir uma chamada
+                  </a>
+                  <a className="link" href="#precos">
                     Ver preços
                   </a>
                 </div>
               </div>
               <div className="hero__media span-6 start-7">
-                <div className="ui ui-panel ui-voice" data-ui="voice">
-                  <div className="ui-voice__top">
-                    <span className="ui-chip ui-chip--ink">Em chamada</span>
-                    <span className="ui-spacer" />
-                    <span className="ui-voice__time" data-voice-time>
-                      00:42
-                    </span>
-                  </div>
-                  <div className="ui-voice__orb" data-voice-orb />
-                  <div className="ui-voice__who">
-                    <span className="ui-voice__name">Linea</span>
-                    <span className="ui-voice__with">com a receção</span>
-                  </div>
-                  <div className="ui-voice__cap" data-voice-cap>
-                    A marcação de quinta fica às 15:30.
-                  </div>
-                  <div className="ui-voice__bar">
-                    <span className="ui-voice__btn" aria-hidden="true">
-                      <svg className="ui-icon" viewBox="0 0 16 16">
-                        <rect x="6" y="2" width="4" height="8" rx="2" />
-                        <path d="M3.5 8a4.5 4.5 0 0 0 9 0M8 12.5V14" />
-                      </svg>
-                    </span>
-                    <span className="ui-voice__wave" aria-hidden="true">
-                      {Array.from({ length: 16 }, (_, i) => (
-                        <i
-                          key={i}
-                          style={{ ["--h" as string]: 6 + ((i * 3) % 12) }}
-                        />
-                      ))}
-                    </span>
-                    <span
-                      className="ui-voice__btn ui-voice__end"
-                      aria-hidden="true"
-                    >
-                      <svg className="ui-icon" viewBox="0 0 16 16">
-                        <path d="M2.2 9.6c3.4-2.6 8.2-2.6 11.6 0l-1.1 1.9-2.5-.9V8.9a7.5 7.5 0 0 0-4.4 0v1.7l-2.5.9z" />
-                      </svg>
-                    </span>
-                  </div>
-                  <div className="ly-float">
-                    <div className="ly-float__row">
-                      <span className="ly-live">Nova</span>
-                      <span>2 s</span>
-                    </div>
-                    <div className="ly-float__title">Chamada atendida</div>
-                  </div>
-                </div>
+                <div
+                  className="voice-orb"
+                  role="img"
+                  aria-label="Orbe de voz da Linea, azul sobre o fundo escuro"
+                />
               </div>
             </div>
           </div>
@@ -361,11 +321,11 @@ export function HomePage() {
                   </p>
                   {plan.id === "Growth" ? (
                     <a className="btn btn--primary" href="#pedido">
-                      Pedir demonstração
+                      Experimentar a Linea
                     </a>
                   ) : (
                     <a className="btn btn--secondary" href="#pedido">
-                      Pedir demonstração
+                      Experimentar a Linea
                     </a>
                   )}
                   <ul>
