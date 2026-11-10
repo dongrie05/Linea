@@ -2,253 +2,290 @@ import type { CSSProperties } from "react";
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
-import { PhoneIcon } from "@/components/site/logo";
+import {
+  ArrowIcon,
+  CheckIcon,
+  LogoMark,
+  Orb,
+  PhoneIcon,
+} from "@/components/site/logo";
+import { SiteMotion } from "@/components/site/motion";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_E164,
+  CONTACT_PHONE_WHATSAPP,
+} from "@/lib/contact";
 
-const CALLS = [
-  ["Clínica", "Marcação de quinta", "Em curso", "2 min"],
-  ["Oficina", "Orçamento de travões", "Em curso", "6 min"],
-  ["Restaurante", "Mesa para seis", "Em curso", "9 min"],
-  ["Clínica", "Cancelar a consulta", "À espera", "14 min"],
-  ["Escritório", "Recado para a sócia", "Fechada", "21 min"],
-  ["Loja", "Horário de sábado", "Fechada", "28 min"],
-  ["Oficina", "Peça em falta", "Fechada", "36 min"],
-  ["Restaurante", "Ementa de grupo", "Fechada", "44 min"],
-  ["Clínica", "Resultado de exame", "À espera", "51 min"],
+const d = (i: number) => ({ "--i": i }) as CSSProperties;
+
+const HERO_CALL = [
+  ["in", "Boa tarde, queria marcar uma consulta para quinta."],
+  ["out", "Claro. Quinta tem vaga às 15:30. Pode ser?"],
+  ["in", "Pode, obrigado."],
+  ["out", "Fica marcado. Vai receber a confirmação por SMS."],
 ] as const;
 
-function CallVisual({ label }: { label: string }) {
+const CALLS = [
+  ["Clínica", "Marcação de quinta", "Em curso", "agora"],
+  ["Oficina", "Orçamento de travões", "Marcado", "6 min"],
+  ["Restaurante", "Mesa para seis", "Marcado", "9 min"],
+  ["Clínica", "Cancelar a consulta", "Recado", "14 min"],
+  ["Escritório", "Recado para a sócia", "Recado", "21 min"],
+  ["Loja", "Horário de sábado", "Respondida", "28 min"],
+] as const;
+
+const SECTORS = [
+  "Clínicas",
+  "Clínicas dentárias",
+  "Oficinas",
+  "Restaurantes",
+  "Escritórios",
+  "Lojas",
+  "Cabeleireiros",
+  "Fisioterapia",
+];
+
+const STEPS = [
+  {
+    n: "01",
+    title: "Recebe a chamada",
+    text: "A chamada entra no número que a empresa já usa. Não muda nada para quem liga.",
+  },
+  {
+    n: "02",
+    title: "Responde em português",
+    text: "A Linea pergunta o nome e o motivo, consulta a agenda e responde ao que lhe perguntam.",
+  },
+  {
+    n: "03",
+    title: "Regista e confirma",
+    text: "A marcação ou o recado fica no painel e no email. Quem ligou recebe a confirmação por SMS.",
+  },
+];
+
+const DESTINATIONS = [
+  ["Agenda", "A consulta fica marcada"],
+  ["SMS", "Quem ligou recebe a confirmação"],
+  ["Email", "O recado chega à equipa"],
+] as const;
+
+const STATEMENT =
+  "Enquanto atende um cliente, a Linea atende o próximo. Percebe o que a pessoa precisa, marca e deixa tudo registado.";
+
+const FAQ = [
+  [
+    "Posso cancelar quando quiser?",
+    "Sim. O cancelamento fica disponível a qualquer momento.",
+  ],
+  [
+    "O que conta num minuto de chamada?",
+    "Conta o tempo da chamada atendida. O minuto extra custa o valor do plano.",
+  ],
+  [
+    "A caução cobre as chamadas do piloto?",
+    `A caução é de ${PILOT.depositEur}€ e é devolvida se avançar para um plano.`,
+  ],
+  [
+    "A Linea substitui a equipa?",
+    "Atende quando ninguém atende. Não substitui uma decisão que só uma pessoa da empresa pode tomar.",
+  ],
+  ["Em que língua responde?", "Em português, no número da empresa."],
+] as const;
+
+function SectionHead({
+  id,
+  eyebrow,
+  title,
+  text,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  text?: string;
+}) {
   return (
-    <div className="visual-block" role="img" aria-label={label}>
-      <svg viewBox="0 0 800 360" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="800" height="360" fill="#0F1217" />
-        <path
-          d="M0 200 C 50 200 50 70 100 70 S 150 320 200 320 250 70 300 70 350 320 400 320 450 70 500 70 550 320 600 320 650 70 700 70 750 200 800 200"
-          fill="none"
-          stroke="#5B9BF0"
-          strokeWidth="10"
-        />
-      </svg>
+    <div className="head" data-reveal>
+      <p className="eyebrow">{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      {text ? <p className="head__text">{text}</p> : null}
     </div>
   );
 }
 
-const FLOW = {
-  layout: "lanes",
-  alt: "Uma chamada entra na Linea, que marca na agenda, envia o recado e avisa a equipa.",
-  input: { label: "Chamada", icon: "text:Ch", sub: "Número da empresa" },
-  core: { label: "Linea", icon: "text:Li" },
-  lanes: [
-    { label: "Marcação", icon: "text:Ag", done: true, sub: "Agenda" },
-    { label: "Recado", icon: "text:Em", done: true, sub: "Email" },
-    { label: "Aviso", icon: "text:Eq", done: true, sub: "Equipa" },
-  ],
-};
-
 export function HomePage() {
   return (
     <>
+      <SiteMotion />
       <SiteNav />
       <main id="top">
-        <section
-          className="hero hero--split"
-          data-enter
-          aria-labelledby="hero-h"
-        >
-          <div className="wrap">
-            <div className="hero-text grid hero__grid">
-              <div className="hero__text span-5">
-                <h1 id="hero-h">Atendemos sempre.</h1>
-                <p className="hero__promise">
-                  A sua clínica nunca perde uma chamada.
-                </p>
-                <p className="hero__lead">
-                  A Linea atende o telefone, marca consultas e envia a
-                  confirmação por SMS. De dia e de noite.
-                </p>
-                <div className="btn-row">
-                  <a className="btn btn--primary" href="#pedido">
-                    <PhoneIcon />
-                    Experimentar a Linea
-                  </a>
-                  <a className="btn btn--secondary" href="#chamadas">
-                    Ouvir uma chamada
-                  </a>
-                  <a className="link" href="#precos">
-                    Ver preços
-                  </a>
-                </div>
-              </div>
-              <div className="hero__media span-6 start-7">
-                <div
-                  className="voice-orb"
-                  role="img"
-                  aria-label="Orbe de voz da Linea, a ouvir a chamada"
-                >
-                  <span className="voice-orb__ring" aria-hidden="true" />
-                  <span className="voice-orb__ring" aria-hidden="true" />
-                  <span className="voice-orb__ring" aria-hidden="true" />
-                  <span className="voice-orb__glow" aria-hidden="true" />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    className="voice-orb__img"
-                    src="/brand/orb.png"
-                    alt=""
-                    width={103}
-                    height={88}
-                  />
-                </div>
-                <div className="voice-bars" aria-hidden="true">
-                  {Array.from({ length: 9 }, (_, i) => (
-                    <span key={i} style={{ "--i": i } as CSSProperties} />
-                  ))}
-                </div>
-                <p className="voice-status">
-                  <span className="voice-status__dot" aria-hidden="true" />A
-                  ouvir…
-                </p>
-              </div>
-            </div>
+        <section className="hero" aria-labelledby="hero-h">
+          <div className="hero__bg" aria-hidden="true">
+            <span className="hero__aurora hero__aurora--a" />
+            <span className="hero__aurora hero__aurora--b" />
+            <span className="hero__grid" />
           </div>
-        </section>
-
-        <section
-          className="section"
-          id="chamadas"
-          style={{ ["--h" as string]: 1 }}
-          aria-labelledby="chamadas-h"
-        >
-          <div className="wrap">
-            <div className="grid">
-              <h2 className="span-5" id="chamadas-h">
-                Chamadas em aberto
-              </h2>
-              <p className="span-6 start-7">
-                A lista fica à esquerda. A chamada aberta mostra o que foi dito
-                e o que ficou marcado.{" "}
-                <a className="link" href="#passos">
-                  Ver os três passos
+          <div className="wrap hero__inner" id="conteudo">
+            <div className="hero__text">
+              <p className="pill hero__pill">
+                <span className="dot dot--live" aria-hidden="true" />
+                Atendimento telefónico com IA, em português
+              </p>
+              <h1 id="hero-h" className="hero__title">
+                {"Atendemos sempre.".split(" ").map((w, i) => (
+                  <span className="word" key={w}>
+                    <span style={d(i)}>{w}</span>
+                  </span>
+                ))}
+              </h1>
+              <p className="hero__promise">
+                A sua clínica nunca perde uma chamada.
+              </p>
+              <p className="hero__lead">
+                A Linea atende o telefone, marca consultas e envia a confirmação
+                por SMS. De dia e de noite.
+              </p>
+              <div className="hero__actions">
+                <a className="btn btn--primary btn--lg" href="#pedido">
+                  <PhoneIcon />
+                  Experimentar a Linea
                 </a>
+                <a className="btn btn--ghost btn--lg" href="#chamadas">
+                  Ver uma chamada
+                </a>
+              </div>
+              <p className="hero__note">
+                Planos desde 99€ por mês. Piloto de duas semanas.
               </p>
             </div>
-            <div
-              className="ui app fill"
-              role="img"
-              aria-label="Painel da Linea com a lista de chamadas e a chamada da clínica aberta"
-              data-ui-pause-host
-            >
-              <div className="app__pane app__pane--list">
-                <div className="ui ui-panel ui-win" data-ui="window">
-                  <div className="ui-win__bar">
-                    <span className="ui-dots" aria-hidden="true">
-                      <i />
-                      <i />
-                      <i />
-                    </span>
-                    <span className="ui-win__crumb">
-                      Linea <i>/</i> <b>Abertas</b>
-                    </span>
-                  </div>
-                  <div className="ui-win__body">
-                    <nav className="ui-win__side" aria-hidden="true">
-                      <span className="ui-win__nav is-on">
-                        Abertas<em>3</em>
-                      </span>
-                      <span className="ui-win__nav">
-                        À espera<em>2</em>
-                      </span>
-                      <span className="ui-win__nav">Fechadas</span>
-                    </nav>
-                    <div className="ui-win__main">
-                      <div className="ui-win__cols" aria-hidden="true">
-                        <span>Origem</span>
-                        <span>Assunto</span>
-                        <span>Estado</span>
-                        <span>Há</span>
-                      </div>
-                      <ul className="ui-win__rows">
-                        {CALLS.map(row => (
-                          <li
-                            className="ui-win__row"
-                            data-row
-                            key={row.join("-")}
-                          >
-                            <span className="ui-avatar" data-tone="1">
-                              {row[0].slice(0, 2)}
-                            </span>
-                            <span className="ui-win__who">{row[0]}</span>
-                            <span className="ui-win__sub">{row[1]}</span>
-                            <span className="ui-win__st" data-st>
-                              {row[2]}
-                            </span>
-                            <span className="ui-win__age">{row[3]}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+
+            <div className="hero__stage" aria-hidden="true">
+              <Orb />
+              <div className="hero__bars">
+                {Array.from({ length: 13 }, (_, i) => (
+                  <span key={i} style={d(i)} />
+                ))}
               </div>
-              <div className="app__pane app__pane--open" data-ui-loop>
-                <div className="ui ui-panel ui-chat" data-ui="chat">
-                  <div className="ui-head">
-                    <span className="ui-agent" aria-hidden="true" />
-                    <div className="ui-title">Clínica · marcação</div>
-                    <span className="ui-chat__online">Em chamada</span>
-                  </div>
-                  <div className="ui-chat__body">
-                    <div className="ui-chat__day">Hoje, 9:41</div>
-                    <div className="ui-msg ui-msg--me" data-chat-q>
-                      <span className="ui-msg__text">
-                        Queria marcar uma consulta para quinta.
-                      </span>
-                    </div>
-                    <div className="ui-msg ui-msg--bot" data-chat-a>
-                      <span
-                        className="ui-agent ui-msg__av"
-                        aria-hidden="true"
-                      />
-                      <span className="ui-msg__col">
-                        <span className="ui-chat__answer">
-                          Quinta tem vaga às 15:30. Fica registada em nome da
-                          chamada.
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="ui-chat__input">
-                    <span className="ui-chat__ph">Transcrição da chamada</span>
-                  </div>
+              <div className="call-card" data-sequence>
+                <div className="call-card__head">
+                  <span className="dot dot--live" />
+                  <span>Chamada em curso</span>
+                  <span className="call-card__time">00:42</span>
+                </div>
+                <ul className="call-card__lines">
+                  {HERO_CALL.map(([who, text]) => (
+                    <li key={text} className={`bubble bubble--${who}`}>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
+                <div className="call-card__done">
+                  <CheckIcon />
+                  Quinta, 15:30 · SMS enviado
                 </div>
               </div>
             </div>
           </div>
+          <a className="hero__scroll" href="#setores" aria-label="Descer">
+            <span />
+          </a>
         </section>
 
-        <section
-          className="section"
-          id="fluxo"
-          style={{ ["--h" as string]: 1 }}
-          aria-labelledby="fluxo-h"
-        >
+        <section className="marquee" id="setores" aria-label="Para quem">
+          <p className="marquee__label">
+            Para quem não pode largar o que está a fazer para atender
+          </p>
+          <div className="marquee__track" aria-hidden="true">
+            {[0, 1].map(k => (
+              <div className="marquee__row" key={k}>
+                {SECTORS.map(s => (
+                  <span key={s}>
+                    {s}
+                    <i />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+          <p className="sr-only">{SECTORS.join(", ")}.</p>
+        </section>
+
+        <section className="section" id="chamadas" aria-labelledby="chamadas-h">
           <div className="wrap">
-            <h2 id="fluxo-h">Destinos de cada chamada</h2>
-            <p className="measure">
-              A chamada entra no número da empresa. A Linea marca na agenda,
-              envia o recado por email e avisa quem está de serviço.
-            </p>
+            <SectionHead
+              id="chamadas-h"
+              eyebrow="Painel"
+              title="Cada chamada fica registada."
+              text="A lista mostra quem ligou e porquê. A chamada aberta mostra o que foi dito e o que ficou marcado."
+            />
             <div
-              className="fluxo__stage panel"
-              data-fx="grain-gradient"
-              data-fx-seed="7"
-              data-visual
+              className="app"
+              data-reveal
+              role="img"
+              aria-label="Painel da Linea com a lista de chamadas e a chamada da clínica aberta"
             >
-              <div
-                className="dg"
-                data-diagram={JSON.stringify(FLOW)}
-                role="img"
-                aria-label={FLOW.alt}
-              >
-                <CallVisual label="Uma chamada segue para a agenda, o email e a equipa" />
+              <div className="app__bar" aria-hidden="true">
+                <span className="app__dots">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span className="app__crumb">
+                  Linea <i>/</i> <b>Chamadas de hoje</b>
+                </span>
+              </div>
+              <div className="app__body" aria-hidden="true">
+                <ul className="app__list">
+                  {CALLS.map((row, i) => (
+                    <li
+                      key={row.join("-")}
+                      className={`app__row${i === 0 ? " is-on" : ""}`}
+                      style={d(i)}
+                    >
+                      <span className="avatar">{row[0].slice(0, 2)}</span>
+                      <span className="app__who">
+                        <b>{row[0]}</b>
+                        <span>{row[1]}</span>
+                      </span>
+                      <span
+                        className={`tag tag--${row[2] === "Em curso" ? "live" : row[2] === "Marcado" ? "ok" : "muted"}`}
+                      >
+                        {row[2]}
+                      </span>
+                      <span className="app__age">{row[3]}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="app__open">
+                  <div className="app__open-head">
+                    <Orb size="sm" />
+                    <div>
+                      <b>Clínica · marcação</b>
+                      <span>
+                        <span className="dot dot--live" /> Em chamada
+                      </span>
+                    </div>
+                  </div>
+                  <div className="app__chat" data-sequence>
+                    <p className="app__day">Hoje, 9:41</p>
+                    <p className="bubble bubble--in">
+                      Queria marcar uma consulta para quinta.
+                    </p>
+                    <p className="bubble bubble--out">
+                      Quinta tem vaga às 15:30. Fica registada em nome da
+                      chamada.
+                    </p>
+                    <p className="bubble bubble--in">Perfeito, obrigado.</p>
+                    <div className="app__result">
+                      <span className="tag tag--ok">
+                        <CheckIcon /> Marcado quinta, 15:30
+                      </span>
+                      <span className="tag tag--ok">
+                        <CheckIcon /> SMS enviado
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -257,221 +294,312 @@ export function HomePage() {
         <section
           className="section"
           id="passos"
-          style={{ ["--h" as string]: 1 }}
           aria-labelledby="passos-h"
+          data-progress
         >
           <div className="wrap">
-            <div className="section-head">
-              <h2 id="passos-h">Passos de cada chamada</h2>
-              <p>O número da empresa não muda. Muda quem atende.</p>
-            </div>
-            <div className="grid">
-              <article className="card card--row span-4">
-                <span className="step-num">1</span>
-                <h3>Recebe a chamada</h3>
-                <p>A chamada entra no número que a empresa já usa.</p>
-                <div className="ui ui-panel" data-ui="checklist">
-                  <p>Número da empresa</p>
-                </div>
-              </article>
-              <article className="card card--row span-4">
-                <span className="step-num">2</span>
-                <h3>Responde à chamada</h3>
-                <p>A Linea pergunta o nome e o motivo da chamada.</p>
-                <div className="ui ui-panel" data-ui="checklist">
-                  <p>Resposta em português</p>
-                </div>
-              </article>
-              <article className="card card--row span-4">
-                <span className="step-num">3</span>
-                <h3>Regista a chamada</h3>
-                <p>A marcação ou o recado fica no painel e no email.</p>
-                <div className="ui ui-panel" data-ui="checklist">
-                  <p>Recado no painel</p>
-                </div>
-              </article>
-            </div>
-            <CallVisual label="A chamada passa do número da empresa para o recado" />
-          </div>
-        </section>
-
-        <section
-          className="section"
-          id="marca"
-          data-moment="letters-assemble"
-          style={{ ["--h" as string]: 1 }}
-          aria-label="Atende a chamada"
-        >
-          <div className="wrap">
-            <h2 className="mo-la__type">Atende as chamadas</h2>
-            <p>A Linea fala com quem liga e deixa o resultado à equipa.</p>
-          </div>
-        </section>
-
-        <section
-          className="section"
-          id="precos"
-          style={{ ["--h" as string]: 1 }}
-          aria-labelledby="precos-h"
-        >
-          <div className="wrap">
-            <div className="section-head">
-              <h2 id="precos-h">Preços das chamadas</h2>
-              <p>
-                Três planos. O minuto extra muda com o plano. Sem taxa de setup.
-              </p>
-            </div>
-            <div className="grid">
-              {PLANS.map(plan => (
-                <article
-                  key={plan.id}
-                  className={`card card--plan span-4${plan.id === "Growth" ? " is-featured" : ""}`}
-                >
-                  {plan.id === "Growth" ? (
-                    <span className="badge">Mais pedido</span>
-                  ) : null}
-                  <h3>Plano {plan.name}</h3>
-                  <div className="ui ui-panel" data-ui="stat">
-                    <p>{plan.minutesPerMonth} minutos</p>
-                  </div>
-                  <p>
-                    {plan.minutesPerMonth} minutos por mês. Minuto extra a{" "}
-                    {formatEuro(plan.extraMinuteEur)}€.
-                  </p>
-                  <p className="price">
-                    <span data-monthly={plan.priceEur}>{plan.priceEur}€</span>
-                    <span>/mês</span>
-                  </p>
-                  {plan.id === "Growth" ? (
-                    <a className="btn btn--primary" href="#pedido">
-                      Experimentar a Linea
-                    </a>
-                  ) : (
-                    <a className="btn btn--secondary" href="#pedido">
-                      Experimentar a Linea
-                    </a>
-                  )}
-                  <ul>
-                    <li>{plan.minutesPerMonth} minutos incluídos</li>
-                    <li>Minuto extra a {formatEuro(plan.extraMinuteEur)}€</li>
-                    <li>
-                      Preço de fundador {plan.founderPriceEur}€ por mês no
-                      piloto
-                    </li>
-                  </ul>
-                </article>
+            <SectionHead
+              id="passos-h"
+              eyebrow="Como funciona"
+              title="O número não muda. Muda quem atende."
+            />
+            <ol className="steps">
+              <span className="steps__line" aria-hidden="true">
+                <span />
+              </span>
+              {STEPS.map((s, i) => (
+                <li className="step" key={s.n} data-reveal style={d(i)}>
+                  <span className="step__n">{s.n}</span>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </li>
               ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="section" id="fluxo" aria-labelledby="fluxo-h">
+          <div className="wrap">
+            <SectionHead
+              id="fluxo-h"
+              eyebrow="Destinos"
+              title="Cada chamada chega ao sítio certo."
+              text="A chamada entra no número da empresa. A Linea marca na agenda, confirma por SMS e envia o recado por email a quem está de serviço."
+            />
+            <div
+              className="flow"
+              data-reveal
+              role="img"
+              aria-label="Uma chamada entra na Linea, que marca na agenda, envia o SMS e o recado por email."
+            >
+              <div className="flow__node flow__node--in">
+                <span className="flow__icon">
+                  <PhoneIcon />
+                </span>
+                <b>Chamada</b>
+                <span>Número da empresa</span>
+              </div>
+              <svg
+                className="flow__wire flow__wire--in"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path d="M0 5 H100" />
+                <path className="flow__pulse" d="M0 5 H100" />
+              </svg>
+              <div className="flow__core">
+                <Orb size="sm" />
+                <b>Linea</b>
+              </div>
+              <svg
+                className="flow__wire flow__wire--out"
+                viewBox="0 0 100 120"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path d="M0 60 C 50 60 50 10 100 10" />
+                <path d="M0 60 H100" />
+                <path d="M0 60 C 50 60 50 110 100 110" />
+                <path className="flow__pulse" d="M0 60 C 50 60 50 10 100 10" />
+                <path className="flow__pulse" d="M0 60 H100" />
+                <path
+                  className="flow__pulse"
+                  d="M0 60 C 50 60 50 110 100 110"
+                />
+              </svg>
+              <div className="flow__outs">
+                {DESTINATIONS.map(([t, s], i) => (
+                  <div
+                    className="flow__node flow__node--out"
+                    key={t}
+                    style={d(i)}
+                  >
+                    <span className="flow__check">
+                      <CheckIcon />
+                    </span>
+                    <b>{t}</b>
+                    <span>{s}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <CallVisual label="Os três planos medem-se em minutos de chamada" />
           </div>
         </section>
 
         <section
-          className="section ground-inverse"
-          id="piloto"
-          data-moment="line-carries-colour"
-          data-moment-opts='{"from":"base"}'
-          style={{ ["--h" as string]: 1 }}
-          aria-labelledby="piloto-h"
+          className="statement"
+          id="marca"
+          aria-label="O que a Linea faz"
+          data-words
         >
           <div className="wrap">
-            <h2 id="piloto-h">Piloto das chamadas</h2>
-            <div className="rows">
-              <div className="row">
-                <b>Duração</b>
-                <span>Duas semanas</span>
-              </div>
-              <div className="row">
-                <b>Caução</b>
-                <span>
-                  {PILOT.depositEur}€, devolvida se avançar para um plano
-                </span>
-              </div>
-              <div className="row">
-                <b>Preço de fundador</b>
-                <span>
-                  Desconto de {PILOT.founderDiscountPercent}% durante{" "}
-                  {PILOT.founderMonths} meses
-                </span>
-              </div>
-              <div className="row">
-                <b>Valores</b>
-                <span>
+            <p className="statement__text">
+              {STATEMENT.split(" ").map((w, i) => (
+                <span key={`${w}-${i}`}>{w} </span>
+              ))}
+            </p>
+          </div>
+        </section>
+
+        <section className="section" id="precos" aria-labelledby="precos-h">
+          <div className="wrap">
+            <SectionHead
+              id="precos-h"
+              eyebrow="Preços"
+              title="Três planos. Sem taxa de setup."
+              text="Paga pelos minutos atendidos. O minuto extra muda com o plano."
+            />
+            <div className="plans">
+              {PLANS.map((plan, i) => {
+                const featured = plan.id === "Growth";
+                return (
+                  <article
+                    key={plan.id}
+                    className={`plan spot${featured ? " plan--featured" : ""}`}
+                    data-reveal
+                    style={d(i)}
+                  >
+                    <div className="plan__top">
+                      <h3>{plan.name}</h3>
+                      {featured ? (
+                        <span className="tag tag--accent">Mais pedido</span>
+                      ) : null}
+                    </div>
+                    <p className="plan__price">
+                      <span data-count={plan.priceEur}>{plan.priceEur}</span>
+                      <span className="plan__cur">€</span>
+                      <span className="plan__per">/mês</span>
+                    </p>
+                    <p className="plan__founder">
+                      {plan.founderPriceEur}€ por mês no piloto
+                    </p>
+                    <ul className="plan__list">
+                      <li>
+                        <CheckIcon />
+                        {plan.minutesPerMonth} minutos incluídos
+                      </li>
+                      <li>
+                        <CheckIcon />
+                        Minuto extra a {formatEuro(plan.extraMinuteEur)}€
+                      </li>
+                      <li>
+                        <CheckIcon />
+                        Marcações e recados no painel
+                      </li>
+                    </ul>
+                    <a
+                      className={`btn ${featured ? "btn--primary" : "btn--ghost"} btn--block`}
+                      href="#pedido"
+                    >
+                      Experimentar a Linea
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="piloto" aria-labelledby="piloto-h">
+          <div className="wrap">
+            <div className="pilot spot" data-reveal>
+              <span className="pilot__glow" aria-hidden="true" />
+              <div className="pilot__text">
+                <p className="eyebrow">Piloto</p>
+                <h2 id="piloto-h">
+                  Experimente duas semanas nas suas chamadas.
+                </h2>
+                <p>
+                  Quem entra no piloto fica com o preço de fundador:{" "}
                   {PLANS.map(
                     plan => `${plan.name} ${plan.founderPriceEur}€`
                   ).join(", ")}{" "}
-                  por mês
-                </span>
+                  por mês.
+                </p>
+                <a className="btn btn--primary btn--lg" href="#pedido">
+                  Pedir o piloto
+                  <ArrowIcon />
+                </a>
               </div>
+              <dl className="pilot__facts">
+                <div style={d(0)}>
+                  <dt>Duração</dt>
+                  <dd>2 semanas</dd>
+                </div>
+                <div style={d(1)}>
+                  <dt>Caução devolvida</dt>
+                  <dd>
+                    <span data-count={PILOT.depositEur}>
+                      {PILOT.depositEur}
+                    </span>
+                    €
+                  </dd>
+                </div>
+                <div style={d(2)}>
+                  <dt>Desconto de fundador</dt>
+                  <dd>
+                    <span data-count={PILOT.founderDiscountPercent}>
+                      {PILOT.founderDiscountPercent}
+                    </span>
+                    %
+                  </dd>
+                </div>
+                <div style={d(3)}>
+                  <dt>Preço fixo durante</dt>
+                  <dd>
+                    <span data-count={PILOT.founderMonths}>
+                      {PILOT.founderMonths}
+                    </span>{" "}
+                    meses
+                  </dd>
+                </div>
+              </dl>
             </div>
-            <a className="link" href="#pedido">
-              Pedir o piloto na demonstração
-            </a>
           </div>
         </section>
 
         <section
           className="section"
           id="perguntas"
-          style={{ ["--h" as string]: 1 }}
           aria-labelledby="perguntas-h"
         >
-          <div className="wrap grid">
-            <div className="span-5">
-              <h2 id="perguntas-h">Perguntas sobre chamadas</h2>
-              <p>Sobre minutos, cancelamento e o que a Linea não faz.</p>
-              <a className="link" href="#contact">
-                Contactar a Linea
+          <div className="wrap faq-wrap">
+            <div className="faq-side" data-reveal>
+              <p className="eyebrow">Perguntas</p>
+              <h2 id="perguntas-h">Antes de experimentar.</h2>
+              <p className="head__text">
+                Sobre minutos, cancelamento e o que a Linea não faz.
+              </p>
+              <a className="link" href="#pedido">
+                Fazer outra pergunta <ArrowIcon />
               </a>
-              <CallVisual label="Perguntas sobre minutos, cancelamento e língua" />
             </div>
-            <div className="span-6 start-7 faq">
-              <div className="faq__item">
-                <h3>Posso cancelar as chamadas?</h3>
-                <p>Sim. O cancelamento fica disponível a qualquer momento.</p>
-              </div>
-              <div className="faq__item">
-                <h3>O que conta num minuto de chamada?</h3>
-                <p>
-                  Conta o tempo da chamada atendida. O minuto extra custa o
-                  valor do plano.
-                </p>
-              </div>
-              <div className="faq__item">
-                <h3>A caução cobre as chamadas do piloto?</h3>
-                <p>
-                  A caução é de {PILOT.depositEur}€ e é devolvida se avançar
-                  para um plano.
-                </p>
-              </div>
-              <div className="faq__item">
-                <h3>A Linea substitui todas as chamadas?</h3>
-                <p>
-                  Atende quando ninguém atende. Não substitui uma decisão que só
-                  uma pessoa da empresa pode tomar.
-                </p>
-              </div>
-              <div className="faq__item">
-                <h3>Em que língua responde às chamadas?</h3>
-                <p>Em português, no número da empresa.</p>
-              </div>
+            <div className="faq">
+              {FAQ.map(([q, a], i) => (
+                <details
+                  className="faq__item"
+                  key={q}
+                  data-reveal
+                  style={d(i)}
+                  open={i === 0}
+                >
+                  <summary>
+                    {q}
+                    <span className="faq__icon" aria-hidden="true" />
+                  </summary>
+                  <div className="faq__body">
+                    <p>{a}</p>
+                  </div>
+                </details>
+              ))}
             </div>
           </div>
         </section>
 
-        <section
-          className="section"
-          id="pedido"
-          style={{ ["--h" as string]: 1 }}
-          aria-labelledby="pedido-h"
-        >
-          <div className="wrap grid">
-            <div className="span-5">
-              <h2 id="pedido-h">Pedido sobre as chamadas</h2>
-              <CallVisual label="O pedido pede o nome, a empresa e o plano" />
-              <p>Diga o plano e o que quer ver. A resposta segue por email.</p>
+        <section className="section" id="pedido" aria-labelledby="pedido-h">
+          <div className="wrap request">
+            <div className="request__side" data-reveal>
+              <p className="eyebrow">Pedido</p>
+              <h2 id="pedido-h">Marque uma chamada de demonstração.</h2>
+              <p className="head__text">
+                Diga o plano e o que quer ver. A resposta segue por email.
+              </p>
+              <ul className="contacts">
+                <li>
+                  <a href={`tel:${CONTACT_PHONE_E164}`}>
+                    <span className="contacts__icon">
+                      <PhoneIcon />
+                    </span>
+                    <span>
+                      <b>Telefone</b>
+                      {CONTACT_PHONE_DISPLAY}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}`}>
+                    <span className="contacts__icon">
+                      <LogoMark size={20} />
+                    </span>
+                    <span>
+                      <b>WhatsApp</b>
+                      Mensagem direta
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${CONTACT_EMAIL}`}>
+                    <span className="contacts__icon">@</span>
+                    <span>
+                      <b>Email</b>
+                      {CONTACT_EMAIL}
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </div>
-            <div className="span-6 start-7">
+            <div className="request__form" data-reveal>
               <LeadForm />
             </div>
           </div>

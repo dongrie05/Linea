@@ -1,5 +1,6 @@
-import { LEADS_EMAIL } from "@/lib/contact";
+import { CONTACT_PHONE_WHATSAPP, LEADS_EMAIL } from "@/lib/contact";
 import { PLANS } from "@/lib/site";
+import { ArrowIcon } from "@/components/site/logo";
 
 export function LeadForm() {
   return (
@@ -8,8 +9,6 @@ export function LeadForm() {
       action={`mailto:${LEADS_EMAIL}`}
       method="post"
       encType="text/plain"
-      data-fix="{n} campos por corrigir."
-      noValidate
     >
       <div className="field">
         <label htmlFor="f-nome">Nome</label>
@@ -18,12 +17,9 @@ export function LeadForm() {
           name="nome"
           type="text"
           autoComplete="name"
+          placeholder="O seu nome"
           required
-          aria-describedby="f-nome-err"
         />
-        <p className="field__error" id="f-nome-err" hidden>
-          Escreva o seu nome.
-        </p>
       </div>
       <div className="field">
         <label htmlFor="f-email">Email</label>
@@ -33,12 +29,9 @@ export function LeadForm() {
           type="email"
           autoComplete="email"
           inputMode="email"
+          placeholder="nome@empresa.pt"
           required
-          aria-describedby="f-email-err"
         />
-        <p className="field__error" id="f-email-err" hidden>
-          Escreva um email com @.
-        </p>
       </div>
       <div className="field">
         <label htmlFor="f-telefone">Telefone</label>
@@ -48,12 +41,9 @@ export function LeadForm() {
           type="tel"
           autoComplete="tel"
           inputMode="tel"
+          placeholder="+351"
           required
-          aria-describedby="f-telefone-err"
         />
-        <p className="field__error" id="f-telefone-err" hidden>
-          Escreva o telefone da empresa.
-        </p>
       </div>
       <div className="field">
         <label htmlFor="f-empresa">Empresa</label>
@@ -62,14 +52,11 @@ export function LeadForm() {
           name="empresa"
           type="text"
           autoComplete="organization"
+          placeholder="Nome da empresa"
           required
-          aria-describedby="f-empresa-err"
         />
-        <p className="field__error" id="f-empresa-err" hidden>
-          Escreva o nome da empresa.
-        </p>
       </div>
-      <div className="field">
+      <div className="field field--full">
         <label htmlFor="f-plano">Plano</label>
         <select id="f-plano" name="plano" defaultValue="Growth" required>
           {PLANS.map(plan => (
@@ -80,32 +67,29 @@ export function LeadForm() {
           ))}
         </select>
       </div>
-      <div className="field">
+      <div className="field field--full">
         <label htmlFor="f-mensagem">Mensagem</label>
         <textarea
           id="f-mensagem"
           name="mensagem"
-          rows={3}
+          rows={4}
+          placeholder="O que quer ver na demonstração?"
           required
-          aria-describedby="f-mensagem-err"
         />
-        <p className="field__error" id="f-mensagem-err" hidden>
-          Escreva o que quer ver na demonstração.
+      </div>
+      <div className="field--full form__foot">
+        <button className="btn btn--primary btn--lg" type="submit">
+          Experimentar a Linea
+          <ArrowIcon />
+        </button>
+        <p className="form__note">
+          O pedido abre no seu email para {LEADS_EMAIL}. Também pode{" "}
+          <a className="link" href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}`}>
+            enviar por WhatsApp
+          </a>
+          .
         </p>
       </div>
-      <div className="btn-row">
-        <button className="btn btn--primary" type="submit">
-          Experimentar a Linea
-        </button>
-      </div>
-      <p className="form__status" role="status" data-form-status />
-      <p className="t-small">
-        O pedido abre no seu email para linea.atendedor@gmail.com. Também pode{" "}
-        <a className="link" href="https://wa.me/351927699882">
-          enviar por WhatsApp
-        </a>
-        .
-      </p>
     </form>
   );
 }

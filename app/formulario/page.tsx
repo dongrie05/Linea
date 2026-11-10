@@ -1,33 +1,35 @@
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
+import { SiteMotion } from "@/components/site/motion";
+import { ArrowIcon } from "@/components/site/logo";
+import { asset } from "@/lib/asset";
+
+const home = asset("/");
 
 export default function FormularioPage() {
   return (
     <>
-      <SiteNav home="/" />
-      <main id="top">
-        <section
-          className="section"
-          id="pedido"
-          style={{ ["--h" as string]: 2 }}
-          aria-labelledby="pedido-h"
-        >
-          <div className="wrap grid">
-            <div className="span-5">
-              <h2 id="pedido-h">Pedido sobre as chamadas</h2>
+      <SiteMotion />
+      <SiteNav home={home} />
+      <main id="top" className="page">
+        <section id="pedido" aria-labelledby="pedido-h">
+          <div className="wrap request" id="conteudo">
+            <div className="request__side" data-reveal>
+              <p className="eyebrow">Pedido</p>
+              <h1 id="pedido-h">Marque uma chamada de demonstração.</h1>
               <p>Diga o plano e o que quer ver. A resposta segue por email.</p>
-              <a className="link" href="/#precos">
-                Ver preços
+              <a className="link" href={`${home}#precos`}>
+                Ver preços <ArrowIcon />
               </a>
             </div>
-            <div className="span-6 start-7">
+            <div className="request__form" data-reveal>
               <LeadForm />
             </div>
           </div>
         </section>
       </main>
-      <SiteFooter home="/" />
-      <ActionBar home="/" />
+      <SiteFooter home={home} />
+      <ActionBar home={home} />
     </>
   );
 }

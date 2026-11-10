@@ -1,14 +1,29 @@
+import { asset } from "@/lib/asset";
+
 export function LogoMark({ size = 28 }: { size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       className="logo-mark"
-      src="/brand/logo.png"
+      src={asset("/brand/logo.png")}
       width={size}
       height={size}
       alt=""
       aria-hidden="true"
     />
+  );
+}
+
+export function Orb({ size = "lg" }: { size?: "lg" | "sm" }) {
+  return (
+    <span className={`orb orb--${size}`} aria-hidden="true">
+      <span className="orb__ring" />
+      <span className="orb__ring" />
+      <span className="orb__ring" />
+      <span className="orb__glow" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="orb__img" src={asset("/brand/orb.png")} alt="" />
+    </span>
   );
 }
 
@@ -20,6 +35,42 @@ export function PhoneIcon() {
         fill="none"
         stroke="currentColor"
         strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function CheckIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path
+        d="m3.5 8.5 3 3 6-7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ArrowIcon() {
+  return (
+    <svg
+      className="arrow"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+    >
+      <path
+        d="M2 7h10M8 3l4 4-4 4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>

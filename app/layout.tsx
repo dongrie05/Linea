@@ -1,9 +1,15 @@
-/* O kit visual pede folhas e módulos nesta ordem, não o next/font nem o next/script. */
-/* eslint-disable @next/next/no-css-tags, @next/next/no-sync-scripts, @next/next/no-page-custom-font */
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
 import { siteUrl } from "@/lib/site-url";
+
+const mona = localFont({
+  src: "../src/fonts/mona-sans.woff2",
+  weight: "200 900",
+  display: "swap",
+  variable: "--font-mona",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -144,70 +150,10 @@ export default function RootLayout({
   };
 
   return (
-    <html
-      lang="pt"
-      data-type="software"
-      suppressHydrationWarning
-      data-radius="soft"
-      data-buttons="pill"
-      data-motion=""
-    >
+    <html lang="pt" className={mona.variable}>
       <head>
         <link rel="canonical" href={`${siteUrl}/`} />
         <meta name="theme-color" content="#0A0C10" />
-        <meta name="site-kind" content="software" />
-        <meta name="page-type" content="software" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://cdn.jsdelivr.net/fontsource/css/mona-sans:vf@5.2.5/latin-wght-normal.min.css"
-          rel="stylesheet"
-        />
-        <link rel="stylesheet" href="/assets/system.css" />
-        <link rel="stylesheet" href="/assets/ui/cards.css" />
-        <link rel="stylesheet" href="/assets/ui/base.css" />
-        <link rel="stylesheet" href="/assets/ui/voice/fragment.css" />
-        <link rel="stylesheet" href="/assets/ui/window/fragment.css" />
-        <link rel="stylesheet" href="/assets/ui/chat/fragment.css" />
-        <link rel="stylesheet" href="/assets/motion/motion.css" />
-        <link rel="stylesheet" href="/assets/backgrounds/backgrounds.css" />
-        <link rel="stylesheet" href="/assets/layout/layout.css" />
-        <link rel="stylesheet" href="/assets/icons/icon.css" />
-        <link rel="stylesheet" href="/assets/diagrams/diagram.css" />
-        <link
-          rel="stylesheet"
-          href="/assets/moments/letters-assemble/moment.css"
-        />
-        <link
-          rel="stylesheet"
-          href="/assets/moments/line-carries-colour/moment.css"
-        />
-        <link rel="stylesheet" href="/assets/page.css" />
-        <style>{`:root {
-  --p-bg: #0A0C10; --p-surface: #0F1217; --p-ink: #F2F4F8; --p-muted: #9AA3B5;
-  --p-accent: #2F7DEB; --p-accent-ink: #F2F4F8; --p-action: #5B9BF0; --p-action-ink: #0A0C10;
-  --p-inv-bg: #F2F4F8; --p-inv-surface: #E6E9EF; --p-inv-ink: #0A0C10; --p-inv-muted: #5C6574;
-  --p-inv-accent: #2F7DEB; --p-inv-accent-ink: #F2F4F8; --p-inv-action: #2F7DEB; --p-inv-action-ink: #F2F4F8;
-  --p-line: #1C212B; --p-elevated: #141821; --p-voice: #C6F3FF;
-  --p-success: #3DD68C; --p-warning: #FFB547; --p-error: #FF686B;
-  --font-display: "Mona Sans", system-ui, sans-serif;
-  --font-text: "Mona Sans", system-ui, sans-serif;
-  --font-mono: "Mona Sans", system-ui, sans-serif;
-  --display-weight: 650;
-  --display-tracking: -0.03em;
-  --display-tracking-xl: -0.035em;
-  --ly-scale: 1;
-}`}</style>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "document.documentElement.classList.add('m-enter');setTimeout(function(){document.documentElement.classList.add('m-enter-done')},700);document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.nav__toggle');if(!b)return;var n=b.closest('.nav');var open=!n.classList.contains('is-open');n.classList.toggle('is-open',open);b.setAttribute('aria-expanded',String(open));});",
-          }}
-        />
         <meta name="geo.region" content="PT" />
         <meta name="geo.placename" content="Portugal" />
         <meta name="language" content="Portuguese" />
@@ -218,16 +164,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
-        {children}
-        <script type="module" src="/assets/backgrounds/backgrounds.js" />
-        <script type="module" src="/assets/system.js" />
-        <script type="module" src="/assets/motion/motion.js" />
-        <script type="module" src="/assets/layout/layout.js" />
-        <script type="module" src="/assets/ui/ui.js" />
-        <script type="module" src="/assets/diagrams/mount.js" />
-        <script type="module" src="/assets/reveal.js" />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
