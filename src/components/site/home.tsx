@@ -337,7 +337,6 @@ export function HomePage() {
                 aria-hidden="true"
               >
                 <path d="M0 5 H100" />
-                <path className="flow__pulse" d="M0 5 H100" />
               </svg>
               <div className="flow__core">
                 <Orb size="sm" />
@@ -352,12 +351,6 @@ export function HomePage() {
                 <path d="M0 60 C 50 60 50 10 100 10" />
                 <path d="M0 60 H100" />
                 <path d="M0 60 C 50 60 50 110 100 110" />
-                <path className="flow__pulse" d="M0 60 C 50 60 50 10 100 10" />
-                <path className="flow__pulse" d="M0 60 H100" />
-                <path
-                  className="flow__pulse"
-                  d="M0 60 C 50 60 50 110 100 110"
-                />
               </svg>
               <div className="flow__outs">
                 {DESTINATIONS.map(([t, s], i) => (

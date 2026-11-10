@@ -1191,24 +1191,19 @@ html.motion-on .app.is-in .app__row {
 }
 .flow__wire path {
   fill: none;
-  stroke: var(--line-strong);
+  stroke: rgba(91, 155, 240, 0.55);
   stroke-width: 1.5;
+  stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
-.flow__wire .flow__pulse {
-  stroke: var(--voice);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-dasharray: 14 120;
-  stroke-dashoffset: 134;
-  filter: drop-shadow(0 0 4px var(--action));
-  animation: wire 2.4s linear infinite;
+.flow__node--out {
+  animation: flow-arrive 4.8s ease-in-out infinite;
 }
-.flow__wire--out .flow__pulse:nth-of-type(5) {
-  animation-delay: 0.3s;
+.flow__node--out:nth-child(2) {
+  animation-delay: 1.6s;
 }
-.flow__wire--out .flow__pulse:nth-of-type(6) {
-  animation-delay: 0.6s;
+.flow__node--out:nth-child(3) {
+  animation-delay: 3.2s;
 }
 .flow__outs {
   display: grid;
@@ -2040,9 +2035,17 @@ html.motion-on .pilot.is-in .pilot__facts div {
     transform: translateX(-50%);
   }
 }
-@keyframes wire {
-  to {
-    stroke-dashoffset: 0;
+@keyframes flow-arrive {
+  0%,
+  62%,
+  100% {
+    border-color: var(--line-strong);
+    box-shadow: none;
+  }
+  12%,
+  30% {
+    border-color: rgba(163, 198, 245, 0.9);
+    box-shadow: 0 0 32px -8px rgba(91, 155, 240, 0.95);
   }
 }
 @keyframes glow-pulse {
