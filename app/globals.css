@@ -21,7 +21,6 @@
     var(--font-mona), "Mona Sans", system-ui, -apple-system, "Segoe UI",
     sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
   --r-sm: 10px;
   --r-md: 16px;
   --r-lg: 24px;
@@ -690,29 +689,6 @@ p {
 .hero__bars span:nth-child(4n + 1) {
   animation-duration: 0.95s;
 }
-.hero__scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 28px;
-  width: 26px;
-  height: 42px;
-  margin-left: -13px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  animation: rise 1s var(--ease) 1s both;
-}
-.hero__scroll span {
-  position: absolute;
-  left: 50%;
-  top: 9px;
-  width: 3px;
-  height: 8px;
-  margin-left: -1.5px;
-  border-radius: 3px;
-  background: var(--action);
-  animation: scroll-hint 2s var(--ease-io) infinite;
-}
-
 .call-card {
   width: min(380px, 100%);
   padding: 16px;
@@ -800,9 +776,6 @@ p {
   }
   .hero__inner {
     grid-template-columns: 1fr;
-  }
-  .hero__scroll {
-    display: none;
   }
 }
 
@@ -2060,20 +2033,6 @@ html.motion-on .pilot.is-in .pilot__facts div {
   }
   to {
     transform: translate(8vw, -4vw) scale(1.2);
-  }
-}
-@keyframes scroll-hint {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  70% {
-    transform: translateY(14px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 0;
   }
 }
 @keyframes marquee {

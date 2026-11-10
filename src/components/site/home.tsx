@@ -183,9 +183,6 @@ export function HomePage() {
               </div>
             </div>
           </div>
-          <a className="hero__scroll" href="#setores" aria-label="Descer">
-            <span />
-          </a>
         </section>
 
         <section className="marquee" id="setores" aria-label="Para quem">
