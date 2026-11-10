@@ -1,11 +1,9 @@
+/* O kit visual pede folhas e módulos nesta ordem, não o next/font nem o next/script. */
+/* eslint-disable @next/next/no-css-tags, @next/next/no-sync-scripts, @next/next/no-page-custom-font */
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import AnimationFallback from "@/components/AnimationFallback";
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
 import { siteUrl } from "@/lib/site-url";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -14,7 +12,7 @@ export const metadata: Metadata = {
       "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
-  description: `Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Piloto de duas semanas, com caução de ${PILOT.depositEur}€.`,
+  description: `Atendedor de chamadas para empresas em Portugal. A Linea atende, responde em português e regista a marcação ou o recado. Planos desde 99€ por mês. Piloto de duas semanas, com caução de ${PILOT.depositEur}€.`,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
@@ -47,7 +45,7 @@ export const metadata: Metadata = {
     title:
       "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
     description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento telefónico automático 24/7. Resposta em 2 segundos.",
+      "Atendedor de chamadas para empresas em Portugal. Planos desde 99€ por mês, com minutos incluídos.",
     url: siteUrl,
     siteName: "Linea",
     type: "website",
@@ -65,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas",
     description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento automático 24/7.",
+      "Atendedor de chamadas para empresas em Portugal. A Linea atende e regista a marcação ou o recado.",
     images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {
@@ -96,7 +94,7 @@ export default function RootLayout({
     "@type": "SoftwareApplication",
     name: "Linea - Atendedor de Chamadas com IA | Atendimento Telefónico Automático",
     description:
-      "Linea é o melhor atendedor de chamadas automático com Inteligência Artificial em Portugal. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe até 70% em custos de atendimento.",
+      "Atendedor de chamadas para empresas em Portugal. A Linea atende a chamada, responde em português e regista a marcação ou o recado.",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: siteUrl,
@@ -138,29 +136,77 @@ export default function RootLayout({
       availability: "https://schema.org/InStock",
     })),
     featureList: [
-      "Atendimento telefónico 24/7",
-      "Resposta em 2 segundos",
-      "Português natural",
-      "Agendamento automático",
-      "Encaminhamento inteligente",
-      "Relatórios detalhados",
-      "Configuração em 1 dia",
-      "Suporte técnico português",
+      "Atendimento da chamada no número da empresa",
+      "Resposta em português",
+      "Registo da marcação ou do recado",
+      "Planos com minutos incluídos",
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "150",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 
   return (
-    <html lang="pt">
+    <html
+      lang="pt"
+      data-type="software"
+      suppressHydrationWarning
+      data-radius="soft"
+      data-ground="sage"
+      data-buttons="pill"
+      data-motion=""
+    >
       <head>
-        <link rel="canonical" href={siteUrl} />
-        <meta name="theme-color" content="#0369a1" />
+        <link rel="canonical" href={`${siteUrl}/`} />
+        <meta name="theme-color" content="#161c1a" />
+        <meta name="site-kind" content="software" />
+        <meta name="page-type" content="software" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wdth,wght@85..100,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/assets/system.css" />
+        <link rel="stylesheet" href="/assets/ui/cards.css" />
+        <link rel="stylesheet" href="/assets/ui/base.css" />
+        <link rel="stylesheet" href="/assets/ui/voice/fragment.css" />
+        <link rel="stylesheet" href="/assets/ui/window/fragment.css" />
+        <link rel="stylesheet" href="/assets/ui/chat/fragment.css" />
+        <link rel="stylesheet" href="/assets/motion/motion.css" />
+        <link rel="stylesheet" href="/assets/backgrounds/backgrounds.css" />
+        <link rel="stylesheet" href="/assets/layout/layout.css" />
+        <link rel="stylesheet" href="/assets/icons/icon.css" />
+        <link rel="stylesheet" href="/assets/diagrams/diagram.css" />
+        <link
+          rel="stylesheet"
+          href="/assets/moments/letters-assemble/moment.css"
+        />
+        <link
+          rel="stylesheet"
+          href="/assets/moments/line-carries-colour/moment.css"
+        />
+        <link rel="stylesheet" href="/assets/page.css" />
+        <style>{`:root {
+  --p-bg: #161c1a; --p-surface: #1f2725; --p-ink: #e3e2da; --p-muted: #8e948d;
+  --p-accent: #9fc7b8; --p-accent-ink: #161c1a; --p-action: #9fc7b8; --p-action-ink: #161c1a;
+  --p-inv-bg: #e3e2da; --p-inv-surface: #d3d2cb; --p-inv-ink: #161c1a; --p-inv-muted: #555a55;
+  --p-inv-accent: #161c1a; --p-inv-accent-ink: #e3e2da; --p-inv-action: #161c1a; --p-inv-action-ink: #e3e2da;
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --font-text: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
+  --ly-scale: 0.98;
+}`}</style>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('m-enter');setTimeout(function(){document.documentElement.classList.add('m-enter-done')},700);document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.nav__toggle');if(!b)return;var n=b.closest('.nav');var open=!n.classList.contains('is-open');n.classList.toggle('is-open',open);b.setAttribute('aria-expanded',String(open));});",
+          }}
+        />
         <meta name="geo.region" content="PT" />
         <meta name="geo.placename" content="Portugal" />
         <meta name="language" content="Portuguese" />
@@ -171,9 +217,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        <AnimationFallback />
+      <body>
         {children}
+        <script type="module" src="/assets/backgrounds/backgrounds.js" />
+        <script type="module" src="/assets/system.js" />
+        <script type="module" src="/assets/motion/motion.js" />
+        <script type="module" src="/assets/layout/layout.js" />
+        <script type="module" src="/assets/ui/ui.js" />
+        <script type="module" src="/assets/diagrams/mount.js" />
       </body>
     </html>
   );

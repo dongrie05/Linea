@@ -1,0 +1,126 @@
+/* Page CSS the kit names for the app frame, plus the hero window filling its frame. */
+.app.ui {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  margin-top: var(--s-7);
+  background: var(--u-bg);
+  border: 1px solid var(--u-border);
+  border-radius: var(--u-r);
+  box-shadow: var(--u-shadow);
+}
+.app > .app__pane {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.app > .app__pane + .app__pane {
+  border-left: 1px solid var(--u-line);
+}
+.app > .app__pane > .ui-panel {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.app > .app__pane::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 64px;
+  background: linear-gradient(transparent, var(--u-bg));
+  pointer-events: none;
+}
+.hero--split .hero__media > .ui-voice {
+  height: 100%;
+  min-height: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero--split .ly-float {
+  position: absolute;
+  left: 24px;
+  right: auto;
+  bottom: 24px;
+  width: min(260px, calc(100% - 48px));
+}
+.visual-block {
+  min-height: 46vh;
+  margin-top: var(--s-6);
+}
+.visual-block svg {
+  display: block;
+  width: 100%;
+  height: 46vh;
+}
+.fluxo__stage {
+  position: relative;
+  isolation: isolate;
+  min-height: 420px;
+  margin-top: var(--s-7);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 30%, #9fc7b8 0, transparent 46%),
+    radial-gradient(circle at 82% 72%, #314840 0, transparent 42%),
+    #1f2725;
+}
+.close__word {
+  font-size: clamp(72px, 10vw, 140px);
+  line-height: 1;
+}
+.footer .nav__logo .mark--initial {
+  width: 22px;
+  height: 22px;
+  font-size: 13px;
+}
+.hero--split .ui-voice {
+  position: relative;
+}
+.fluxo__stage .dg {
+  position: relative;
+  z-index: 1;
+  min-height: 420px;
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .app.ui {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  }
+}
+@media (max-width: 1023px) {
+  .app.ui {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .app > .app__pane--list {
+    max-height: 252px;
+  }
+  .app > .app__pane--list::after {
+    display: none;
+  }
+  .app .ui-win__side {
+    display: none;
+  }
+  .app .ui-win__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app > .app__pane + .app__pane {
+    border-left: 0;
+    border-top: 1px solid var(--u-line);
+  }
+}
+@media (max-width: 639px) {
+  .app.ui {
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .app > .app__pane--list {
+    display: none;
+  }
+  .app > .app__pane + .app__pane {
+    border-top: 0;
+  }
+}
