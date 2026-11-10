@@ -95,18 +95,15 @@ const FAQ = [
 
 function SectionHead({
   id,
-  eyebrow,
   title,
   text,
 }: {
   id: string;
-  eyebrow: string;
   title: string;
   text?: string;
 }) {
   return (
     <div className="head" data-reveal>
-      <p className="eyebrow">{eyebrow}</p>
       <h2 id={id}>{title}</h2>
       {text ? <p className="head__text">{text}</p> : null}
     </div>
@@ -214,7 +211,6 @@ export function HomePage() {
           <div className="wrap">
             <SectionHead
               id="chamadas-h"
-              eyebrow="Painel"
               title="Cada chamada fica registada."
               text="A lista mostra quem ligou e porquê. A chamada aberta mostra o que foi dito e o que ficou marcado."
             />
@@ -300,7 +296,6 @@ export function HomePage() {
           <div className="wrap">
             <SectionHead
               id="passos-h"
-              eyebrow="Como funciona"
               title="O número não muda. Muda quem atende."
             />
             <ol className="steps">
@@ -322,7 +317,6 @@ export function HomePage() {
           <div className="wrap">
             <SectionHead
               id="fluxo-h"
-              eyebrow="Destinos"
               title="Cada chamada chega ao sítio certo."
               text="A chamada entra no número da empresa. A Linea marca na agenda, confirma por SMS e envia o recado por email a quem está de serviço."
             />
@@ -406,7 +400,6 @@ export function HomePage() {
           <div className="wrap">
             <SectionHead
               id="precos-h"
-              eyebrow="Preços"
               title="Três planos. Sem taxa de setup."
               text="Paga pelos minutos atendidos. O minuto extra muda com o plano."
             />
@@ -466,7 +459,6 @@ export function HomePage() {
             <div className="pilot spot" data-reveal>
               <span className="pilot__glow" aria-hidden="true" />
               <div className="pilot__text">
-                <p className="eyebrow">Piloto</p>
                 <h2 id="piloto-h">
                   Experimente duas semanas nas suas chamadas.
                 </h2>
@@ -526,7 +518,6 @@ export function HomePage() {
         >
           <div className="wrap faq-wrap">
             <div className="faq-side" data-reveal>
-              <p className="eyebrow">Perguntas</p>
               <h2 id="perguntas-h">Antes de experimentar.</h2>
               <p className="head__text">
                 Sobre minutos, cancelamento e o que a Linea não faz.
@@ -560,7 +551,6 @@ export function HomePage() {
         <section className="section" id="pedido" aria-labelledby="pedido-h">
           <div className="wrap request">
             <div className="request__side" data-reveal>
-              <p className="eyebrow">Pedido</p>
               <h2 id="pedido-h">Marque uma chamada de demonstração.</h2>
               <p className="head__text">
                 Diga o plano e o que quer ver. A resposta segue por email.
