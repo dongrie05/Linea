@@ -19,7 +19,6 @@ export function SiteNav({ home = "" }: { home?: string }) {
   const to = (id: string) => `${home}#${id}`;
   return (
     <header className="nav" data-nav>
-      <span className="nav__progress" aria-hidden="true" />
       <div className="wrap nav__bar">
         <a className="skip-link" href="#conteudo">
           Saltar para o conteúdo
@@ -39,7 +38,7 @@ export function SiteNav({ home = "" }: { home?: string }) {
             {ACTION}
           </a>
         </nav>
-        <a className="btn btn--primary btn--sm nav__cta" href={to("pedido")}>
+        <a className="btn btn--primary nav__cta" href={to("pedido")}>
           <PhoneIcon />
           {ACTION}
         </a>
@@ -62,26 +61,21 @@ export function SiteNav({ home = "" }: { home?: string }) {
 export function SiteFooter({ home = "" }: { home?: string }) {
   const to = (id: string) => `${home}#${id}`;
   return (
-    <footer className="footer" id="contact" aria-labelledby="close-h">
+    <footer className="footer closing" id="contact" aria-labelledby="close-h">
       <div className="wrap">
-        <div className="closing" data-reveal>
-          <span className="closing__glow" aria-hidden="true" />
+        <div className="closing">
           <h2 id="close-h">
             Experimente a Linea
             <br />
             nas suas chamadas.
           </h2>
           <p>Respondemos por email para marcar a chamada de demonstração.</p>
-          <a className="btn btn--primary btn--lg" href={to("pedido")}>
+          <a className="btn btn--primary" href={to("pedido")}>
             <PhoneIcon />
             {ACTION}
             <ArrowIcon />
           </a>
         </div>
-
-        <p className="footer__word" aria-hidden="true">
-          Linea
-        </p>
 
         <div className="footer__grid">
           <div className="footer__brand">
@@ -109,9 +103,9 @@ export function SiteFooter({ home = "" }: { home?: string }) {
             <a href={`mailto:${CONTACT_EMAIL}`}>Email</a>
             <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE_DISPLAY}</a>
           </div>
-        </div>
-        <div className="footer__legal">
-          <span>© 2026 Linea. Um produto Dongrie Labs.</span>
+          <div className="footer__legal">
+            <span>© 2026 Linea. Um produto Dongrie Labs.</span>
+          </div>
         </div>
       </div>
     </footer>

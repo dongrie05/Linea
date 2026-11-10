@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { asset } from "@/lib/asset";
 
 export function LogoMark({ size = 28 }: { size?: number }) {
@@ -15,11 +16,42 @@ export function LogoMark({ size = 28 }: { size?: number }) {
 }
 
 export function Orb({ size = "lg" }: { size?: "lg" | "sm" }) {
+  const id = useId().replace(/:/g, "");
   return (
     <span className={`orb orb--${size}`} aria-hidden="true">
-      <span className="orb__glow" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="orb__img" src={asset("/brand/orb.png")} alt="" />
+      <svg className="orb__svg" viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id={`${id}-core`} cx="38%" cy="34%" r="68%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="16%" stopColor="#e7fbff" />
+            <stop offset="38%" stopColor="#7eb6ff" />
+            <stop offset="70%" stopColor="#2f7deb" />
+            <stop offset="100%" stopColor="#12356f" />
+          </radialGradient>
+          <radialGradient id={`${id}-glow`} cx="50%" cy="50%" r="50%">
+            <stop offset="40%" stopColor="#5b9bf0" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#5b9bf0" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <circle
+          className="orb__glow"
+          cx="100"
+          cy="100"
+          r="96"
+          fill={`url(#${id}-glow)`}
+        />
+        <g className="orb__body">
+          <circle cx="100" cy="100" r="64" fill={`url(#${id}-core)`} />
+          <ellipse
+            className="orb__shine"
+            cx="78"
+            cy="70"
+            rx="24"
+            ry="15"
+            fill="#ffffff"
+          />
+        </g>
+      </svg>
     </span>
   );
 }
