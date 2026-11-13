@@ -27,6 +27,9 @@ const nextConfig = {
     unoptimized: true,
   },
   basePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   assetPrefix: basePath ? `${basePath}/` : "",
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   experimental: {

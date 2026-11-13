@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
-import AnimationFallback from "@/components/AnimationFallback";
 import { PILOT, PLANS, formatEuro } from "@/lib/site";
 import { siteUrl } from "@/lib/site-url";
 
-const inter = Inter({ subsets: ["latin"] });
+const mona = localFont({
+  src: "../src/fonts/mona-sans.woff2",
+  weight: "200 900",
+  display: "swap",
+  variable: "--font-mona",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -14,7 +18,7 @@ export const metadata: Metadata = {
       "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
     template: "%s | Linea - Atendimento Telefónico IA",
   },
-  description: `Atendedor de chamadas com IA em Portugal. O melhor atendedor de chamadas automático com Inteligência Artificial. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe 70% em custos! Piloto de duas semanas, com caução de ${PILOT.depositEur}€.`,
+  description: `A Linea atende o telefone, marca consultas e envia a confirmação por SMS. De dia e de noite. Planos desde 99€ por mês.`,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
@@ -47,7 +51,7 @@ export const metadata: Metadata = {
     title:
       "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
     description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento telefónico automático 24/7. Resposta em 2 segundos.",
+      "Atendedor de chamadas para empresas em Portugal. Planos desde 99€ por mês, com minutos incluídos.",
     url: siteUrl,
     siteName: "Linea",
     type: "website",
@@ -65,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas",
     description:
-      "Linea - O melhor atendedor de chamadas com IA em Portugal. Poupe 70% em custos! Atendimento automático 24/7.",
+      "Atendedor de chamadas para empresas em Portugal. A Linea atende e regista a marcação ou o recado.",
     images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {
@@ -96,7 +100,7 @@ export default function RootLayout({
     "@type": "SoftwareApplication",
     name: "Linea - Atendedor de Chamadas com IA | Atendimento Telefónico Automático",
     description:
-      "Linea é o melhor atendedor de chamadas automático com Inteligência Artificial em Portugal. Atendimento telefónico IA 24/7. Resposta em 2 segundos. Poupe até 70% em custos de atendimento.",
+      "Atendedor de chamadas para empresas em Portugal. A Linea atende a chamada, responde em português e regista a marcação ou o recado.",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: siteUrl,
@@ -123,7 +127,7 @@ export default function RootLayout({
       },
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+351-927-699-882",
+        telephone: ["+351-927-699-882", "+351-964-000-234"],
         contactType: "customer service",
         availableLanguage: ["Portuguese", "pt"],
         areaServed: "PT",
@@ -134,33 +138,22 @@ export default function RootLayout({
       name: `${plan.name}. Atendedor de chamadas`,
       price: String(plan.priceEur),
       priceCurrency: "EUR",
-      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês durante ${PILOT.founderMonths} meses, para quem entra no piloto.`,
+      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês, um desconto de ${PILOT.founderDiscountPercent}% para todos, fixo durante ${PILOT.founderMonths} meses.`,
       availability: "https://schema.org/InStock",
     })),
     featureList: [
-      "Atendimento telefónico 24/7",
-      "Resposta em 2 segundos",
-      "Português natural",
-      "Agendamento automático",
-      "Encaminhamento inteligente",
-      "Relatórios detalhados",
-      "Configuração em 1 dia",
-      "Suporte técnico português",
+      "Atendimento da chamada no número da empresa",
+      "Resposta em português",
+      "Registo da marcação ou do recado",
+      "Planos com minutos incluídos",
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "150",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 
   return (
-    <html lang="pt">
+    <html lang="pt" className={mona.variable}>
       <head>
-        <link rel="canonical" href={siteUrl} />
-        <meta name="theme-color" content="#0369a1" />
+        <link rel="canonical" href={`${siteUrl}/`} />
+        <meta name="theme-color" content="#0A0C10" />
         <meta name="geo.region" content="PT" />
         <meta name="geo.placename" content="Portugal" />
         <meta name="language" content="Portuguese" />
@@ -171,10 +164,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        <AnimationFallback />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
