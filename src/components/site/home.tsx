@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { PILOT, PLANS, formatEuro } from "@/lib/site";
+import { FOUNDER_CTA, PILOT, PLANS, formatEuro } from "@/lib/site";
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
 import {
@@ -135,14 +135,15 @@ export function HomePage() {
               <div className="hero__actions">
                 <a className="btn btn--primary btn--lg" href="#pedido">
                   <PhoneIcon />
-                  Experimentar a Linea
+                  {FOUNDER_CTA}
                 </a>
                 <a className="btn btn--ghost btn--lg" href="#chamadas">
                   Ver uma chamada
                 </a>
               </div>
               <p className="hero__note">
-                Planos desde 99€ por mês. Piloto de duas semanas.
+                Preço de fundador só para os primeiros {PILOT.founderSpots}.
+                Piloto de duas semanas.
               </p>
             </div>
 
@@ -405,7 +406,8 @@ export function HomePage() {
                       <span className="plan__per">/mês</span>
                     </p>
                     <p className="plan__founder">
-                      {plan.founderPriceEur}€ por mês no piloto
+                      {plan.founderPriceEur}€ por mês, só para os primeiros{" "}
+                      {PILOT.founderSpots}
                     </p>
                     <ul className="plan__list">
                       <li>
@@ -425,7 +427,7 @@ export function HomePage() {
                       className={`btn ${featured ? "btn--primary" : "btn--ghost"} btn--block`}
                       href="#pedido"
                     >
-                      Experimentar a Linea
+                      {FOUNDER_CTA}
                     </a>
                   </article>
                 );
@@ -440,17 +442,19 @@ export function HomePage() {
               <span className="pilot__glow" aria-hidden="true" />
               <div className="pilot__text">
                 <h2 id="piloto-h">
-                  Experimente duas semanas nas suas chamadas.
+                  Os primeiros {PILOT.founderSpots} ficam com o preço de
+                  fundador.
                 </h2>
                 <p>
-                  Quem entra no piloto fica com o preço de fundador:{" "}
+                  São {PILOT.founderSpots} lugares. Quem preenche o pedido e
+                  entra no piloto paga{" "}
                   {PLANS.map(
                     plan => `${plan.name} ${plan.founderPriceEur}€`
                   ).join(", ")}{" "}
-                  por mês.
+                  por mês, fixo durante {PILOT.founderMonths} meses.
                 </p>
                 <a className="btn btn--primary btn--lg" href="#pedido">
-                  Pedir o piloto
+                  {FOUNDER_CTA}
                   <ArrowIcon />
                 </a>
               </div>
@@ -469,12 +473,11 @@ export function HomePage() {
                   </dd>
                 </div>
                 <div style={d(2)}>
-                  <dt>Desconto de fundador</dt>
+                  <dt>Lugares com este preço</dt>
                   <dd>
-                    <span data-count={PILOT.founderDiscountPercent}>
-                      {PILOT.founderDiscountPercent}
+                    <span data-count={PILOT.founderSpots}>
+                      {PILOT.founderSpots}
                     </span>
-                    %
                   </dd>
                 </div>
                 <div style={d(3)}>
@@ -531,9 +534,11 @@ export function HomePage() {
         <section className="section" id="pedido" aria-labelledby="pedido-h">
           <div className="wrap request">
             <div className="request__side" data-reveal>
-              <h2 id="pedido-h">Marque uma chamada de demonstração.</h2>
+              <h2 id="pedido-h">Entre nos primeiros {PILOT.founderSpots}.</h2>
               <p className="head__text">
-                Diga o plano e o que quer ver. A resposta segue por email.
+                O lugar fica reservado quando o pedido chega. O preço de
+                fundador mantém-se {PILOT.founderMonths} meses. Diga o plano e o
+                que quer ver.
               </p>
               <ul className="contacts">
                 {CONTACT_PHONES.map(phone => (

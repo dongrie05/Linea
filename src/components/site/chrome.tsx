@@ -1,7 +1,8 @@
 import { ArrowIcon, LogoMark, PhoneIcon } from "@/components/site/logo";
+import { FOUNDER_CTA } from "@/lib/site";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/lib/contact";
 
-const ACTION = "Experimentar a Linea";
+const ACTION = FOUNDER_CTA;
 
 const LINKS = [
   ["chamadas", "Chamadas"],

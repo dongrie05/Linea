@@ -138,7 +138,7 @@ export default function RootLayout({
       name: `${plan.name}. Atendedor de chamadas`,
       price: String(plan.priceEur),
       priceCurrency: "EUR",
-      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês durante ${PILOT.founderMonths} meses, para quem entra no piloto.`,
+      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês durante ${PILOT.founderMonths} meses, só para os primeiros ${PILOT.founderSpots} que entram no piloto.`,
       availability: "https://schema.org/InStock",
     })),
     featureList: [

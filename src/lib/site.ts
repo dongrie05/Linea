@@ -36,7 +36,10 @@ export const PILOT = {
   depositEur: 29,
   founderDiscountPercent: 30,
   founderMonths: 12,
+  founderSpots: 5,
 } as const;
+
+export const FOUNDER_CTA = `Garantir um dos ${PILOT.founderSpots} lugares`;
 
 export function formatEuro(amount: number): string {
   if (Number.isInteger(amount)) return String(amount);
@@ -87,6 +90,6 @@ export function founderPricesSentence(): string {
 export const PILOT_SENTENCES = [
   "Duas semanas grátis.",
   `A caução é de ${PILOT.depositEur}€. É devolvida se avançar para um plano.`,
-  `Quem entra no piloto fica com o preço de fundador. O desconto é de ${PILOT.founderDiscountPercent}% e mantém-se fixo durante ${PILOT.founderMonths} meses.`,
+  `O preço de fundador é só para os primeiros ${PILOT.founderSpots}. O desconto é de ${PILOT.founderDiscountPercent}% e mantém-se fixo durante ${PILOT.founderMonths} meses.`,
   founderPricesSentence(),
 ] as const;

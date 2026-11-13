@@ -1,5 +1,5 @@
 import { CONTACT_PHONE_WHATSAPP, LEADS_EMAIL } from "@/lib/contact";
-import { PLANS } from "@/lib/site";
+import { FOUNDER_CTA, PLANS } from "@/lib/site";
 import { ArrowIcon } from "@/components/site/logo";
 
 export function LeadForm() {
@@ -79,7 +79,7 @@ export function LeadForm() {
       </div>
       <div className="field--full form__foot">
         <button className="btn btn--primary btn--lg" type="submit">
-          Experimentar a Linea
+          {FOUNDER_CTA}
           <ArrowIcon />
         </button>
         <p className="form__note">
