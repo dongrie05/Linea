@@ -38,7 +38,7 @@ export type PlanId = (typeof PLANS)[number]["id"];
 
 export const PILOT = {
   founderDiscountPercent: 25,
-  founderMonths: 12,
+  founderMonths: 6,
 } as const;
 
 export const FOUNDER_CTA = "Quero o preço de fundador";
