@@ -12,8 +12,7 @@ import {
 import { SiteMotion } from "@/components/site/motion";
 import {
   CONTACT_EMAIL,
-  CONTACT_PHONE_DISPLAY,
-  CONTACT_PHONE_E164,
+  CONTACT_PHONES,
   CONTACT_PHONE_WHATSAPP,
 } from "@/lib/contact";
 
@@ -537,17 +536,19 @@ export function HomePage() {
                 Diga o plano e o que quer ver. A resposta segue por email.
               </p>
               <ul className="contacts">
-                <li>
-                  <a href={`tel:${CONTACT_PHONE_E164}`}>
-                    <span className="contacts__icon">
-                      <PhoneIcon />
-                    </span>
-                    <span>
-                      <b>Telefone</b>
-                      {CONTACT_PHONE_DISPLAY}
-                    </span>
-                  </a>
-                </li>
+                {CONTACT_PHONES.map(phone => (
+                  <li key={phone.e164}>
+                    <a href={`tel:${phone.e164}`}>
+                      <span className="contacts__icon">
+                        <PhoneIcon />
+                      </span>
+                      <span>
+                        <b>Telefone</b>
+                        {phone.display}
+                      </span>
+                    </a>
+                  </li>
+                ))}
                 <li>
                   <a href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}`}>
                     <span className="contacts__icon">

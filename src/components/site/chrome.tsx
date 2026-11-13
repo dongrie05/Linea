@@ -1,9 +1,5 @@
 import { ArrowIcon, LogoMark, PhoneIcon } from "@/components/site/logo";
-import {
-  CONTACT_EMAIL,
-  CONTACT_PHONE_DISPLAY,
-  CONTACT_PHONE_E164,
-} from "@/lib/contact";
+import { CONTACT_EMAIL, CONTACT_PHONES } from "@/lib/contact";
 
 const ACTION = "Experimentar a Linea";
 
@@ -107,7 +103,11 @@ export function SiteFooter({ home = "" }: { home?: string }) {
             <h3>Contacto</h3>
             <a href={to("pedido")}>Pedido</a>
             <a href={`mailto:${CONTACT_EMAIL}`}>Email</a>
-            <a href={`tel:${CONTACT_PHONE_E164}`}>{CONTACT_PHONE_DISPLAY}</a>
+            {CONTACT_PHONES.map(phone => (
+              <a key={phone.e164} href={`tel:${phone.e164}`}>
+                {phone.display}
+              </a>
+            ))}
           </div>
         </div>
         <div className="footer__legal">

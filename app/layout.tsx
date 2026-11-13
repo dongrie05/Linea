@@ -127,7 +127,7 @@ export default function RootLayout({
       },
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+351-927-699-882",
+        telephone: ["+351-927-699-882", "+351-964-000-234"],
         contactType: "customer service",
         availableLanguage: ["Portuguese", "pt"],
         areaServed: "PT",
