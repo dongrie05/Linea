@@ -83,7 +83,7 @@ const FAQ = [
   ],
   [
     "A caução cobre as chamadas do piloto?",
-    `A caução é de ${PILOT.depositEur}€ e é devolvida se avançar para um plano.`,
+    `Depende do plano: ${PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(", ")}. É devolvida se avançar para um plano.`,
   ],
   [
     "A Linea substitui a equipa?",
@@ -420,7 +420,7 @@ export function HomePage() {
                       </li>
                       <li>
                         <CheckIcon />
-                        Marcações e recados no painel
+                        Caução de {plan.depositEur}€, devolvida ao avançar
                       </li>
                     </ul>
                     <a
@@ -449,7 +449,12 @@ export function HomePage() {
                   {PLANS.map(
                     plan => `${plan.name} ${plan.founderPriceEur}€`
                   ).join(", ")}{" "}
-                  por mês, fixo durante {PILOT.founderMonths} meses.
+                  por mês, fixo durante {PILOT.founderMonths} meses. A caução do
+                  piloto segue o plano:{" "}
+                  {PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(
+                    ", "
+                  )}
+                  . É devolvida se avançar.
                 </p>
                 <a className="btn btn--primary btn--lg" href="#pedido">
                   {FOUNDER_CTA}
@@ -462,12 +467,9 @@ export function HomePage() {
                   <dd>2 semanas</dd>
                 </div>
                 <div style={d(1)}>
-                  <dt>Caução devolvida</dt>
+                  <dt>Caução, conforme o plano</dt>
                   <dd>
-                    <span data-count={PILOT.depositEur}>
-                      {PILOT.depositEur}
-                    </span>
-                    €
+                    {PLANS[0].depositEur} a {PLANS[2].depositEur}€
                   </dd>
                 </div>
                 <div style={d(2)}>

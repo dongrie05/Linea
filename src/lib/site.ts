@@ -1,6 +1,7 @@
 /**
  * Preços e piloto aprovados para publicação.
  * Valores mensais, em euros. O volume conta em minutos.
+ * A caução do Starter é 29€. Nos outros planos é a mesma parte do preço mensal, arredondada ao euro.
  */
 
 export const PLANS = [
@@ -9,6 +10,7 @@ export const PLANS = [
     name: "Starter",
     priceEur: 99,
     founderPriceEur: 74,
+    depositEur: 29,
     minutesPerMonth: 400,
     extraMinuteEur: 0.3,
   },
@@ -17,6 +19,7 @@ export const PLANS = [
     name: "Growth",
     priceEur: 199,
     founderPriceEur: 149,
+    depositEur: 58,
     minutesPerMonth: 1000,
     extraMinuteEur: 0.25,
   },
@@ -25,6 +28,7 @@ export const PLANS = [
     name: "Pro",
     priceEur: 499,
     founderPriceEur: 374,
+    depositEur: 146,
     minutesPerMonth: 2500,
     extraMinuteEur: 0.25,
   },
@@ -33,7 +37,6 @@ export const PLANS = [
 export type PlanId = (typeof PLANS)[number]["id"];
 
 export const PILOT = {
-  depositEur: 29,
   founderDiscountPercent: 25,
   founderMonths: 12,
 } as const;
@@ -88,7 +91,7 @@ export function founderPricesSentence(): string {
 
 export const PILOT_SENTENCES = [
   "Duas semanas grátis.",
-  `A caução é de ${PILOT.depositEur}€. É devolvida se avançar para um plano.`,
+  `A caução depende do plano: ${PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(", ")}. É devolvida se avançar para um plano.`,
   `O preço de fundador é um desconto de ${PILOT.founderDiscountPercent}% para todos. Mantém-se fixo durante ${PILOT.founderMonths} meses.`,
   founderPricesSentence(),
 ] as const;
