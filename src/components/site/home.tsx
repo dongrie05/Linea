@@ -142,8 +142,8 @@ export function HomePage() {
                 </a>
               </div>
               <p className="hero__note">
-                Preço de fundador só para os primeiros {PILOT.founderSpots}.
-                Piloto de duas semanas.
+                Preço de fundador: {PILOT.founderDiscountPercent}% de desconto
+                para todos. Piloto de duas semanas.
               </p>
             </div>
 
@@ -406,8 +406,8 @@ export function HomePage() {
                       <span className="plan__per">/mês</span>
                     </p>
                     <p className="plan__founder">
-                      {plan.founderPriceEur}€ por mês, só para os primeiros{" "}
-                      {PILOT.founderSpots}
+                      {plan.founderPriceEur}€ por mês,{" "}
+                      {PILOT.founderDiscountPercent}% de desconto para todos
                     </p>
                     <ul className="plan__list">
                       <li>
@@ -442,12 +442,10 @@ export function HomePage() {
               <span className="pilot__glow" aria-hidden="true" />
               <div className="pilot__text">
                 <h2 id="piloto-h">
-                  Os primeiros {PILOT.founderSpots} ficam com o preço de
-                  fundador.
+                  {PILOT.founderDiscountPercent}% de desconto para todos.
                 </h2>
                 <p>
-                  São {PILOT.founderSpots} lugares. Quem preenche o pedido e
-                  entra no piloto paga{" "}
+                  O preço de fundador é para quem entra no piloto:{" "}
                   {PLANS.map(
                     plan => `${plan.name} ${plan.founderPriceEur}€`
                   ).join(", ")}{" "}
@@ -473,11 +471,12 @@ export function HomePage() {
                   </dd>
                 </div>
                 <div style={d(2)}>
-                  <dt>Lugares com este preço</dt>
+                  <dt>Desconto de fundador</dt>
                   <dd>
-                    <span data-count={PILOT.founderSpots}>
-                      {PILOT.founderSpots}
+                    <span data-count={PILOT.founderDiscountPercent}>
+                      {PILOT.founderDiscountPercent}
                     </span>
+                    %
                   </dd>
                 </div>
                 <div style={d(3)}>
@@ -534,11 +533,11 @@ export function HomePage() {
         <section className="section" id="pedido" aria-labelledby="pedido-h">
           <div className="wrap request">
             <div className="request__side" data-reveal>
-              <h2 id="pedido-h">Entre nos primeiros {PILOT.founderSpots}.</h2>
+              <h2 id="pedido-h">Fique com o preço de fundador.</h2>
               <p className="head__text">
-                O lugar fica reservado quando o pedido chega. O preço de
-                fundador mantém-se {PILOT.founderMonths} meses. Diga o plano e o
-                que quer ver.
+                O desconto de {PILOT.founderDiscountPercent}% é para todos.
+                Preencha o pedido e o preço fica fixo durante{" "}
+                {PILOT.founderMonths} meses.
               </p>
               <ul className="contacts">
                 {CONTACT_PHONES.map(phone => (
