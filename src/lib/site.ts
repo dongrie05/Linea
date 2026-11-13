@@ -1,7 +1,7 @@
 /**
  * Preços e piloto aprovados para publicação.
  * Valores mensais, em euros. O volume conta em minutos.
- * A caução do Starter é 29€. Nos outros planos é a mesma parte do preço mensal, arredondada ao euro.
+ * A caução do piloto é 29€, 69€ e 179€, do Starter ao Pro.
  */
 
 export const PLANS = [
@@ -19,7 +19,7 @@ export const PLANS = [
     name: "Growth",
     priceEur: 199,
     founderPriceEur: 149,
-    depositEur: 58,
+    depositEur: 69,
     minutesPerMonth: 1000,
     extraMinuteEur: 0.25,
   },
@@ -28,7 +28,7 @@ export const PLANS = [
     name: "Pro",
     priceEur: 499,
     founderPriceEur: 374,
-    depositEur: 146,
+    depositEur: 179,
     minutesPerMonth: 2500,
     extraMinuteEur: 0.25,
   },
