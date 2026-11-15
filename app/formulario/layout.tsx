@@ -4,16 +4,15 @@ import { siteUrl } from "@/lib/site-url";
 const formularioUrl = `${siteUrl}/formulario/`;
 
 export const metadata: Metadata = {
-  title: "Contacto - Atendedor de Chamadas IA | Linea Portugal",
+  title: "Pedir Atendedor de Chamadas IA | Contacto Linea Portugal",
   description:
-    "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Entre em contacto com a Linea - o melhor atendedor de chamadas automático. Configuração em 1 dia!",
+    "Peça o atendedor de chamadas com IA da Linea. Automatize reservas e marcações por telefone. Configuração rápida. Portugal.",
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
+    "automatizar reservas por telefone",
     "atendimento telefónico automático",
-    "atendedor automático de chamadas",
-    "atendimento telefónico IA Portugal",
-    "assistente telefónico Portugal",
+    "contacto Linea",
   ].join(", "),
   robots: {
     index: true,
@@ -30,11 +29,19 @@ export const metadata: Metadata = {
     canonical: formularioUrl,
   },
   openGraph: {
-    title: "Contacto - Atendedor de Chamadas IA | Linea",
+    title: "Pedir Atendedor de Chamadas IA | Linea",
     description:
-      "Atendedor de chamadas com IA em Portugal. Atendimento telefónico automático 24/7. Configuração em 1 dia!",
+      "Peça o atendedor de chamadas com IA. Automatize reservas por telefone. Portugal.",
     url: formularioUrl,
     type: "website",
+    images: [
+      {
+        url: `${siteUrl}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Linea - Atendedor de chamadas com IA",
+      },
+    ],
   },
 };
 

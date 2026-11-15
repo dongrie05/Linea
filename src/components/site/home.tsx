@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { FOUNDER_CTA, PILOT, PLANS, formatEuro } from "@/lib/site";
+import { FAQ_ITEMS, FOUNDER_CTA, PILOT, PLANS, formatEuro } from "@/lib/site";
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
 import {
@@ -72,26 +72,6 @@ const DESTINATIONS = [
 const STATEMENT =
   "Enquanto atende um cliente, a Linea atende o próximo. Percebe o que a pessoa precisa, marca e deixa tudo registado.";
 
-const FAQ = [
-  [
-    "Posso cancelar quando quiser?",
-    "Sim. O cancelamento fica disponível a qualquer momento.",
-  ],
-  [
-    "O que conta num minuto de chamada?",
-    "Conta o tempo da chamada atendida. O minuto extra custa o valor do plano.",
-  ],
-  [
-    "A caução cobre as chamadas do piloto?",
-    `Depende do plano: ${PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(", ")}. É devolvida se avançar para um plano.`,
-  ],
-  [
-    "A Linea substitui a equipa?",
-    "Atende quando ninguém atende. Não substitui uma decisão que só uma pessoa da empresa pode tomar.",
-  ],
-  ["Em que língua responde?", "Em português, no número da empresa."],
-] as const;
-
 function SectionHead({
   id,
   title,
@@ -126,11 +106,12 @@ export function HomePage() {
                 ))}
               </h1>
               <p className="hero__promise">
-                A sua clínica nunca perde uma chamada.
+                Atendedor de chamadas com IA. A sua clínica nunca perde uma
+                chamada.
               </p>
               <p className="hero__lead">
-                A Linea atende o telefone, marca consultas e envia a confirmação
-                por SMS. De dia e de noite.
+                A Linea atende o telefone, marca consultas e reservas, e envia a
+                confirmação por SMS. De dia e de noite.
               </p>
               <div className="hero__actions">
                 <a className="btn btn--primary btn--lg" href="#pedido">
@@ -142,8 +123,9 @@ export function HomePage() {
                 </a>
               </div>
               <p className="hero__note">
-                Preço de fundador: {PILOT.founderDiscountPercent}% de desconto
-                para todos. Piloto de duas semanas.
+                Preço de fundador só para os primeiros {PILOT.founderSpots}{" "}
+                clientes, durante {PILOT.founderMonths} meses. Piloto de duas
+                semanas.
               </p>
             </div>
 
@@ -382,7 +364,7 @@ export function HomePage() {
             <SectionHead
               id="precos-h"
               title="Três planos. Sem taxa de setup."
-              text="Paga pelos minutos atendidos. O minuto extra muda com o plano."
+              text={`O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos.`}
             />
             <div className="plans">
               {PLANS.map((plan, i) => {
@@ -406,8 +388,8 @@ export function HomePage() {
                       <span className="plan__per">/mês</span>
                     </p>
                     <p className="plan__founder">
-                      {plan.founderPriceEur}€ por mês,{" "}
-                      {PILOT.founderDiscountPercent}% de desconto para todos
+                      {plan.founderPriceEur} € por mês para os primeiros{" "}
+                      {PILOT.founderSpots}, durante {PILOT.founderMonths} meses
                     </p>
                     <ul className="plan__list">
                       <li>
@@ -416,11 +398,11 @@ export function HomePage() {
                       </li>
                       <li>
                         <CheckIcon />
-                        Minuto extra a {formatEuro(plan.extraMinuteEur)}€
+                        Minuto extra a {formatEuro(plan.extraMinuteEur)} €
                       </li>
                       <li>
                         <CheckIcon />
-                        Caução de {plan.depositEur}€, devolvida ao avançar
+                        Caução de {plan.depositEur} €, devolvida ao avançar
                       </li>
                     </ul>
                     <a
@@ -433,6 +415,52 @@ export function HomePage() {
                 );
               })}
             </div>
+            <h3 className="table-title">Tabela de custos</h3>
+            <p className="table-note">
+              O preço de fundador é só para os primeiros {PILOT.founderSpots}{" "}
+              clientes, durante {PILOT.founderMonths} meses.
+            </p>
+            <div className="table-scroll">
+              <table className="data-table">
+                <caption className="sr-only">Custos dos planos</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Plano</th>
+                    <th scope="col">Preço mensal de tabela</th>
+                    <th scope="col">Preço de fundador</th>
+                    <th scope="col">Minutos incluídos</th>
+                    <th scope="col">Preço por minuto extra</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PLANS.map(plan => (
+                    <tr key={plan.id}>
+                      <th scope="row">{plan.name}</th>
+                      <td>
+                        <span className="cell-label">
+                          Preço mensal de tabela
+                        </span>
+                        {formatEuro(plan.priceEur)} €
+                      </td>
+                      <td>
+                        <span className="cell-label">Preço de fundador</span>
+                        {formatEuro(plan.founderPriceEur)} €
+                      </td>
+                      <td>
+                        <span className="cell-label">Minutos incluídos</span>
+                        {plan.minutesPerMonth}
+                      </td>
+                      <td>
+                        <span className="cell-label">
+                          Preço por minuto extra
+                        </span>
+                        {formatEuro(plan.extraMinuteEur)} € por minuto
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
@@ -441,20 +469,11 @@ export function HomePage() {
             <div className="pilot spot" data-reveal>
               <span className="pilot__glow" aria-hidden="true" />
               <div className="pilot__text">
-                <h2 id="piloto-h">
-                  {PILOT.founderDiscountPercent}% de desconto para todos.
-                </h2>
+                <h2 id="piloto-h">Piloto de duas semanas.</h2>
                 <p>
-                  O preço de fundador é para quem entra no piloto:{" "}
-                  {PLANS.map(
-                    plan => `${plan.name} ${plan.founderPriceEur}€`
-                  ).join(", ")}{" "}
-                  por mês, fixo durante {PILOT.founderMonths} meses. A caução do
-                  piloto segue o plano:{" "}
-                  {PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(
-                    ", "
-                  )}
-                  . É devolvida se avançar.
+                  O preço de fundador está na tabela de preços. É só para os
+                  primeiros {PILOT.founderSpots} clientes e dura{" "}
+                  {PILOT.founderMonths} meses.
                 </p>
                 <a className="btn btn--primary btn--lg" href="#pedido">
                   {FOUNDER_CTA}
@@ -467,18 +486,11 @@ export function HomePage() {
                   <dd>2 semanas</dd>
                 </div>
                 <div style={d(1)}>
-                  <dt>Caução, conforme o plano</dt>
+                  <dt>Primeiros clientes</dt>
                   <dd>
-                    {PLANS[0].depositEur} a {PLANS[2].depositEur}€
-                  </dd>
-                </div>
-                <div style={d(2)}>
-                  <dt>Desconto de fundador</dt>
-                  <dd>
-                    <span data-count={PILOT.founderDiscountPercent}>
-                      {PILOT.founderDiscountPercent}
+                    <span data-count={PILOT.founderSpots}>
+                      {PILOT.founderSpots}
                     </span>
-                    %
                   </dd>
                 </div>
                 <div style={d(3)}>
@@ -491,6 +503,34 @@ export function HomePage() {
                   </dd>
                 </div>
               </dl>
+            </div>
+            <h3 className="table-title">Caução do piloto</h3>
+            <p className="table-note">
+              A caução é devolvida se o cliente avançar para um plano.
+            </p>
+            <div className="table-scroll">
+              <table className="data-table">
+                <caption className="sr-only">
+                  Caução do piloto de duas semanas
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Plano</th>
+                    <th scope="col">Caução</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PLANS.map(plan => (
+                    <tr key={plan.id}>
+                      <th scope="row">{plan.name}</th>
+                      <td>
+                        <span className="cell-label">Caução</span>
+                        {plan.depositEur} €
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -511,7 +551,7 @@ export function HomePage() {
               </a>
             </div>
             <div className="faq">
-              {FAQ.map(([q, a], i) => (
+              {FAQ_ITEMS.map(([q, a], i) => (
                 <details
                   className="faq__item"
                   key={q}
@@ -537,9 +577,8 @@ export function HomePage() {
             <div className="request__side" data-reveal>
               <h2 id="pedido-h">Fique com o preço de fundador.</h2>
               <p className="head__text">
-                O desconto de {PILOT.founderDiscountPercent}% é para todos.
-                Preencha o pedido e o preço fica fixo durante{" "}
-                {PILOT.founderMonths} meses.
+                O preço de fundador é só para os primeiros {PILOT.founderSpots}{" "}
+                clientes e fica fixo durante {PILOT.founderMonths} meses.
               </p>
               <ul className="contacts">
                 {CONTACT_PHONES.map(phone => (

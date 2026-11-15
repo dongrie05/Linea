@@ -1,41 +1,42 @@
-# Robots.txt para Linea - Atendedor de Chamadas com IA
+# Linea - Atendedor de chamadas com IA
 # https://linea.dongrielabs.com/
 
 User-agent: *
 Allow: /
-Allow: /formulario
-
-# Bloquear arquivos desnecessários
-Disallow: /_next/
+Allow: /formulario/
+Allow: /_next/static/
 Disallow: /api/
 Disallow: /admin/
-Disallow: /*.json$
 Disallow: /out/
 
-# Sitemap location
 Sitemap: https://linea.dongrielabs.com/sitemap.xml
 
-# Permitir especificamente para motores de busca principais
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 0
 
-# Permitir especificamente para motores de IA
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: CCBot
+User-agent: Google-Extended
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
