@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-const GTM_ID = "GTM-W737S83Q";
+const GTM_ID = "GTM-K53G9J9G";
 
 /** Google Tag Manager. As tags GA4 / ads configuram-se no contentor GTM. */
 export function Analytics() {
