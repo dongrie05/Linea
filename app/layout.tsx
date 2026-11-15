@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { PILOT, PLANS, formatEuro } from "@/lib/site";
+import { FAQ_ITEMS, PILOT, PLANS, formatEuro } from "@/lib/site";
 import { siteUrl } from "@/lib/site-url";
 
 const mona = localFont({
@@ -11,47 +11,49 @@ const mona = localFont({
   variable: "--font-mona",
 });
 
+const titleDefault =
+  "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea";
+const description =
+  "Atendedor de chamadas com IA em Portugal. A Linea atende o telefone, marca consultas e reservas, e envia a confirmação por SMS. Planos desde 99€ por mês.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default:
-      "Atendedor de Chamadas IA | Atendimento Telefónico Automático Portugal - Linea",
-    template: "%s | Linea - Atendimento Telefónico IA",
+    default: titleDefault,
+    template: "%s | Linea - Atendedor de Chamadas IA",
   },
-  description: `A Linea atende o telefone, marca consultas e envia a confirmação por SMS. De dia e de noite. Planos desde 99€ por mês.`,
+  description,
   keywords: [
     "atendedor de chamadas",
     "atendedor de chamadas IA",
+    "atendedor de chamadas com AI",
     "atendedor de chamadas automático",
     "atendimento telefónico IA",
     "atendimento telefónico automático",
+    "automatizar reservas por telefone",
+    "automatizar reservas por chamadas",
     "assistente telefónico Portugal",
     "IA atendimento",
-    "atendedor automático de chamadas",
-    "automatização chamadas",
-    "chatbot telefónico",
+    "marcação de consultas por telefone",
+    "atendedor virtual",
+    "sistema de atendimento automático",
     "atendimento 24/7",
-    "poupar custos atendimento",
+    "chatbot telefónico",
     "inteligência artificial Portugal",
     "atendimento telefónico inteligente",
-    "sistema de atendimento automático",
-    "atendedor virtual",
     "IA para telefone",
-    "atendimento telefónico barato",
-    "atendimento automático português",
     "linea",
   ].join(", "),
   authors: [{ name: "Linea", url: siteUrl }],
   creator: "Linea",
   publisher: "Linea",
   alternates: {
-    canonical: siteUrl,
+    canonical: `${siteUrl}/`,
   },
   openGraph: {
     title:
-      "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas Automático",
-    description:
-      "Atendedor de chamadas para empresas em Portugal. Planos desde 99€ por mês, com minutos incluídos.",
+      "Linea - Atendedor de Chamadas com IA | Atendimento Telefónico Automático",
+    description,
     url: siteUrl,
     siteName: "Linea",
     type: "website",
@@ -61,15 +63,15 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Linea - Atendimento Telefónico IA Portugal",
+        alt: "Linea - Atendedor de chamadas com IA em Portugal",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Linea - Atendimento Telefónico IA Portugal | Atendedor de Chamadas",
+    title: "Linea - Atendedor de Chamadas com IA Portugal",
     description:
-      "Atendedor de chamadas para empresas em Portugal. A Linea atende e regista a marcação ou o recado.",
+      "Atendedor de chamadas para empresas em Portugal. Atende, marca e confirma por SMS.",
     images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {
@@ -83,11 +85,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    // Adicione aqui o código de verificação do Google Search Console quando tiver
-    // google: "seu-codigo-de-verificacao",
-  },
   category: "technology",
+  other: {
+    "geo.region": "PT",
+    "geo.placename": "Portugal",
+  },
 };
 
 export default function RootLayout({
@@ -95,68 +97,133 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const orgId = `${siteUrl}/#organization`;
+  const websiteId = `${siteUrl}/#website`;
+  const appId = `${siteUrl}/#software`;
+  const serviceId = `${siteUrl}/#service`;
+
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Linea - Atendedor de Chamadas com IA | Atendimento Telefónico Automático",
-    description:
-      "Atendedor de chamadas para empresas em Portugal. A Linea atende a chamada, responde em português e regista a marcação ou o recado.",
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    url: siteUrl,
-    datePublished: "2024-01-16",
-    dateModified: "2025-01-27",
-    keywords:
-      "linea, atendedor de chamadas, atendimento telefónico IA, atendimento automático, IA Portugal",
-    about: {
-      "@type": "Thing",
-      name: "Atendimento Telefónico com Inteligência Artificial",
-    },
-    provider: {
-      "@type": "Organization",
-      name: "Linea",
-      url: siteUrl,
-      logo: `${siteUrl}/logo.png`,
-      sameAs: [
-        // Adicione aqui links para redes sociais quando tiver
-      ],
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "PT",
-        addressLocality: "Portugal",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": orgId,
+        name: "Linea",
+        url: siteUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`,
+        },
+        description:
+          "Atendedor de chamadas com IA para empresas em Portugal. Atende, marca consultas e reservas, confirma por SMS.",
+        areaServed: {
+          "@type": "Country",
+          name: "Portugal",
+        },
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            telephone: "+351-927-699-882",
+            contactType: "sales",
+            availableLanguage: ["Portuguese", "pt-PT"],
+            areaServed: "PT",
+          },
+          {
+            "@type": "ContactPoint",
+            telephone: "+351-964-000-234",
+            contactType: "customer service",
+            availableLanguage: ["Portuguese", "pt-PT"],
+            areaServed: "PT",
+          },
+        ],
       },
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: ["+351-927-699-882", "+351-964-000-234"],
-        contactType: "customer service",
-        availableLanguage: ["Portuguese", "pt"],
-        areaServed: "PT",
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: siteUrl,
+        name: "Linea",
+        description,
+        inLanguage: "pt-PT",
+        publisher: { "@id": orgId },
+        potentialAction: {
+          "@type": "ReserveAction",
+          target: `${siteUrl}/formulario/`,
+          name: "Pedir preço de fundador",
+        },
       },
-    },
-    offers: PLANS.map(plan => ({
-      "@type": "Offer",
-      name: `${plan.name}. Atendedor de chamadas`,
-      price: String(plan.priceEur),
-      priceCurrency: "EUR",
-      description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)}€. Preço de fundador ${plan.founderPriceEur}€ por mês, um desconto de ${PILOT.founderDiscountPercent}% para todos, fixo durante ${PILOT.founderMonths} meses.`,
-      availability: "https://schema.org/InStock",
-    })),
-    featureList: [
-      "Atendimento da chamada no número da empresa",
-      "Resposta em português",
-      "Registo da marcação ou do recado",
-      "Planos com minutos incluídos",
+      {
+        "@type": "SoftwareApplication",
+        "@id": appId,
+        name: "Linea - Atendedor de Chamadas com IA",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        url: siteUrl,
+        image: `${siteUrl}/og-image.jpg`,
+        datePublished: "2024-01-16",
+        dateModified: "2026-11-15",
+        inLanguage: "pt-PT",
+        description,
+        keywords:
+          "atendedor de chamadas, atendedor de chamadas IA, automatizar reservas por telefone, atendimento telefónico automático",
+        provider: { "@id": orgId },
+        offers: PLANS.map(plan => ({
+          "@type": "Offer",
+          name: `${plan.name} - Atendedor de chamadas`,
+          price: String(plan.priceEur),
+          priceCurrency: "EUR",
+          description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)} €. Preço de fundador ${plan.founderPriceEur} € por mês, só para os primeiros ${PILOT.founderSpots} clientes, durante ${PILOT.founderMonths} meses.`,
+          availability: "https://schema.org/InStock",
+          url: `${siteUrl}/#precos`,
+        })),
+        featureList: [
+          "Atendedor de chamadas no número da empresa",
+          "Resposta em português",
+          "Automatização de reservas e marcações por telefone",
+          "Confirmação por SMS",
+          "Planos com minutos incluídos",
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": serviceId,
+        name: "Atendedor de chamadas com IA",
+        serviceType: "Atendimento telefónico automático",
+        provider: { "@id": orgId },
+        areaServed: {
+          "@type": "Country",
+          name: "Portugal",
+        },
+        description:
+          "Serviço de atendedor de chamadas com inteligência artificial. Atende, marca consultas e reservas, e confirma por SMS.",
+        url: siteUrl,
+        offers: {
+          "@type": "AggregateOffer",
+          priceCurrency: "EUR",
+          lowPrice: String(PLANS[0].priceEur),
+          highPrice: String(PLANS[PLANS.length - 1].priceEur),
+          offerCount: PLANS.length,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${siteUrl}/#faq`,
+        mainEntity: FAQ_ITEMS.map(([question, answer]) => ({
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: answer,
+          },
+        })),
+      },
     ],
   };
 
   return (
-    <html lang="pt" className={mona.variable}>
+    <html lang="pt-PT" className={mona.variable}>
       <head>
         <link rel="canonical" href={`${siteUrl}/`} />
         <meta name="theme-color" content="#0A0C10" />
-        <meta name="geo.region" content="PT" />
-        <meta name="geo.placename" content="Portugal" />
-        <meta name="language" content="Portuguese" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

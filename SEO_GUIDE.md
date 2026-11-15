@@ -1,198 +1,57 @@
-# 🚀 Guia de SEO e Indexação - Linea
+# Guia de SEO e AEO - Linea
 
-Este guia explica como fazer o seu site aparecer no Google quando as pessoas procuram por "linea" ou "atendedor de chamadas".
+O site em código já inclui sitemap, robots, metadados, Open Graph, JSON-LD (Organization, WebSite, SoftwareApplication, Service, FAQPage), `llms.txt` e palavras-chave para atendedor de chamadas / IA / reservas por telefone.
 
-## 📋 O que já foi feito
+Domínio canónico: **https://linea.dongrielabs.com/**
 
-✅ **Metadados SEO otimizados**
+## O que falta fazer (só tu podes)
 
-- Títulos e descrições com palavras-chave relevantes
-- Meta tags Open Graph e Twitter Cards
-- Structured Data (Schema.org) para melhor compreensão pelos motores de busca
-- Canonical URLs configuradas
-- Keywords otimizadas incluindo "linea" e "atendedor de chamadas"
+### 1. Google Search Console
 
-✅ **Sitemap e Robots.txt**
+1. Abre https://search.google.com/search-console
+2. Adiciona propriedade com prefixo de URL: `https://linea.dongrielabs.com`
+3. Verifica com o ficheiro HTML já no site:
+   - https://linea.dongrielabs.com/google09b22ee41771b1e6.html
+4. Em Sitemaps, submete: `sitemap.xml`
+5. Em Inspeção de URL, pede indexação de:
+   - `https://linea.dongrielabs.com/`
+   - `https://linea.dongrielabs.com/formulario/`
 
-- Sitemap.xml atualizado e configurado
-- Robots.txt otimizado para permitir indexação
-- Sitemap dinâmico criado (app/sitemap.ts)
+### 2. Bing Webmaster Tools
 
-✅ **Conteúdo otimizado**
+1. https://www.bing.com/webmasters
+2. Adiciona o mesmo domínio e submete o sitemap
 
-- H1 com palavras-chave principais
-- Conteúdo melhorado com termos relevantes
-- Estrutura semântica adequada
+### 3. Google Analytics (recomendado)
 
-## 🔍 Próximos Passos (IMPORTANTE!)
+Cria uma propriedade GA4 e partilha o Measurement ID para o colocarmos no site.
 
-### 1. Verificar o Site no Google Search Console
+### 4. Google Business Profile (se aplicável)
 
-**O que é:** Google Search Console é uma ferramenta gratuita do Google que ajuda a monitorar e melhorar a presença do seu site nos resultados de pesquisa.
+Cria ou reclama o perfil do negócio e liga ao site.
 
-**Como fazer:**
+### 5. Partilha e backlinks
 
-1. **Aceda ao Google Search Console**
-   - Vá para: https://search.google.com/search-console
-   - Faça login com a sua conta Google
+- LinkedIn, Instagram, Facebook, site da Dongrie Labs
+- Diretórios de negócios PT (quando fizer sentido)
+- Pedir a clientes e parceiros que liguem para linea.dongrielabs.com
 
-2. **Adicionar propriedade**
-   - Clique em "Adicionar propriedade"
-   - Escolha "Prefixo do URL"
-   - Digite: `https://dongrie05.github.io/Linea`
-   - Clique em "Continuar"
+### 6. Conteúdo contínuo (para subir no ranking)
 
-3. **Verificar propriedade**
-   O Google oferece várias formas de verificação. A mais fácil para GitHub Pages:
+Artigos curtos no site ou blog sobre:
+- atendedor de chamadas com IA
+- automatizar reservas por telefone
+- atendimento telefónico automático para clínicas / restaurantes
 
-   **Opção A - Arquivo HTML (Recomendado para GitHub Pages)**
-   - Escolha "Método de arquivo HTML"
-   - Faça download do arquivo HTML (ex: `google09b22ee41771b1e6.html`)
-   - O arquivo já foi adicionado à pasta `public/` do projeto
-   - Aguarde 2-5 minutos para o GitHub Actions fazer o deploy
-   - Verifique se o arquivo está acessível em: `https://dongrie05.github.io/Linea/google09b22ee41771b1e6.html`
-   - Volte ao Search Console e clique em "VALIDAR"
-   - ✅ Se a validação funcionar, continue para o próximo passo!
-   - ❌ Se der erro, verifique se o conteúdo do arquivo está correto
+### 7. Redes sociais na schema
 
-   **Opção B - Tag HTML (Alternativa)**
-   - Escolha "Tag de HTML"
-   - Copie o código de verificação (algo como: `<meta name="google-site-verification" content="SEU_CODIGO_AQUI" />`)
-   - Abra o arquivo `app/layout.tsx`
-   - Encontre a linha com `verification: { // Adicione aqui...`
-   - Descomente e adicione o código:
-     ```typescript
-     verification: {
-       google: "seu-codigo-de-verificacao-aqui",
-     },
-     ```
-   - Faça commit e push para o GitHub
-   - Volte ao Search Console e clique em "Verificar"
+Quando tiverem páginas oficiais, envia os URLs (LinkedIn, Instagram, etc.) para as adicionarmos em `sameAs`.
 
-4. **Submeter sitemap**
-   - Após verificação, vá em "Sitemaps" no menu lateral
-   - Adicione: `sitemap.xml`
-   - Clique em "Enviar"
+## Verificação rápida
 
-### 2. Solicitar Indexação Manual
+- Sitemap: https://linea.dongrielabs.com/sitemap.xml
+- Robots: https://linea.dongrielabs.com/robots.txt
+- llms.txt (AEO): https://linea.dongrielabs.com/llms.txt
+- OG image: https://linea.dongrielabs.com/og-image.jpg
 
-Após verificar o site no Search Console:
-
-1. **Solicitar indexação da página principal**
-   - Vá em "Inspeção de URL"
-   - Digite: `https://dongrie05.github.io/Linea/`
-   - Clique em "Solicitar indexação"
-   - Repita para: `https://dongrie05.github.io/Linea/formulario`
-
-2. **Aguarde alguns dias**
-   - O Google pode levar de 1 a 7 dias para indexar
-   - Verifique o progresso em "Cobertura" no Search Console
-
-### 3. Melhorar Backlinks (Links de outros sites)
-
-Para aparecer melhor no Google, é importante ter links de outros sites apontando para o seu:
-
-**O que fazer:**
-
-- Partilhe o site em redes sociais (LinkedIn, Facebook, Twitter)
-- Adicione o link em perfis de negócio (Google My Business, etc.)
-- Partilhe em fóruns relevantes (quando apropriado)
-- Peça a clientes/parceiros para partilhar
-
-### 4. Conteúdo Regular
-
-O Google valoriza sites que são atualizados regularmente:
-
-**Sugestões:**
-
-- Adicione um blog com artigos sobre atendimento telefónico IA
-- Atualize o conteúdo periodicamente
-- Adicione testemunhos de clientes
-- Publique casos de sucesso
-
-### 5. Velocidade do Site
-
-O Google valoriza sites rápidos. O seu site já está otimizado, mas pode verificar:
-
-- Use: https://pagespeed.web.dev/
-- Insira: `https://dongrie05.github.io/Linea/`
-- Veja sugestões de melhoria
-
-## ⏱️ Quanto tempo demora?
-
-- **Indexação inicial:** 1-7 dias após submeter no Search Console
-- **Aparecer em pesquisas:** 1-4 semanas (depende da concorrência)
-- **Rankings melhores:** 1-3 meses (com conteúdo regular e backlinks)
-
-## 🔄 Manutenção Contínua
-
-1. **Monitore no Search Console**
-   - Verifique mensalmente o desempenho
-   - Veja quais palavras-chave trazem tráfego
-   - Identifique páginas com problemas
-
-2. **Atualize o conteúdo**
-   - Adicione novas palavras-chave naturalmente
-   - Mantenha o conteúdo atualizado
-   - Adicione novas páginas/seções
-
-3. **Verifique rankings**
-   - Pesquise "linea atendedor de chamadas" no Google
-   - Veja a posição do seu site
-   - Ajuste estratégia conforme necessário
-
-## 📊 Ferramentas Úteis
-
-- **Google Search Console:** https://search.google.com/search-console
-- **Google Analytics:** Para ver estatísticas de visitantes
-- **PageSpeed Insights:** https://pagespeed.web.dev/
-- **Google My Business:** Se tiver um negócio físico
-
-## ❓ Problemas Comuns
-
-### "O site não aparece no Google"
-
-**Soluções:**
-
-1. Verifique se está no Search Console
-2. Confirme que o sitemap foi submetido
-3. Solicite indexação manual
-4. Aguarde alguns dias (o Google precisa de tempo)
-
-### "Aparece mas muito abaixo"
-
-**Soluções:**
-
-1. Melhore o conteúdo com mais palavras-chave
-2. Adicione backlinks (links de outros sites)
-3. Publique conteúdo regularmente
-4. Otimize para palavras-chave de cauda longa (ex: "atendedor de chamadas automático Portugal")
-
-### "Aparece mas com descrição errada"
-
-**Soluções:**
-
-1. Verifique os metadados em `app/layout.tsx`
-2. Use a ferramenta de inspeção do Search Console
-3. Solicite reindexação
-
-## ✅ Checklist Final
-
-- [ ] Site verificado no Google Search Console
-- [ ] Sitemap submetido no Search Console
-- [ ] Páginas principais solicitadas para indexação
-- [ ] Conteúdo atualizado com palavras-chave
-- [ ] Links partilhados em redes sociais
-- [ ] Site testado no PageSpeed Insights
-- [ ] Google Analytics configurado (opcional mas recomendado)
-
-## 📞 Precisa de Ajuda?
-
-Se tiver dúvidas sobre algum passo, consulte:
-
-- Documentação do Google Search Console: https://support.google.com/webmasters
-- Documentação do Next.js SEO: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
-
----
-
-**Última atualização:** 27 de Janeiro de 2025
+**Última atualização:** 15 de Novembro de 2026

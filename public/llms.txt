@@ -1,0 +1,30 @@
+# Linea
+
+> Atendedor de chamadas com IA para empresas em Portugal.
+> Atende o telefone, marca consultas e reservas, e envia confirmação por SMS.
+
+## Site
+- Home: https://linea.dongrielabs.com/
+- Pedido / contacto: https://linea.dongrielabs.com/formulario/
+
+## O que faz
+- Atendedor de chamadas automático no número da empresa
+- Atendimento telefónico com IA em português
+- Automatização de reservas e marcações por telefone
+- Confirmação por SMS e registo no painel / email
+- Disponível de dia e de noite
+
+## Preços (mensais, EUR)
+- Starter: 99 € (fundador 69 €), 400 minutos, minuto extra 0,11 €
+- Growth: 199 € (fundador 139 €), 1000 minutos, minuto extra 0,11 €
+- Pro: 499 € (fundador 349 €), 2500 minutos, minuto extra 0,11 €
+- Preço de fundador: primeiros 5 clientes, durante 6 meses
+- Piloto: 2 semanas. Caução 29 € / 69 € / 179 € (devolvida se avançar)
+
+## Contacto
+- Telefone: +351 927 699 882, +351 964 000 234
+- País: Portugal
+
+## Keywords
+atendedor de chamadas, atendedor de chamadas com IA, atendimento telefónico automático,
+automatizar reservas por telefone, assistente telefónico Portugal
