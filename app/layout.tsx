@@ -160,7 +160,7 @@ export default function RootLayout({
         url: siteUrl,
         image: `${siteUrl}/og-image.jpg`,
         datePublished: "2024-01-16",
-        dateModified: "2026-11-15",
+        dateModified: "2026-11-24",
         inLanguage: "pt-PT",
         description,
         keywords:
@@ -171,7 +171,7 @@ export default function RootLayout({
           name: `${plan.name} - Atendedor de chamadas`,
           price: String(plan.priceEur),
           priceCurrency: "EUR",
-          description: `${plan.minutesPerMonth} minutos por mês. Minuto extra a ${formatEuro(plan.extraMinuteEur)} €. Preço de fundador ${plan.founderPriceEur} € por mês, só para os primeiros ${PILOT.founderSpots} clientes, durante ${PILOT.founderMonths} meses.`,
+          description: `${plan.minutesPerMonth} minutos por mês. ${plan.messagesPerMonth > 0 ? `${plan.messagesPerMonth} mensagens por WhatsApp ou SMS por mês (valores em avaliação).` : "Sem mensagens incluídas."} Minuto extra a ${formatEuro(plan.extraMinuteEur)} €. Preço de fundador ${plan.founderPriceEur} € por mês, só para os primeiros ${PILOT.founderSpots} clientes, durante ${PILOT.founderMonths} meses.`,
           availability: "https://schema.org/InStock",
           url: `${siteUrl}/#precos`,
         })),
