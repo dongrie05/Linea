@@ -1,7 +1,8 @@
 /**
  * Preços e piloto aprovados para publicação.
  * Valores mensais, em euros. O volume conta em minutos.
- * A caução do piloto é 29€, 69€ e 179€, do Starter ao Pro.
+ * A caução do piloto é 29€, 89€ e 179€, do Starter ao Pro.
+ * Mensagens incluídas (WhatsApp ou SMS): valores ainda em avaliação.
  */
 
 export const PLANS = [
@@ -9,27 +10,30 @@ export const PLANS = [
     id: "Starter",
     name: "Starter",
     priceEur: 99,
-    founderPriceEur: 69,
+    founderPriceEur: 74,
     depositEur: 29,
     minutesPerMonth: 400,
+    messagesPerMonth: 0,
     extraMinuteEur: 0.11,
   },
   {
     id: "Growth",
     name: "Growth",
-    priceEur: 199,
-    founderPriceEur: 139,
-    depositEur: 69,
+    priceEur: 249,
+    founderPriceEur: 189,
+    depositEur: 89,
     minutesPerMonth: 1000,
+    messagesPerMonth: 400,
     extraMinuteEur: 0.11,
   },
   {
     id: "Pro",
     name: "Pro",
     priceEur: 499,
-    founderPriceEur: 349,
+    founderPriceEur: 374,
     depositEur: 179,
     minutesPerMonth: 2500,
+    messagesPerMonth: 1000,
     extraMinuteEur: 0.11,
   },
 ] as const;
@@ -42,6 +46,16 @@ export const PILOT = {
 } as const;
 
 export const FOUNDER_CTA = "Quero o preço de fundador";
+
+/** As mensagens incluídas ainda estão em avaliação. */
+export const MESSAGES_NOTE =
+  "As mensagens incluídas são por WhatsApp ou SMS e os valores ainda estão em avaliação.";
+
+export function planMessagesLabel(messagesPerMonth: number): string {
+  return messagesPerMonth > 0
+    ? `${messagesPerMonth} mensagens por WhatsApp ou SMS`
+    : "Sem mensagens incluídas";
+}
 
 export function formatEuro(amount: number): string {
   if (Number.isInteger(amount)) return String(amount);
@@ -113,6 +127,10 @@ export const FAQ_ITEMS = [
   [
     "O que conta num minuto de chamada?",
     `Conta o tempo da chamada atendida. O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos.`,
+  ],
+  [
+    "As mensagens por WhatsApp ou SMS estão incluídas?",
+    "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens. Estes valores ainda estão em avaliação.",
   ],
   [
     "A caução cobre as chamadas do piloto?",

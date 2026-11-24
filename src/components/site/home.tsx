@@ -1,5 +1,13 @@
 import type { CSSProperties } from "react";
-import { FAQ_ITEMS, FOUNDER_CTA, PILOT, PLANS, formatEuro } from "@/lib/site";
+import {
+  FAQ_ITEMS,
+  FOUNDER_CTA,
+  MESSAGES_NOTE,
+  PILOT,
+  PLANS,
+  formatEuro,
+  planMessagesLabel,
+} from "@/lib/site";
 import { ActionBar, SiteFooter, SiteNav } from "@/components/site/chrome";
 import { LeadForm } from "@/components/site/lead-form";
 import {
@@ -364,7 +372,7 @@ export function HomePage() {
             <SectionHead
               id="precos-h"
               title="Três planos. Sem taxa de setup."
-              text={`O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos.`}
+              text={`O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos. ${MESSAGES_NOTE}`}
             />
             <div className="plans">
               {PLANS.map((plan, i) => {
@@ -400,6 +408,12 @@ export function HomePage() {
                         <CheckIcon />
                         Minuto extra a {formatEuro(plan.extraMinuteEur)} €
                       </li>
+                      {plan.messagesPerMonth > 0 ? (
+                        <li>
+                          <CheckIcon />
+                          {planMessagesLabel(plan.messagesPerMonth)}
+                        </li>
+                      ) : null}
                       <li>
                         <CheckIcon />
                         Caução de {plan.depositEur} €, devolvida ao avançar
@@ -418,7 +432,7 @@ export function HomePage() {
             <h3 className="table-title">Tabela de custos</h3>
             <p className="table-note">
               O preço de fundador é só para os primeiros {PILOT.founderSpots}{" "}
-              clientes, durante {PILOT.founderMonths} meses.
+              clientes, durante {PILOT.founderMonths} meses. {MESSAGES_NOTE}
             </p>
             <div className="table-scroll">
               <table className="data-table">
@@ -429,6 +443,7 @@ export function HomePage() {
                     <th scope="col">Preço mensal de tabela</th>
                     <th scope="col">Preço de fundador</th>
                     <th scope="col">Minutos incluídos</th>
+                    <th scope="col">Mensagens incluídas</th>
                     <th scope="col">Preço por minuto extra</th>
                   </tr>
                 </thead>
@@ -449,6 +464,12 @@ export function HomePage() {
                       <td>
                         <span className="cell-label">Minutos incluídos</span>
                         {plan.minutesPerMonth}
+                      </td>
+                      <td>
+                        <span className="cell-label">Mensagens incluídas</span>
+                        {plan.messagesPerMonth > 0
+                          ? plan.messagesPerMonth
+                          : "Não inclui"}
                       </td>
                       <td>
                         <span className="cell-label">
