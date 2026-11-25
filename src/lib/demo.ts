@@ -61,10 +61,16 @@ export async function administerDemo(
     | { action: "revoke"; id: unknown }
     | { action: "list" }
 ) {
-  const secret = process.env.DEMO_ADMIN_TOKEN;
+  const secret = process.env.DEMO_ADMIN_TOKEN?.trim();
+  if (!secret || secret.length < 32) {
+    return {
+      status: 503,
+      body: {
+        error: "O código de gestão ainda não está configurado neste ambiente.",
+      },
+    };
+  }
   if (
-    !secret ||
-    secret.length < 32 ||
     !timingSafeEqual(hashToken(authorization), hashToken(`Bearer ${secret}`))
   ) {
     return { status: 401, body: { error: "Código de gestão inválido." } };
