@@ -34,7 +34,7 @@ let database: ReturnType<typeof postgres> | undefined;
 
 function getConfig() {
   const databaseUrl = process.env.DEMO_DATABASE_URL;
-  const key = process.env.VAPI_PRIVATE_API_KEY;
+  const key = process.env.VAPI_PRIVATE_API_KEY?.trim();
   const assistantId = process.env.VAPI_DEMO_ASSISTANT_ID;
   if (!databaseUrl || !key || !assistantId || !UUID_PATTERN.test(assistantId)) {
     return null;
@@ -54,6 +54,13 @@ function hashToken(token: string) {
   return createHash("sha256").update(token).digest();
 }
 
+function matchesAdminToken(authorization: string, secret: string) {
+  return timingSafeEqual(
+    hashToken(authorization),
+    hashToken(`Bearer ${secret}`)
+  );
+}
+
 export async function administerDemo(
   authorization: string,
   operation:
@@ -70,9 +77,7 @@ export async function administerDemo(
       },
     };
   }
-  if (
-    !timingSafeEqual(hashToken(authorization), hashToken(`Bearer ${secret}`))
-  ) {
+  if (!matchesAdminToken(authorization, secret)) {
     return { status: 401, body: { error: "Código de gestão inválido." } };
   }
 
@@ -160,6 +165,41 @@ function vapiRequest(key: string, endpoint: string, options: RequestInit = {}) {
   });
 }
 
+async function describeVapiFailure(response: Response) {
+  const error = await response.json().catch(() => null);
+  const parts: unknown[] = Array.isArray(error?.message)
+    ? error.message
+    : [error?.message];
+  const message = parts.filter(part => typeof part === "string").join(" ");
+  const status = response.status;
+  if (
+    status === 402 ||
+    /insufficient (?:credits|funds|balance)|payment|billing|credit balance/i.test(
+      message
+    )
+  ) {
+    return { status, reason: "billing" };
+  }
+  if (
+    /assistant.{0,60}(?:not found|does not exist|could not be found)|(?:not found|could not find).{0,30}assistant/i.test(
+      message
+    )
+  ) {
+    return { status, reason: "assistant_not_found" };
+  }
+  if (status === 401 || status === 403) {
+    return { status, reason: "authorization" };
+  }
+  if (status === 429) return { status, reason: "rate_limit" };
+  if (/transport|daily/i.test(message)) return { status, reason: "transport" };
+  if (/maxDurationSeconds|assistantOverrides/i.test(message))
+    return { status, reason: "assistant_overrides" };
+  return {
+    status,
+    reason: status < 500 ? "request_rejected" : "provider_error",
+  };
+}
+
 async function getInvite({ sql, key }: Config, hash: string) {
   const [invite] = await sql<Invite[]>`
     SELECT calls_used, call_limit, reservation_id, vapi_call_id,
@@ -210,12 +250,14 @@ function parseDemoCall(value: unknown): DemoCall | null {
 
 export async function handleDemoRequest(
   token: string,
-  start: boolean
+  start: boolean,
+  authorization = ""
 ): Promise<{
   state: DemoState | "unavailable";
   remaining?: number;
   limit?: number;
   call?: DemoCall;
+  providerFailure?: { status: number; reason: string };
 }> {
   if (!TOKEN_PATTERN.test(token)) return { state: "invalid", remaining: 0 };
   const config = getConfig();
@@ -246,25 +288,41 @@ export async function handleDemoRequest(
 
   const limit = reservation.call_limit;
   const remaining = limit - reservation.calls_used;
-  const response = await vapiRequest(key, "/call/web", {
+  const response = await vapiRequest(key, "/call", {
     method: "POST",
     body: JSON.stringify({
       assistantId,
       assistantOverrides: { maxDurationSeconds: MAX_DURATION_SECONDS },
-      roomDeleteOnUserLeaveEnabled: true,
+      transport: {
+        provider: "daily",
+        conversationType: "voice",
+        roomDeleteOnUserLeaveEnabled: true,
+      },
     }),
   });
   if (!response.ok) {
-    if ([400, 401, 403, 404, 422, 429].includes(response.status)) {
+    const failure = await describeVapiFailure(response);
+    console.warn("Vapi rejected Linea demo call", failure);
+    const secret = process.env.DEMO_ADMIN_TOKEN?.trim();
+    const diagnostic =
+      secret && secret.length >= 32 && matchesAdminToken(authorization, secret)
+        ? { providerFailure: failure }
+        : {};
+    if ([400, 401, 402, 403, 404, 422, 429].includes(response.status)) {
       await sql`
         UPDATE linea_demo_invites SET calls_used = calls_used - 1, reservation_id = NULL
         WHERE token_hash = ${hash} AND reservation_id = ${reservationId}
       `;
-      return { state: "unavailable", remaining: remaining + 1, limit };
+      return {
+        state: "unavailable",
+        remaining: remaining + 1,
+        limit,
+        ...diagnostic,
+      };
     }
     // A timeout or upstream error can mean that Vapi accepted the call.
     // Keep the claim until its outcome is known rather than creating a second call.
-    return { state: "unavailable", remaining, limit };
+    return { state: "unavailable", remaining, limit, ...diagnostic };
   }
   const payload = await response.json();
   if (typeof payload?.id !== "string" || !UUID_PATTERN.test(payload.id)) {
