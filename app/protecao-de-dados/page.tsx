@@ -50,7 +50,10 @@ export default function ProtecaoDeDadosPage() {
         As chamadas são transcritas. A transcrição fica guardada para a empresa
         poder ver o que foi dito e o que ficou marcado.
       </p>
-      <p>[Confirmar: se a gravação em áudio está desligada na Vapi.]</p>
+      <p>
+        O áudio só é gravado na medida necessária para o assistente aceder à
+        chamada e a tratar.
+      </p>
 
       <h2>3. Dados de saúde</h2>
       <p>
@@ -62,10 +65,10 @@ export default function ProtecaoDeDadosPage() {
 
       <h2>4. Quem liga sabe que fala com um assistente automático</h2>
       <p>
-        No início da chamada, a Linea informa que é um assistente automático.
-        Quem preferir pode deixar recado para a equipa da empresa.
+        Logo no início da chamada, a Linea avisa que é um assistente de
+        inteligência artificial. Quem preferir pode deixar recado para a equipa
+        da empresa.
       </p>
-      <p>[Confirmar: a frase que a Linea diz no início da chamada.]</p>
 
       <h2>5. Para que usamos os dados das chamadas</h2>
       <p>
@@ -86,7 +89,12 @@ export default function ProtecaoDeDadosPage() {
         As chamadas e as transcrições são tratadas pela Vapi, a plataforma de
         voz em que a Linea funciona, que trata os dados nos Estados Unidos.
       </p>
-      <p>[Outros subcontratantes: telefonia, SMS ou WhatsApp, e países.]</p>
+      <p>
+        A ligação telefónica e o envio de SMS são feitos pela Telnyx. As
+        confirmações por WhatsApp, quando o plano as inclui, são enviadas pelo
+        WhatsApp Business, da Meta. Estes fornecedores podem tratar dados fora
+        da União Europeia.
+      </p>
       <p>
         Quando um fornecedor trata dados fora do Espaço Económico Europeu, a
         transferência assenta nas garantias previstas no RGPD, como as cláusulas
