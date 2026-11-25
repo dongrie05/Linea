@@ -14,7 +14,7 @@ export const PLANS = [
     depositEur: 29,
     minutesPerMonth: 400,
     messagesPerMonth: 0,
-    extraMinuteEur: 0.25,
+    extraMinuteEur: 0.3,
   },
   {
     id: "Growth",
@@ -24,7 +24,7 @@ export const PLANS = [
     depositEur: 89,
     minutesPerMonth: 1000,
     messagesPerMonth: 400,
-    extraMinuteEur: 0.3,
+    extraMinuteEur: 0.25,
   },
   {
     id: "Pro",
@@ -34,7 +34,7 @@ export const PLANS = [
     depositEur: 179,
     minutesPerMonth: 2500,
     messagesPerMonth: 1000,
-    extraMinuteEur: 0.3,
+    extraMinuteEur: 0.25,
   },
 ] as const;
 
@@ -96,7 +96,7 @@ export function extraMinuteSentence(): string {
   return `Minuto extra: ${parts.join(". ")}.`;
 }
 
-/** Ex.: "0,25 € no Starter e 0,30 € no Growth e no Pro" */
+/** Ex.: "0,30 € no Starter e 0,25 € no Growth e no Pro" */
 export function extraMinutePrices(): string {
   const groups = new Map<string, string[]>();
   for (const plan of PLANS) {
