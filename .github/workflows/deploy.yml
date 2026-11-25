@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: GitHub Pages redirect
 
 on:
   push:
@@ -17,27 +17,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static export
-        run: npm run build
-        env:
-          NODE_ENV: production
-          # Pages fica em /Linea. A Vercel não define BASE_PATH e publica na raiz.
-          BASE_PATH: /Linea
-
-      - name: Add .nojekyll (GitHub Pages)
-        run: touch out/.nojekyll
+      # O site da Linea vive em https://linea.dongrielabs.com (Vercel).
+      # A cópia antiga em dongrie05.github.io/Linea passa a só reencaminhar
+      # para lá, mantendo a página e a âncora.
+      - name: Build redirect to linea.dongrielabs.com
+        run: |
+          mkdir -p out
+          cat > out/index.html <<'HTML'
+          <!doctype html>
+          <html lang="pt-PT">
+          <head>
+          <meta charset="utf-8">
+          <title>Linea</title>
+          <meta name="robots" content="noindex">
+          <link rel="canonical" href="https://linea.dongrielabs.com/">
+          <meta http-equiv="refresh" content="0; url=https://linea.dongrielabs.com/">
+          <script>
+          var p = location.pathname.replace(/^\/Linea/i, "") || "/";
+          location.replace("https://linea.dongrielabs.com" + p + location.search + location.hash);
+          </script>
+          </head>
+          <body>
+          <p>A Linea mudou para <a href="https://linea.dongrielabs.com/">linea.dongrielabs.com</a>.</p>
+          </body>
+          </html>
+          HTML
+          cp out/index.html out/404.html
+          touch out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 /**
- * GitHub Pages continua em https://dongrie05.github.io/Linea/ (prefixo /Linea).
+ * GitHub Pages (dongrie05.github.io/Linea) só reencaminha para linea.dongrielabs.com.
  * A Vercel define VERCEL=1 e publica na raiz de https://linea.dongrielabs.com.
  * BASE_PATH explícito ganha aos dois: vazio = raiz; /Linea = Pages.
  */

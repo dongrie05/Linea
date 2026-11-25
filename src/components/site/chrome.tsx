@@ -112,7 +112,10 @@ export function SiteFooter({ home = "" }: { home?: string }) {
           </div>
         </div>
         <div className="footer__legal">
-          <span>© 2026 Linea. Um produto Dongrie Labs.</span>
+          <span>
+            © 2026 Linea. Um produto{" "}
+            <a href="https://dongrielabs.com/">Dongrie Labs</a>.
+          </span>
         </div>
       </div>
     </footer>
