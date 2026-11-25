@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import {
   FAQ_ITEMS,
   PLANS_PRICES_CTA,
@@ -92,7 +92,7 @@ function SectionHead({
   text,
 }: {
   id: string;
-  title: string;
+  title: ReactNode;
   text?: string;
 }) {
   return (
@@ -372,7 +372,13 @@ export function HomePage() {
           <div className="wrap">
             <SectionHead
               id="precos-h"
-              title="Três planos. Sem taxa de setup."
+              title={
+                <>
+                  Três planos.
+                  <br />
+                  Sem taxa de setup.
+                </>
+              }
               text={`O minuto extra custa ${extraMinutePrices()}. ${MESSAGES_NOTE}`}
             />
             <div className="plans">
