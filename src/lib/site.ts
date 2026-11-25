@@ -140,7 +140,18 @@ export const FAQ_ITEMS = [
     "Posso cancelar quando quiser?",
     "Sim. O cancelamento fica disponível a qualquer momento.",
   ],
-  ["O que conta num minuto de chamada?", "Conta o tempo da chamada atendida."],
+  [
+    "O que conta num minuto de chamada?",
+    `Conta o tempo da chamada atendida. O minuto extra custa ${extraMinutePrices()}.`,
+  ],
+  [
+    "As mensagens por WhatsApp ou SMS estão incluídas?",
+    "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens. Estes valores ainda estão em avaliação.",
+  ],
+  [
+    "A caução cobre as chamadas do piloto?",
+    "Depende do plano e está na tabela do piloto. É devolvida se avançar para um plano.",
+  ],
   [
     "A Linea substitui a equipa?",
     "Atende quando ninguém atende. Não substitui uma decisão que só uma pessoa da empresa pode tomar.",
