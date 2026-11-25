@@ -89,7 +89,12 @@ export default function ProtecaoDeDadosPage() {
         As chamadas e as transcrições são tratadas pela Vapi, a plataforma de
         voz em que a Linea funciona, que trata os dados nos Estados Unidos.
       </p>
-      <p>[Outros subcontratantes: telefonia, SMS ou WhatsApp, e países.]</p>
+      <p>
+        A ligação telefónica e o envio de SMS são feitos pela Telnyx. As
+        confirmações por WhatsApp, quando o plano as inclui, são enviadas pelo
+        WhatsApp Business, da Meta. Estes fornecedores podem tratar dados fora
+        da União Europeia.
+      </p>
       <p>
         Quando um fornecedor trata dados fora do Espaço Económico Europeu, a
         transferência assenta nas garantias previstas no RGPD, como as cláusulas
