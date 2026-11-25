@@ -12,3 +12,6 @@ CREATE TABLE IF NOT EXISTS linea_demo_invites (
 ALTER TABLE linea_demo_invites
   ADD COLUMN IF NOT EXISTS call_limit integer NOT NULL DEFAULT 3
     CHECK (call_limit IN (1, 3));
+
+-- Os convites são geridos apenas pela ligação PostgreSQL do servidor.
+ALTER TABLE linea_demo_invites ENABLE ROW LEVEL SECURITY;

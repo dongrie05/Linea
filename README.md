@@ -60,6 +60,8 @@ O site e a API correm na Vercel em `linea.dongrielabs.com`. O GitHub Pages publi
 3. Abra `/demo/gestao/`, introduza o código de gestão, escolha uma ou três tentativas e gere o convite. Partilhe o link com o cliente e guarde o ID de gestão para o poder desativar. O código de gestão é distinto do link de cliente.
 4. Confirme numa chamada de teste que há áudio nos dois sentidos, que a chamada termina aos três minutos e que o contador baixa. Teste com dois separadores e confirme o bloqueio da segunda tentativa num convite de uma tentativa e da quarta num convite de três tentativas.
 
+Se usar Supabase, aplique o SQL no **SQL Editor** do projeto da Linea. Em **Connect → Transaction pooler**, copie a URI PostgreSQL da porta `6543` para `DEMO_DATABASE_URL` na Vercel. A ligação deve usar o utilizador indicado na URI do projeto e SSL. A tabela tem RLS ativo e fica reservada ao acesso do servidor.
+
 Cada convite vale sete dias e permite uma chamada de cada vez no navegador. A gestão cria os convites que a equipa envia diretamente aos clientes. Em caso de resposta incerta da Vapi ao criar uma chamada, o convite fica bloqueado para evitar uma segunda chamada. Consulte os registos da Vapi antes de desativar e substituir o convite.
 
 ## 📁 Estrutura do Projeto
