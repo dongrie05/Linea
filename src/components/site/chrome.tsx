@@ -1,6 +1,7 @@
 import { ArrowIcon, LogoMark, PhoneIcon } from "@/components/site/logo";
 import { PLANS_CTA, TRIAL_CTA } from "@/lib/site";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/lib/contact";
+import { LEGAL_LINKS } from "@/lib/legal";
 
 const ACTION = TRIAL_CTA;
 
@@ -115,6 +116,13 @@ export function SiteFooter({ home = "" }: { home?: string }) {
             © 2026 Linea. Um produto{" "}
             <a href="https://dongrielabs.com/">Dongrie Labs</a>.
           </span>
+          <nav className="footer__legal-links" aria-label="Informação legal">
+            {LEGAL_LINKS.map(link => (
+              <a key={link.href} href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>
