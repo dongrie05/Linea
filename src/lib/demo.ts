@@ -6,9 +6,9 @@ import {
   timingSafeEqual,
 } from "node:crypto";
 import postgres from "postgres";
+import { DEMO_MAX_DURATION_SECONDS } from "./demo-duration";
 import { siteUrl } from "./site-url";
 
-const MAX_DURATION_SECONDS = 180;
 const VAPI_URL = "https://api.vapi.ai";
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/;
 const UUID_PATTERN = /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i;
@@ -374,7 +374,7 @@ export async function handleDemoRequest(
     headers: { Origin: origin },
     body: JSON.stringify({
       assistantId,
-      assistantOverrides: { maxDurationSeconds: MAX_DURATION_SECONDS },
+      assistantOverrides: { maxDurationSeconds: DEMO_MAX_DURATION_SECONDS },
       roomDeleteOnUserLeaveEnabled: true,
     }),
   });

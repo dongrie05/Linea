@@ -2293,6 +2293,22 @@ html.motion-on .pilot.is-in .pilot__facts div {
   margin: 0.75rem 0.5rem 0.25rem 0;
 }
 
+.demo-session__duration {
+  width: fit-content;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-session__duration strong {
+  margin-inline-start: 0.6rem;
+  color: var(--voice);
+}
+
 .demo-voice {
   --demo-level: 0;
   display: grid;
@@ -2380,6 +2396,9 @@ html.motion-on .pilot.is-in .pilot__facts div {
   .demo-session__controls {
     grid-template-columns: minmax(0, 1fr);
     text-align: center;
+  }
+  .demo-session__duration {
+    margin-inline: auto;
   }
 }
 

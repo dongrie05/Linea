@@ -4,6 +4,7 @@ import type { DailyCall } from "@daily-co/daily-js";
 import { useEffect, useRef, useState } from "react";
 import { Orb } from "@/components/site/logo";
 import { asset } from "@/lib/asset";
+import { CallDuration, type CallTiming } from "./call-duration";
 
 type Status = {
   state: "ready" | "invalid" | "busy" | "exhausted" | "unavailable";
@@ -45,6 +46,7 @@ export function DemoCall() {
   >("idle");
   const [feedback, setFeedback] = useState("");
   const [audioBlocked, setAudioBlocked] = useState(false);
+  const [timing, setTiming] = useState<CallTiming | null>(null);
   const scope = useRef<AbortController>();
   const live = useRef<{
     room: DailyCall;
@@ -89,6 +91,7 @@ export function DemoCall() {
     setPhase("idle");
     setFeedback("");
     setAudioBlocked(false);
+    setTiming(null);
     if (token) void refresh(token, controller.signal);
     return () => {
       controller.abort();
@@ -96,10 +99,20 @@ export function DemoCall() {
     };
   }, [token]);
 
+  function stopTimer() {
+    const endedAt = performance.now();
+    setTiming(current =>
+      current && current.endedAt === undefined
+        ? { ...current, endedAt }
+        : current
+    );
+  }
+
   async function finish(message: string) {
     if (!live.current || !token || !scope.current) return;
     const { signal } = scope.current;
     setPhase("ending");
+    stopTimer();
     await disconnect();
     if (signal.aborted) return;
     setAudioBlocked(false);
@@ -143,6 +156,7 @@ export function DemoCall() {
     const { signal } = scope.current;
     setPhase("connecting");
     setFeedback("");
+    setTiming(null);
     let microphone: MediaStream | undefined;
     try {
       try {
@@ -194,6 +208,8 @@ export function DemoCall() {
       });
       room.on("app-message", event => {
         if (live.current?.room === room && event.data === "listening") {
+          const startedAt = performance.now();
+          setTiming(current => current ?? { startedAt });
           setPhase("in-call");
         }
       });
@@ -241,6 +257,7 @@ export function DemoCall() {
     } catch {
       await disconnect();
       if (!signal.aborted) {
+        stopTimer();
         setFeedback(
           "Não foi possível iniciar a chamada. Atualize o estado do convite e tente novamente."
         );
@@ -303,6 +320,7 @@ export function DemoCall() {
             )}
           {feedback && <p>{feedback}</p>}
         </div>
+        {timing && <CallDuration {...timing} />}
         {(phase === "in-call" || phase === "opening-audio") && (
           <button
             type="button"
