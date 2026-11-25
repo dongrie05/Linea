@@ -157,16 +157,16 @@ export const FAQ_ITEMS = [
     "Sim. O cancelamento fica disponível a qualquer momento.",
   ],
   [
-    "O que conta num minuto de chamada?",
-    `Conta o tempo da chamada atendida. O minuto extra custa ${extraMinutePrices()}.`,
+    "Como são contabilizados os minutos de chamada?",
+    `Os minutos incluídos correspondem ao tempo de chamada atendido pela LINEA. O objetivo é resolver o pedido de quem liga com a maior eficácia possível. Se ultrapassar os minutos do seu plano, cada minuto adicional custa ${extraMinutePrices()}.`,
   ],
   [
     "As mensagens por WhatsApp ou SMS estão incluídas?",
-    "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens.",
+    "O Growth inclui 400 mensagens por mês e o Pro inclui 1 000, por WhatsApp ou SMS. O Starter não inclui mensagens.",
   ],
   [
     "A caução cobre as chamadas do período experimental?",
-    "Depende do plano e está na tabela do período experimental. É devolvida se avançar para um plano.",
+    "As condições dependem do plano escolhido. Consulte a tabela do período experimental para ver o valor da caução. A caução é devolvida se avançar para um plano.",
   ],
   [
     "A Linea substitui a equipa?",
