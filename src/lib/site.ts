@@ -14,7 +14,7 @@ export const PLANS = [
     depositEur: 29,
     minutesPerMonth: 400,
     messagesPerMonth: 0,
-    extraMinuteEur: 0.11,
+    extraMinuteEur: 0.25,
   },
   {
     id: "Growth",
@@ -24,7 +24,7 @@ export const PLANS = [
     depositEur: 89,
     minutesPerMonth: 1000,
     messagesPerMonth: 400,
-    extraMinuteEur: 0.11,
+    extraMinuteEur: 0.3,
   },
   {
     id: "Pro",
@@ -34,7 +34,7 @@ export const PLANS = [
     depositEur: 179,
     minutesPerMonth: 2500,
     messagesPerMonth: 1000,
-    extraMinuteEur: 0.11,
+    extraMinuteEur: 0.3,
   },
 ] as const;
 
@@ -96,6 +96,22 @@ export function extraMinuteSentence(): string {
   return `Minuto extra: ${parts.join(". ")}.`;
 }
 
+/** Ex.: "0,25 € no Starter e 0,30 € no Growth e no Pro" */
+export function extraMinutePrices(): string {
+  const groups = new Map<string, string[]>();
+  for (const plan of PLANS) {
+    const amount = `${formatEuro(plan.extraMinuteEur)} €`;
+    const names = groups.get(amount) ?? [];
+    names.push(plan.name);
+    groups.set(amount, names);
+  }
+  return joinPt(
+    Array.from(groups.entries()).map(
+      ([amount, names]) => `${amount} ${joinPt(names.map(n => `no ${n}`))}`
+    )
+  );
+}
+
 export function founderPricesSentence(): string {
   const parts = PLANS.map(
     plan => `${plan.name} a ${plan.founderPriceEur}€/mês`
@@ -126,7 +142,7 @@ export const FAQ_ITEMS = [
   ],
   [
     "O que conta num minuto de chamada?",
-    `Conta o tempo da chamada atendida. O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos.`,
+    `Conta o tempo da chamada atendida. O minuto extra custa ${extraMinutePrices()}.`,
   ],
   [
     "As mensagens por WhatsApp ou SMS estão incluídas?",

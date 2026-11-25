@@ -160,7 +160,7 @@ export default function RootLayout({
         url: siteUrl,
         image: `${siteUrl}/og-image.jpg`,
         datePublished: "2024-01-16",
-        dateModified: "2026-11-24",
+        dateModified: "2026-11-25",
         inLanguage: "pt-PT",
         description,
         keywords:

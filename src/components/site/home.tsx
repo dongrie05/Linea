@@ -3,6 +3,7 @@ import {
   FAQ_ITEMS,
   FOUNDER_CTA,
   MESSAGES_NOTE,
+  extraMinutePrices,
   PILOT,
   PLANS,
   formatEuro,
@@ -372,7 +373,7 @@ export function HomePage() {
             <SectionHead
               id="precos-h"
               title="Três planos. Sem taxa de setup."
-              text={`O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos. ${MESSAGES_NOTE}`}
+              text={`O minuto extra custa ${extraMinutePrices()}. ${MESSAGES_NOTE}`}
             />
             <div className="plans">
               {PLANS.map((plan, i) => {
