@@ -138,10 +138,19 @@ export function SiteMotion() {
             if (button) button.disabled = true;
             show("A enviar o pedido…", true);
             try {
+              const body = new FormData(form);
+              // Junta o indicativo ao número, a menos que já venha com um.
+              const code = String(body.get("indicativo") ?? "");
+              const number = String(body.get("telefone") ?? "").trim();
+              body.delete("indicativo");
+              body.set(
+                "telefone",
+                /^(\+|00)/.test(number) ? number : `${code} ${number}`.trim()
+              );
               const res = await fetch(form.action, {
                 method: "POST",
                 headers: { Accept: "application/json" },
-                body: new FormData(form),
+                body,
               });
               const data = (await res.json().catch(() => null)) as {
                 success?: boolean;
