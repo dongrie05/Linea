@@ -6,6 +6,7 @@ import {
 } from "@/lib/contact";
 import { PHONE_CODES, PLANS, TRIAL_CTA } from "@/lib/site";
 import { ArrowIcon } from "@/components/site/logo";
+import { asset } from "@/lib/asset";
 
 export function LeadForm() {
   const direct = WEB3FORMS_KEY !== "";
@@ -137,6 +138,13 @@ export function LeadForm() {
           Também pode{" "}
           <a className="link" href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}`}>
             enviar por WhatsApp
+          </a>
+          .
+        </p>
+        <p className="form__note">
+          Usamos estes dados só para responder ao seu pedido. Saiba mais na{" "}
+          <a className="link" href={asset("/privacidade/")}>
+            Política de Privacidade
           </a>
           .
         </p>
