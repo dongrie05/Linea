@@ -88,20 +88,20 @@ export function SiteFooter({ home = "" }: { home?: string }) {
           </div>
           <div className="footer__col">
             <h3>Produto</h3>
-            <a href={to("chamadas")}>Painel</a>
+            <a href={to("chamadas")}>Painel de chamadas</a>
             <a href={to("passos")}>Como funciona</a>
-            <a href={to("fluxo")}>Destinos</a>
+            <a href={to("fluxo")}>Fluxo das chamadas</a>
           </div>
           <div className="footer__col">
             <h3>Preços</h3>
             <a href={to("precos")}>Planos</a>
             <a href={to("piloto")}>Período experimental</a>
-            <a href={to("perguntas")}>Perguntas</a>
+            <a href={to("perguntas")}>Perguntas frequentes</a>
           </div>
           <div className="footer__col">
             <h3>Contacto</h3>
-            <a href={to("pedido")}>Pedido</a>
-            <a href={`mailto:${CONTACT_EMAIL}`}>Email</a>
+            <a href={to("pedido")}>Formulário de contacto</a>
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             {CONTACT_PHONES.map(phone => (
               <a key={phone.e164} href={`tel:${phone.e164}`}>
                 {phone.display}

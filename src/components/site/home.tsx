@@ -5,6 +5,7 @@ import {
   SPECIAL_NOTE,
   SPECIAL_VALID_NOTE,
   TRIAL_CTA,
+  CONFIRM_NOTE,
   MESSAGES_NOTE,
   extraMinutePrices,
   PILOT,
@@ -71,13 +72,13 @@ const STEPS = [
   {
     n: "03",
     title: "Regista e confirma",
-    text: "A marcação ou o recado fica no painel e no email. Quem ligou recebe a confirmação por SMS.",
+    text: `A marcação ou o recado fica no painel e no email. ${CONFIRM_NOTE}`,
   },
 ];
 
 const DESTINATIONS = [
   ["Agenda", "A consulta fica marcada"],
-  ["SMS", "Quem ligou recebe a confirmação"],
+  ["WhatsApp ou SMS", "Confirmação, conforme o plano"],
   ["Email", "O recado chega à equipa"],
 ] as const;
 
@@ -122,8 +123,8 @@ export function HomePage() {
                 chamada.
               </p>
               <p className="hero__lead">
-                A Linea atende o telefone, marca consultas e reservas, e envia a
-                confirmação por SMS. De dia e de noite.
+                A Linea atende o telefone e marca consultas e reservas, de dia e
+                de noite. {CONFIRM_NOTE}
               </p>
               <div className="hero__actions">
                 <a className="btn btn--primary btn--lg" href="#precos">
@@ -295,13 +296,13 @@ export function HomePage() {
             <SectionHead
               id="fluxo-h"
               title="Cada chamada chega ao sítio certo."
-              text="A chamada entra no número da empresa. A Linea marca na agenda, confirma por SMS e envia o recado por email a quem está de serviço."
+              text={`A chamada entra no número da empresa. A Linea marca na agenda e envia o recado por email a quem está de serviço. ${CONFIRM_NOTE}`}
             />
             <div
               className="flow"
               data-reveal
               role="img"
-              aria-label="Uma chamada entra na Linea, que marca na agenda, envia o SMS e o recado por email."
+              aria-label="Uma chamada entra na Linea, que marca na agenda, envia a confirmação por WhatsApp ou SMS conforme o plano e o recado por email."
             >
               <div className="flow__node flow__node--in">
                 <span className="flow__icon">

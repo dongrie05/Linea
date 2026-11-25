@@ -63,6 +63,10 @@ export const PLANS_PRICES_CTA = "Ver planos e preços";
 /** Nota sobre as mensagens incluídas, por cima dos cartões. */
 export const MESSAGES_NOTE = "As mensagens incluídas são por WhatsApp ou SMS.";
 
+/** Junto de cada frase que fala em confirmações (o Starter não inclui mensagens). */
+export const CONFIRM_NOTE =
+  "As confirmações por WhatsApp ou SMS dependem do plano.";
+
 export function planMessagesLabel(messagesPerMonth: number): string {
   return messagesPerMonth > 0
     ? `${messagesPerMonth} mensagens por WhatsApp ou SMS`
@@ -146,7 +150,7 @@ export const FAQ_ITEMS = [
   ],
   [
     "A Linea automatiza reservas por telefone?",
-    "Sim. A Linea atende a chamada, consulta a disponibilidade, confirma a marcação e envia a confirmação por SMS. Serve clínicas, restaurantes, oficinas e outros negócios em Portugal.",
+    "Sim. A Linea atende a chamada, consulta a disponibilidade, confirma a marcação e envia a confirmação por WhatsApp ou SMS, conforme o plano. Serve clínicas, restaurantes, oficinas e outros negócios em Portugal.",
   ],
   [
     "Posso cancelar quando quiser?",
