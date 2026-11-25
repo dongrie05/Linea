@@ -15,12 +15,11 @@
 - Disponível de dia e de noite
 
 ## Preços (mensais, EUR)
-- Starter: 99 € (fundador 74 €), 400 minutos, minuto extra 0,11 €, sem mensagens incluídas
-- Growth: 249 € (fundador 189 €), 1000 minutos, minuto extra 0,11 €, 400 mensagens por WhatsApp ou SMS
-- Pro: 499 € (fundador 374 €), 2500 minutos, minuto extra 0,11 €, 1000 mensagens por WhatsApp ou SMS
-- Mensagens incluídas: valores ainda em avaliação
-- Preço de fundador: primeiros 5 clientes, durante 6 meses
-- Piloto: 2 semanas. Caução 29 € / 89 € / 179 € (devolvida se avançar)
+- Starter: 99 € (preço especial 74 €), 400 minutos, minuto extra 0,30 €, sem mensagens incluídas
+- Growth: 249 € (preço especial 189 €), 1000 minutos, minuto extra 0,25 €, 400 mensagens por WhatsApp ou SMS
+- Pro: 499 € (preço especial 374 €), 2500 minutos, minuto extra 0,25 €, 1000 mensagens por WhatsApp ou SMS
+- Preço especial nos primeiros 3 meses
+- Período experimental: 2 semanas. Caução 29 € / 89 € / 179 € (devolvida se avançar)
 
 ## Contacto
 - Telefone: +351 927 699 882, +351 964 000 234

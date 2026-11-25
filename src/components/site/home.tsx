@@ -1,8 +1,14 @@
 import type { CSSProperties } from "react";
 import {
   FAQ_ITEMS,
-  FOUNDER_CTA,
+  PLANS_PRICES_CTA,
+  FORM_NOTE,
+  SPECIAL_NOTE,
+  SPECIAL_VALID_NOTE,
+  TRIAL_CTA,
+  CONFIRM_NOTE,
   MESSAGES_NOTE,
+  extraMinutePrices,
   PILOT,
   PLANS,
   formatEuro,
@@ -67,13 +73,13 @@ const STEPS = [
   {
     n: "03",
     title: "Regista e confirma",
-    text: "A marcação ou o recado fica no painel e no email. Quem ligou recebe a confirmação por SMS.",
+    text: `A marcação ou o recado fica no painel e no email. ${CONFIRM_NOTE}`,
   },
 ];
 
 const DESTINATIONS = [
   ["Agenda", "A consulta fica marcada"],
-  ["SMS", "Quem ligou recebe a confirmação"],
+  ["WhatsApp ou SMS", "Confirmação, conforme o plano"],
   ["Email", "O recado chega à equipa"],
 ] as const;
 
@@ -118,23 +124,18 @@ export function HomePage() {
                 chamada.
               </p>
               <p className="hero__lead">
-                A Linea atende o telefone, marca consultas e reservas, e envia a
-                confirmação por SMS. De dia e de noite.
+                A Linea atende o telefone e marca consultas e reservas, de dia e
+                de noite. {CONFIRM_NOTE}
               </p>
               <div className="hero__actions">
-                <a className="btn btn--primary btn--lg" href="#pedido">
-                  <PhoneIcon />
-                  {FOUNDER_CTA}
+                <a className="btn btn--primary btn--lg" href="#precos">
+                  {PLANS_PRICES_CTA}
                 </a>
                 <a className="btn btn--ghost btn--lg" href="#chamadas">
                   Ver uma chamada
                 </a>
               </div>
-              <p className="hero__note">
-                Preço de fundador só para os primeiros {PILOT.founderSpots}{" "}
-                clientes, durante {PILOT.founderMonths} meses. Piloto de duas
-                semanas.
-              </p>
+              <p className="hero__note">{SPECIAL_NOTE}</p>
             </div>
 
             <div className="hero__stage" aria-hidden="true">
@@ -296,13 +297,13 @@ export function HomePage() {
             <SectionHead
               id="fluxo-h"
               title="Cada chamada chega ao sítio certo."
-              text="A chamada entra no número da empresa. A Linea marca na agenda, confirma por SMS e envia o recado por email a quem está de serviço."
+              text={`A chamada entra no número da empresa. A Linea marca na agenda e envia o recado por email a quem está de serviço. ${CONFIRM_NOTE}`}
             />
             <div
               className="flow"
               data-reveal
               role="img"
-              aria-label="Uma chamada entra na Linea, que marca na agenda, envia o SMS e o recado por email."
+              aria-label="Uma chamada entra na Linea, que marca na agenda, envia a confirmação por WhatsApp ou SMS conforme o plano e o recado por email."
             >
               <div className="flow__node flow__node--in">
                 <span className="flow__icon">
@@ -372,7 +373,7 @@ export function HomePage() {
             <SectionHead
               id="precos-h"
               title="Três planos. Sem taxa de setup."
-              text={`O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos. ${MESSAGES_NOTE}`}
+              text={`O minuto extra custa ${extraMinutePrices()}. ${MESSAGES_NOTE}`}
             />
             <div className="plans">
               {PLANS.map((plan, i) => {
@@ -390,15 +391,19 @@ export function HomePage() {
                         <span className="tag tag--accent">Mais pedido</span>
                       ) : null}
                     </div>
+                    <p className="plan__was">
+                      <span className="sr-only">Preço normal: </span>
+                      <s>{plan.priceEur} €/mês</s>
+                    </p>
                     <p className="plan__price">
-                      <span data-count={plan.priceEur}>{plan.priceEur}</span>
+                      <span className="sr-only">Preço especial: </span>
+                      <span data-count={plan.founderPriceEur}>
+                        {plan.founderPriceEur}
+                      </span>
                       <span className="plan__cur">€</span>
                       <span className="plan__per">/mês</span>
                     </p>
-                    <p className="plan__founder">
-                      {plan.founderPriceEur} € por mês para os primeiros{" "}
-                      {PILOT.founderSpots}, durante {PILOT.founderMonths} meses
-                    </p>
+                    <p className="plan__founder">{SPECIAL_VALID_NOTE}</p>
                     <ul className="plan__list">
                       <li>
                         <CheckIcon />
@@ -414,73 +419,17 @@ export function HomePage() {
                           {planMessagesLabel(plan.messagesPerMonth)}
                         </li>
                       ) : null}
-                      <li>
-                        <CheckIcon />
-                        Caução de {plan.depositEur} €, devolvida ao avançar
-                      </li>
                     </ul>
                     <a
                       className={`btn ${featured ? "btn--primary" : "btn--ghost"} btn--block`}
                       href="#pedido"
+                      data-plan={plan.name}
                     >
-                      {FOUNDER_CTA}
+                      Quero o {plan.name}
                     </a>
                   </article>
                 );
               })}
-            </div>
-            <h3 className="table-title">Tabela de custos</h3>
-            <p className="table-note">
-              O preço de fundador é só para os primeiros {PILOT.founderSpots}{" "}
-              clientes, durante {PILOT.founderMonths} meses. {MESSAGES_NOTE}
-            </p>
-            <div className="table-scroll">
-              <table className="data-table">
-                <caption className="sr-only">Custos dos planos</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Plano</th>
-                    <th scope="col">Preço mensal de tabela</th>
-                    <th scope="col">Preço de fundador</th>
-                    <th scope="col">Minutos incluídos</th>
-                    <th scope="col">Mensagens incluídas</th>
-                    <th scope="col">Preço por minuto extra</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PLANS.map(plan => (
-                    <tr key={plan.id}>
-                      <th scope="row">{plan.name}</th>
-                      <td>
-                        <span className="cell-label">
-                          Preço mensal de tabela
-                        </span>
-                        {formatEuro(plan.priceEur)} €
-                      </td>
-                      <td>
-                        <span className="cell-label">Preço de fundador</span>
-                        {formatEuro(plan.founderPriceEur)} €
-                      </td>
-                      <td>
-                        <span className="cell-label">Minutos incluídos</span>
-                        {plan.minutesPerMonth}
-                      </td>
-                      <td>
-                        <span className="cell-label">Mensagens incluídas</span>
-                        {plan.messagesPerMonth > 0
-                          ? plan.messagesPerMonth
-                          : "Não inclui"}
-                      </td>
-                      <td>
-                        <span className="cell-label">
-                          Preço por minuto extra
-                        </span>
-                        {formatEuro(plan.extraMinuteEur)} € por minuto
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
             </div>
           </div>
         </section>
@@ -490,68 +439,54 @@ export function HomePage() {
             <div className="pilot spot" data-reveal>
               <span className="pilot__glow" aria-hidden="true" />
               <div className="pilot__text">
-                <h2 id="piloto-h">Piloto de duas semanas.</h2>
+                <h2 id="piloto-h">Período experimental de 2 semanas.</h2>
                 <p>
-                  O preço de fundador está na tabela de preços. É só para os
-                  primeiros {PILOT.founderSpots} clientes e dura{" "}
-                  {PILOT.founderMonths} meses.
+                  Experimente a LINEA durante {PILOT.trialWeeks} semanas nas
+                  suas chamadas. Depois, paga o preço especial do plano nos
+                  primeiros {PILOT.specialMonths} meses.
                 </p>
                 <a className="btn btn--primary btn--lg" href="#pedido">
-                  {FOUNDER_CTA}
+                  {TRIAL_CTA}
                   <ArrowIcon />
                 </a>
               </div>
-              <dl className="pilot__facts">
-                <div style={d(0)}>
-                  <dt>Duração</dt>
-                  <dd>2 semanas</dd>
+              <div className="pilot__side">
+                <dl className="pilot__facts">
+                  <div style={d(0)}>
+                    <dt>Duração</dt>
+                    <dd>{PILOT.trialWeeks} semanas</dd>
+                  </div>
+                  <div style={d(1)}>
+                    <dt>Preço especial</dt>
+                    <dd>
+                      <span data-count={PILOT.specialMonths}>
+                        {PILOT.specialMonths}
+                      </span>{" "}
+                      meses
+                    </dd>
+                  </div>
+                </dl>
+                <div className="pilot__deposit" style={d(2)}>
+                  <table>
+                    <caption>Caução do período experimental</caption>
+                    <thead className="sr-only">
+                      <tr>
+                        <th scope="col">Plano</th>
+                        <th scope="col">Caução</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {PLANS.map(plan => (
+                        <tr key={plan.id}>
+                          <th scope="row">{plan.name}</th>
+                          <td>{plan.depositEur} €</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p>Devolvida se avançar para um plano.</p>
                 </div>
-                <div style={d(1)}>
-                  <dt>Primeiros clientes</dt>
-                  <dd>
-                    <span data-count={PILOT.founderSpots}>
-                      {PILOT.founderSpots}
-                    </span>
-                  </dd>
-                </div>
-                <div style={d(3)}>
-                  <dt>Preço fixo durante</dt>
-                  <dd>
-                    <span data-count={PILOT.founderMonths}>
-                      {PILOT.founderMonths}
-                    </span>{" "}
-                    meses
-                  </dd>
-                </div>
-              </dl>
-            </div>
-            <h3 className="table-title">Caução do piloto</h3>
-            <p className="table-note">
-              A caução é devolvida se o cliente avançar para um plano.
-            </p>
-            <div className="table-scroll">
-              <table className="data-table">
-                <caption className="sr-only">
-                  Caução do piloto de duas semanas
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Plano</th>
-                    <th scope="col">Caução</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PLANS.map(plan => (
-                    <tr key={plan.id}>
-                      <th scope="row">{plan.name}</th>
-                      <td>
-                        <span className="cell-label">Caução</span>
-                        {plan.depositEur} €
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              </div>
             </div>
           </div>
         </section>
@@ -596,11 +531,8 @@ export function HomePage() {
         <section className="section" id="pedido" aria-labelledby="pedido-h">
           <div className="wrap request">
             <div className="request__side" data-reveal>
-              <h2 id="pedido-h">Fique com o preço de fundador.</h2>
-              <p className="head__text">
-                O preço de fundador é só para os primeiros {PILOT.founderSpots}{" "}
-                clientes e fica fixo durante {PILOT.founderMonths} meses.
-              </p>
+              <h2 id="pedido-h">Peça para experimentar a LINEA</h2>
+              <p className="head__text">{FORM_NOTE}</p>
               <ul className="contacts">
                 {CONTACT_PHONES.map(phone => (
                   <li key={phone.e164}>

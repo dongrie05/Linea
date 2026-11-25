@@ -1,14 +1,14 @@
 import { ArrowIcon, LogoMark, PhoneIcon } from "@/components/site/logo";
-import { FOUNDER_CTA } from "@/lib/site";
+import { PLANS_CTA, TRIAL_CTA } from "@/lib/site";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/lib/contact";
 
-const ACTION = FOUNDER_CTA;
+const ACTION = TRIAL_CTA;
 
 const LINKS = [
   ["chamadas", "Chamadas"],
   ["passos", "Como funciona"],
   ["precos", "Preços"],
-  ["piloto", "Piloto"],
+  ["piloto", "Período experimental"],
   ["perguntas", "Perguntas"],
 ] as const;
 
@@ -31,14 +31,12 @@ export function SiteNav({ home = "" }: { home?: string }) {
               {label}
             </a>
           ))}
-          <a className="btn btn--primary nav__mobile-cta" href={to("pedido")}>
-            <PhoneIcon />
-            {ACTION}
+          <a className="btn btn--primary nav__mobile-cta" href={to("precos")}>
+            {PLANS_CTA}
           </a>
         </nav>
-        <a className="btn btn--primary btn--sm nav__cta" href={to("pedido")}>
-          <PhoneIcon />
-          {ACTION}
+        <a className="btn btn--primary btn--sm nav__cta" href={to("precos")}>
+          {PLANS_CTA}
         </a>
         <button
           className="nav__toggle"
@@ -90,20 +88,20 @@ export function SiteFooter({ home = "" }: { home?: string }) {
           </div>
           <div className="footer__col">
             <h3>Produto</h3>
-            <a href={to("chamadas")}>Painel</a>
+            <a href={to("chamadas")}>Painel de chamadas</a>
             <a href={to("passos")}>Como funciona</a>
-            <a href={to("fluxo")}>Destinos</a>
+            <a href={to("fluxo")}>Fluxo das chamadas</a>
           </div>
           <div className="footer__col">
             <h3>Preços</h3>
             <a href={to("precos")}>Planos</a>
-            <a href={to("piloto")}>Piloto</a>
-            <a href={to("perguntas")}>Perguntas</a>
+            <a href={to("piloto")}>Período experimental</a>
+            <a href={to("perguntas")}>Perguntas frequentes</a>
           </div>
           <div className="footer__col">
             <h3>Contacto</h3>
-            <a href={to("pedido")}>Pedido</a>
-            <a href={`mailto:${CONTACT_EMAIL}`}>Email</a>
+            <a href={to("pedido")}>Formulário de contacto</a>
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             {CONTACT_PHONES.map(phone => (
               <a key={phone.e164} href={`tel:${phone.e164}`}>
                 {phone.display}
@@ -112,7 +110,10 @@ export function SiteFooter({ home = "" }: { home?: string }) {
           </div>
         </div>
         <div className="footer__legal">
-          <span>© 2026 Linea. Um produto Dongrie Labs.</span>
+          <span>
+            © 2026 Linea. Um produto{" "}
+            <a href="https://dongrielabs.com/">Dongrie Labs</a>.
+          </span>
         </div>
       </div>
     </footer>

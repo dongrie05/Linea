@@ -1,15 +1,48 @@
-import { CONTACT_PHONE_WHATSAPP, LEADS_EMAIL } from "@/lib/contact";
-import { FOUNDER_CTA, PLANS } from "@/lib/site";
+import {
+  CONTACT_PHONE_WHATSAPP,
+  LEADS_EMAIL,
+  WEB3FORMS_ENDPOINT,
+  WEB3FORMS_KEY,
+} from "@/lib/contact";
+import { PLANS, TRIAL_CTA } from "@/lib/site";
 import { ArrowIcon } from "@/components/site/logo";
 
 export function LeadForm() {
+  const direct = WEB3FORMS_KEY !== "";
   return (
     <form
       className="form"
-      action={`mailto:${LEADS_EMAIL}`}
-      method="post"
-      encType="text/plain"
+      {...(direct
+        ? {
+            action: WEB3FORMS_ENDPOINT,
+            method: "post",
+            "data-direct": "",
+          }
+        : {
+            action: `mailto:${LEADS_EMAIL}`,
+            method: "post",
+            encType: "text/plain",
+          })}
     >
+      {direct ? (
+        <>
+          <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+          <input
+            type="hidden"
+            name="subject"
+            value="Novo pedido no site da Linea"
+          />
+          <input type="hidden" name="from_name" value="Site da Linea" />
+          <input
+            type="checkbox"
+            name="botcheck"
+            className="sr-only"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+        </>
+      ) : null}
       <div className="field">
         <label htmlFor="f-nome">Nome</label>
         <input
@@ -61,8 +94,7 @@ export function LeadForm() {
         <select id="f-plano" name="plano" defaultValue="Growth" required>
           {PLANS.map(plan => (
             <option key={plan.id} value={plan.name}>
-              {plan.name}, {plan.priceEur}€ por mês, {plan.minutesPerMonth}{" "}
-              minutos
+              {plan.name}, {plan.minutesPerMonth} minutos
             </option>
           ))}
         </select>
@@ -79,11 +111,15 @@ export function LeadForm() {
       </div>
       <div className="field--full form__foot">
         <button className="btn btn--primary btn--lg" type="submit">
-          {FOUNDER_CTA}
+          {TRIAL_CTA}
           <ArrowIcon />
         </button>
+        <p className="form__status" role="status" aria-live="polite" hidden />
         <p className="form__note">
-          O pedido abre no seu email para {LEADS_EMAIL}. Também pode{" "}
+          {direct
+            ? `O pedido chega por email a ${LEADS_EMAIL}.`
+            : `O pedido abre no seu email para ${LEADS_EMAIL}.`}{" "}
+          Também pode{" "}
           <a className="link" href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}`}>
             enviar por WhatsApp
           </a>

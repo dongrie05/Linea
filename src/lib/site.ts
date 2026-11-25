@@ -1,8 +1,8 @@
 /**
- * Preços e piloto aprovados para publicação.
+ * Preços e período experimental aprovados para publicação.
  * Valores mensais, em euros. O volume conta em minutos.
- * A caução do piloto é 29€, 89€ e 179€, do Starter ao Pro.
- * Mensagens incluídas (WhatsApp ou SMS): valores ainda em avaliação.
+ * A caução do período experimental é 29€, 89€ e 179€, do Starter ao Pro.
+ * Mensagens incluídas (WhatsApp ou SMS) no Growth e no Pro.
  */
 
 export const PLANS = [
@@ -14,7 +14,7 @@ export const PLANS = [
     depositEur: 29,
     minutesPerMonth: 400,
     messagesPerMonth: 0,
-    extraMinuteEur: 0.11,
+    extraMinuteEur: 0.3,
   },
   {
     id: "Growth",
@@ -24,7 +24,7 @@ export const PLANS = [
     depositEur: 89,
     minutesPerMonth: 1000,
     messagesPerMonth: 400,
-    extraMinuteEur: 0.11,
+    extraMinuteEur: 0.25,
   },
   {
     id: "Pro",
@@ -34,22 +34,41 @@ export const PLANS = [
     depositEur: 179,
     minutesPerMonth: 2500,
     messagesPerMonth: 1000,
-    extraMinuteEur: 0.11,
+    extraMinuteEur: 0.25,
   },
 ] as const;
 
 export type PlanId = (typeof PLANS)[number]["id"];
 
 export const PILOT = {
-  founderMonths: 6,
-  founderSpots: 5,
+  /** Meses com o preço especial. */
+  specialMonths: 3,
+  /** Duração do período experimental. */
+  trialWeeks: 2,
 } as const;
 
-export const FOUNDER_CTA = "Quero o preço de fundador";
+/** Texto dele, palavra por palavra. */
+export const SPECIAL_NOTE =
+  "Preço especial nos primeiros 3 meses. Experimente a LINEA durante 2 semanas.";
 
-/** As mensagens incluídas ainda estão em avaliação. */
-export const MESSAGES_NOTE =
-  "As mensagens incluídas são por WhatsApp ou SMS e os valores ainda estão em avaliação.";
+/** Texto dele por baixo do título do formulário. */
+export const FORM_NOTE = `Consulte a tabela de preços acima e escolha o plano mais adequado à sua empresa. O preço especial aplica-se aos primeiros ${PILOT.specialMonths} meses.`;
+
+/** Nota por baixo do preço especial em cada cartão. */
+export const SPECIAL_VALID_NOTE = "Válido nos primeiros 3 meses";
+
+/** Botões que levam ao pedido. */
+export const TRIAL_CTA = "Pedir período experimental";
+/** Botões que levam aos preços. */
+export const PLANS_CTA = "Ver planos";
+export const PLANS_PRICES_CTA = "Ver planos e preços";
+
+/** Nota sobre as mensagens incluídas, por cima dos cartões. */
+export const MESSAGES_NOTE = "As mensagens incluídas são por WhatsApp ou SMS.";
+
+/** Junto de cada frase que fala em confirmações (o Starter não inclui mensagens). */
+export const CONFIRM_NOTE =
+  "As confirmações por WhatsApp ou SMS dependem do plano.";
 
 export function planMessagesLabel(messagesPerMonth: number): string {
   return messagesPerMonth > 0
@@ -96,6 +115,22 @@ export function extraMinuteSentence(): string {
   return `Minuto extra: ${parts.join(". ")}.`;
 }
 
+/** Ex.: "0,30 € no Starter e 0,25 € no Growth e no Pro" */
+export function extraMinutePrices(): string {
+  const groups = new Map<string, string[]>();
+  for (const plan of PLANS) {
+    const amount = `${formatEuro(plan.extraMinuteEur)} €`;
+    const names = groups.get(amount) ?? [];
+    names.push(plan.name);
+    groups.set(amount, names);
+  }
+  return joinPt(
+    Array.from(groups.entries()).map(
+      ([amount, names]) => `${amount} ${joinPt(names.map(n => `no ${n}`))}`
+    )
+  );
+}
+
 export function founderPricesSentence(): string {
   const parts = PLANS.map(
     plan => `${plan.name} a ${plan.founderPriceEur}€/mês`
@@ -106,7 +141,7 @@ export function founderPricesSentence(): string {
 export const PILOT_SENTENCES = [
   "Duas semanas grátis.",
   `A caução depende do plano: ${PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(", ")}. É devolvida se avançar para um plano.`,
-  `O preço de fundador é só para os primeiros ${PILOT.founderSpots} clientes e dura ${PILOT.founderMonths} meses.`,
+  `Preço especial nos primeiros ${PILOT.specialMonths} meses.`,
   founderPricesSentence(),
 ] as const;
 
@@ -118,23 +153,23 @@ export const FAQ_ITEMS = [
   ],
   [
     "A Linea automatiza reservas por telefone?",
-    "Sim. A Linea atende a chamada, consulta a disponibilidade, confirma a marcação e envia a confirmação por SMS. Serve clínicas, restaurantes, oficinas e outros negócios em Portugal.",
+    "Sim. A Linea atende a chamada, consulta a disponibilidade, confirma a marcação e envia a confirmação por WhatsApp ou SMS, conforme o plano. Serve clínicas, restaurantes, oficinas e outros negócios em Portugal.",
   ],
   [
     "Posso cancelar quando quiser?",
     "Sim. O cancelamento fica disponível a qualquer momento.",
   ],
   [
-    "O que conta num minuto de chamada?",
-    `Conta o tempo da chamada atendida. O minuto extra custa ${formatEuro(PLANS[0].extraMinuteEur)} € em todos os planos.`,
+    "Como são contabilizados os minutos de chamada?",
+    `Os minutos incluídos correspondem ao tempo de chamada atendido pela LINEA. O objetivo é resolver o pedido de quem liga com a maior eficácia possível. Se ultrapassar os minutos do seu plano, cada minuto adicional custa ${extraMinutePrices()}.`,
   ],
   [
     "As mensagens por WhatsApp ou SMS estão incluídas?",
-    "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens. Estes valores ainda estão em avaliação.",
+    "O Growth inclui 400 mensagens por mês e o Pro inclui 1 000, por WhatsApp ou SMS. O Starter não inclui mensagens.",
   ],
   [
-    "A caução cobre as chamadas do piloto?",
-    "Depende do plano e está na tabela do piloto. É devolvida se avançar para um plano.",
+    "A caução cobre as chamadas do período experimental?",
+    "As condições dependem do plano escolhido. Consulte a tabela do período experimental para ver o valor da caução. A caução é devolvida se avançar para um plano.",
   ],
   [
     "A Linea substitui a equipa?",
