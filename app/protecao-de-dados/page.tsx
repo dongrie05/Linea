@@ -50,7 +50,10 @@ export default function ProtecaoDeDadosPage() {
         As chamadas são transcritas. A transcrição fica guardada para a empresa
         poder ver o que foi dito e o que ficou marcado.
       </p>
-      <p>[Confirmar: se a gravação em áudio está desligada na Vapi.]</p>
+      <p>
+        O áudio só é gravado na medida necessária para o assistente aceder à
+        chamada e a tratar.
+      </p>
 
       <h2>3. Dados de saúde</h2>
       <p>
@@ -62,10 +65,10 @@ export default function ProtecaoDeDadosPage() {
 
       <h2>4. Quem liga sabe que fala com um assistente automático</h2>
       <p>
-        No início da chamada, a Linea informa que é um assistente automático.
-        Quem preferir pode deixar recado para a equipa da empresa.
+        Logo no início da chamada, a Linea avisa que é um assistente de
+        inteligência artificial. Quem preferir pode deixar recado para a equipa
+        da empresa.
       </p>
-      <p>[Confirmar: a frase que a Linea diz no início da chamada.]</p>
 
       <h2>5. Para que usamos os dados das chamadas</h2>
       <p>

@@ -222,7 +222,6 @@ export default function RootLayout({
   return (
     <html lang="pt-PT" className={mona.variable}>
       <head>
-        <link rel="canonical" href={`${siteUrl}/`} />
         <meta name="theme-color" content="#0A0C10" />
         <script
           type="application/ld+json"

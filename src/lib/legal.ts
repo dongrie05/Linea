@@ -8,7 +8,7 @@ import { asset } from "@/lib/asset";
 export const LEGAL_ENTITY = {
   name: "Gonçalo Duarte Dongrie de Carvalho",
   nif: "261710770",
-  address: "[Morada (domicílio fiscal)]",
+  address: "Rua Jorge Segurado",
 } as const;
 
 /** Data da última revisão das páginas legais. */
