@@ -51,6 +51,16 @@ export const PILOT = {
 export const SPECIAL_NOTE =
   "Preço especial nos primeiros 3 meses. Experimente a LINEA durante 2 semanas.";
 
+/** Indicativos no formulário. Portugal vem escolhido. */
+export const PHONE_CODES = [
+  { short: "PT", code: "+351" },
+  { short: "ES", code: "+34" },
+  { short: "FR", code: "+33" },
+  { short: "UK", code: "+44" },
+  { short: "DE", code: "+49" },
+  { short: "BR", code: "+55" },
+] as const;
+
 /** Texto dele por baixo do título do formulário. */
 export const FORM_NOTE = `Consulte a tabela de preços acima e escolha o plano mais adequado à sua empresa. O preço especial aplica-se aos primeiros ${PILOT.specialMonths} meses.`;
 

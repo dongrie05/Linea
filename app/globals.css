@@ -1697,6 +1697,17 @@ html.motion-on .pilot.is-in .pilot__facts div {
   background-position: right 14px center;
   padding-right: 40px;
 }
+.field__tel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+}
+.field__tel select {
+  width: auto;
+  padding-right: 34px;
+  background-position: right 12px center;
+  font-variant-numeric: tabular-nums;
+}
 .field ::placeholder {
   color: var(--dim);
 }

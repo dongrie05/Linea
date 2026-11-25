@@ -4,7 +4,7 @@ import {
   WEB3FORMS_ENDPOINT,
   WEB3FORMS_KEY,
 } from "@/lib/contact";
-import { PLANS, TRIAL_CTA } from "@/lib/site";
+import { PHONE_CODES, PLANS, TRIAL_CTA } from "@/lib/site";
 import { ArrowIcon } from "@/components/site/logo";
 
 export function LeadForm() {
@@ -68,15 +68,30 @@ export function LeadForm() {
       </div>
       <div className="field">
         <label htmlFor="f-telefone">Telefone</label>
-        <input
-          id="f-telefone"
-          name="telefone"
-          type="tel"
-          autoComplete="tel"
-          inputMode="tel"
-          placeholder="+351"
-          required
-        />
+        <div className="field__tel">
+          <select
+            id="f-indicativo"
+            name="indicativo"
+            aria-label="Indicativo do país"
+            autoComplete="tel-country-code"
+            defaultValue="+351"
+          >
+            {PHONE_CODES.map(c => (
+              <option key={c.code} value={c.code}>
+                {c.short} {c.code}
+              </option>
+            ))}
+          </select>
+          <input
+            id="f-telefone"
+            name="telefone"
+            type="tel"
+            autoComplete="tel-national"
+            inputMode="tel"
+            placeholder="912 345 678"
+            required
+          />
+        </div>
       </div>
       <div className="field">
         <label htmlFor="f-empresa">Empresa</label>
