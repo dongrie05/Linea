@@ -61,8 +61,7 @@ export function LeadForm() {
         <select id="f-plano" name="plano" defaultValue="Growth" required>
           {PLANS.map(plan => (
             <option key={plan.id} value={plan.name}>
-              {plan.name}, {plan.priceEur}€ por mês, {plan.minutesPerMonth}{" "}
-              minutos
+              {plan.name}, {plan.minutesPerMonth} minutos
             </option>
           ))}
         </select>

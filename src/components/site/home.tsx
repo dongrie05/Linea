@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import {
   FAQ_ITEMS,
   PLANS_PRICES_CTA,
+  FORM_NOTE,
   SPECIAL_NOTE,
   SPECIAL_VALID_NOTE,
   TRIAL_CTA,
@@ -530,8 +531,8 @@ export function HomePage() {
         <section className="section" id="pedido" aria-labelledby="pedido-h">
           <div className="wrap request">
             <div className="request__side" data-reveal>
-              <h2 id="pedido-h">Peça o período experimental.</h2>
-              <p className="head__text">{SPECIAL_NOTE}</p>
+              <h2 id="pedido-h">Peça para experimentar a LINEA</h2>
+              <p className="head__text">{FORM_NOTE}</p>
               <ul className="contacts">
                 {CONTACT_PHONES.map(phone => (
                   <li key={phone.e164}>
