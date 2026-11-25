@@ -1,10 +1,12 @@
 import {
   createHash,
+  createHmac,
   randomBytes,
   randomUUID,
   timingSafeEqual,
 } from "node:crypto";
 import postgres from "postgres";
+import { siteUrl } from "./site-url";
 
 const MAX_DURATION_SECONDS = 180;
 const VAPI_URL = "https://api.vapi.ai";
@@ -154,15 +156,44 @@ export async function administerDemo(
 }
 
 function vapiRequest(key: string, endpoint: string, options: RequestInit = {}) {
+  const headers = new Headers(options.headers);
+  headers.set("Authorization", `Bearer ${key}`);
+  headers.set("Content-Type", "application/json");
   return fetch(`${VAPI_URL}${endpoint}`, {
     ...options,
     cache: "no-store",
     signal: AbortSignal.timeout(10_000),
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
+    headers,
   });
+}
+
+function signWebCallToken(
+  key: string,
+  orgId: string,
+  assistantId: string,
+  origin: string
+) {
+  const header = Buffer.from(
+    JSON.stringify({ alg: "HS256", typ: "JWT" })
+  ).toString("base64url");
+  const payload = Buffer.from(
+    JSON.stringify({
+      orgId,
+      exp: Math.floor(Date.now() / 1000) + 120,
+      token: {
+        tag: "public",
+        restrictions: {
+          allowedOrigins: [origin],
+          allowedAssistantIds: [assistantId],
+        },
+      },
+    })
+  ).toString("base64url");
+  const unsigned = `${header}.${payload}`;
+  const signature = createHmac("sha256", key)
+    .update(unsigned)
+    .digest("base64url");
+  return `${unsigned}.${signature}`;
 }
 
 function classifyVapiFailure(status: number, message: string) {
@@ -191,6 +222,46 @@ function classifyVapiFailure(status: number, message: string) {
   return {
     status,
     reason: status < 500 ? "request_rejected" : "provider_error",
+  };
+}
+
+async function vapiDiagnostic(
+  response: Response,
+  key: string,
+  authorization: string
+) {
+  const error = await response
+    .clone()
+    .json()
+    .catch(() => null);
+  const parts: unknown[] = Array.isArray(error?.message)
+    ? error.message
+    : [error?.message];
+  const message =
+    parts.filter(part => typeof part === "string").join(" ") ||
+    (await response.text().catch(() => ""));
+  const failure = classifyVapiFailure(response.status, message);
+  console.warn("Vapi rejected Linea demo request", failure);
+  const secret = process.env.DEMO_ADMIN_TOKEN?.trim();
+  if (
+    !secret ||
+    secret.length < 32 ||
+    !matchesAdminToken(authorization, secret)
+  )
+    return {};
+  return {
+    providerFailure: {
+      ...failure,
+      detail:
+        message
+          .split(key)
+          .join("[redacted]")
+          .replace(/https?:\/\/\S+/gi, "[url]")
+          .replace(/[a-z0-9_.-]{24,}/gi, "[identifier]")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 400) || undefined,
+    },
   };
 }
 
@@ -262,6 +333,22 @@ export async function handleDemoRequest(
   const status = await getInvite(config, hash);
   if (!start || status.state !== "ready") return status;
 
+  const assistant = await vapiRequest(key, `/assistant/${assistantId}`);
+  if (!assistant.ok) {
+    return {
+      ...status,
+      state: "unavailable",
+      ...(await vapiDiagnostic(assistant, key, authorization)),
+    };
+  }
+  const { orgId } = await assistant.json();
+  if (typeof orgId !== "string" || !UUID_PATTERN.test(orgId)) {
+    console.warn("Vapi did not return the Linea assistant organization");
+    return { ...status, state: "unavailable" };
+  }
+  const origin = new URL(siteUrl).origin;
+  const webToken = signWebCallToken(key, orgId, assistantId, origin);
+
   // Claim both the use and the concurrency slot in one statement.
   const reservationId = randomUUID();
   const [reservation] = await sql<Pick<Invite, "calls_used" | "call_limit">[]>`
@@ -282,49 +369,17 @@ export async function handleDemoRequest(
 
   const limit = reservation.call_limit;
   const remaining = limit - reservation.calls_used;
-  const response = await vapiRequest(key, "/call", {
+  const response = await vapiRequest(webToken, "/call/web", {
     method: "POST",
+    headers: { Origin: origin },
     body: JSON.stringify({
       assistantId,
       assistantOverrides: { maxDurationSeconds: MAX_DURATION_SECONDS },
-      transport: {
-        provider: "daily",
-        conversationType: "voice",
-        roomDeleteOnUserLeaveEnabled: true,
-      },
+      roomDeleteOnUserLeaveEnabled: true,
     }),
   });
   if (!response.ok) {
-    const error = await response
-      .clone()
-      .json()
-      .catch(() => null);
-    const parts: unknown[] = Array.isArray(error?.message)
-      ? error.message
-      : [error?.message];
-    const message =
-      parts.filter(part => typeof part === "string").join(" ") ||
-      (await response.text().catch(() => ""));
-    const failure = classifyVapiFailure(response.status, message);
-    console.warn("Vapi rejected Linea demo call", failure);
-    const secret = process.env.DEMO_ADMIN_TOKEN?.trim();
-    const diagnostic =
-      secret && secret.length >= 32 && matchesAdminToken(authorization, secret)
-        ? {
-            providerFailure: {
-              ...failure,
-              detail:
-                message
-                  .split(key)
-                  .join("[redacted]")
-                  .replace(/https?:\/\/\S+/gi, "[url]")
-                  .replace(/[a-z0-9_-]{24,}/gi, "[identifier]")
-                  .replace(/\s+/g, " ")
-                  .trim()
-                  .slice(0, 400) || undefined,
-            },
-          }
-        : {};
+    const diagnostic = await vapiDiagnostic(response, key, authorization);
     if ([400, 401, 402, 403, 404, 422, 429].includes(response.status)) {
       await sql`
         UPDATE linea_demo_invites SET calls_used = calls_used - 1, reservation_id = NULL
