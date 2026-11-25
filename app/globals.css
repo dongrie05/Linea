@@ -2192,12 +2192,125 @@ html.motion-on .pilot.is-in .pilot__facts div {
 }
 
 .demo-session__controls {
-  min-height: 6rem;
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 2rem);
+  align-items: center;
   margin-block: 1.5rem;
+  padding: clamp(0.75rem, 3vw, 1.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+}
+
+.demo-session__controls audio {
+  display: none;
 }
 
 .demo-session__controls .btn {
   margin: 0.75rem 0.5rem 0.25rem 0;
+}
+
+.demo-voice {
+  --demo-level: 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+}
+
+.demo-voice__stage {
+  position: relative;
+  display: grid;
+  width: min(100%, 9rem);
+  aspect-ratio: 1;
+  place-items: center;
+  isolation: isolate;
+  background: radial-gradient(circle, #102548 5%, var(--bg) 70%);
+}
+
+.demo-voice__ring {
+  position: absolute;
+  inset: 12%;
+  border: 1px solid #324c70;
+  border-radius: 50%;
+}
+
+.demo-voice__ring + .demo-voice__ring {
+  inset: 3%;
+  border-color: #1f304a;
+}
+
+.demo-voice__orb {
+  width: 78%;
+  transform: scale(calc(1 + var(--demo-level) * 0.15));
+  transition: transform 140ms ease-out;
+}
+
+.demo-voice .orb {
+  width: 100%;
+  animation: none;
+}
+
+.demo-voice .orb__img,
+.demo-voice .orb__glow {
+  animation: none;
+}
+
+.demo-voice[data-phase="connecting"] .demo-voice__ring {
+  border-top-color: var(--voice);
+  animation: demo-voice-orbit 1.4s linear infinite;
+}
+
+.demo-voice[data-phase="connecting"] .demo-voice__ring + .demo-voice__ring {
+  animation-direction: reverse;
+  animation-duration: 2s;
+}
+
+@keyframes demo-voice-orbit {
+  to { transform: rotate(1turn); }
+}
+
+.demo-voice__wave {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 1.25rem;
+}
+
+.demo-voice__wave span {
+  width: 4px;
+  height: 60%;
+  border-radius: 999px;
+  background: var(--text-blue);
+  opacity: 0.55;
+  transform: scaleY(calc(0.35 + var(--demo-level) * 0.65));
+  transition: transform 140ms ease-out;
+}
+
+.demo-voice__wave span:nth-child(2n) { height: 84%; }
+.demo-voice__wave span:nth-child(3) { height: 100%; }
+.demo-voice[data-phase="in-call"] .demo-voice__wave span {
+  background: var(--voice);
+  opacity: 0.95;
+}
+
+@media (max-width: 520px) {
+  .demo-session__controls {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-voice[data-phase="connecting"] .demo-voice__ring {
+    animation: none;
+  }
+
+  .demo-voice__orb,
+  .demo-voice__wave span {
+    transform: none;
+    transition: none;
+  }
 }
 
 .demo-session__note {

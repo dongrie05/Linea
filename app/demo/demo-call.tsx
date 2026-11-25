@@ -2,6 +2,7 @@
 
 import type { DailyCall } from "@daily-co/daily-js";
 import { useEffect, useRef, useState } from "react";
+import { Orb } from "@/components/site/logo";
 import { asset } from "@/lib/asset";
 
 type Status = {
@@ -39,13 +40,16 @@ const statusMessages: Record<Status["state"], string> = {
 export function DemoCall() {
   const [token, setToken] = useState<string | null>(null);
   const [status, setStatus] = useState<Status | null>(null);
-  const [phase, setPhase] = useState<"idle" | "connecting" | "in-call">("idle");
+  const [phase, setPhase] = useState<
+    "idle" | "connecting" | "in-call" | "ending"
+  >("idle");
   const [feedback, setFeedback] = useState("");
   const [audioBlocked, setAudioBlocked] = useState(false);
   const scope = useRef<AbortController>();
   const live = useRef<{ room: DailyCall; microphone: MediaStream }>();
   const pending = useRef(false);
   const audio = useRef<HTMLAudioElement>(null);
+  const voice = useRef<HTMLDivElement>(null);
 
   async function refresh(invite: string, signal: AbortSignal) {
     try {
@@ -59,6 +63,7 @@ export function DemoCall() {
   async function disconnect() {
     const session = live.current;
     live.current = undefined;
+    voice.current?.style.removeProperty("--demo-level");
     session?.microphone.getTracks().forEach(track => track.stop());
     if (audio.current) audio.current.srcObject = null;
     if (session) await session.room.destroy().catch(() => undefined);
@@ -90,7 +95,7 @@ export function DemoCall() {
   async function finish(message: string) {
     if (!live.current || !token || !scope.current) return;
     const { signal } = scope.current;
-    setPhase("connecting");
+    setPhase("ending");
     await disconnect();
     if (signal.aborted) return;
     setAudioBlocked(false);
@@ -155,6 +160,17 @@ export function DemoCall() {
         audio.current.srcObject = new MediaStream([event.track]);
         void playAudio();
       });
+      room.on("remote-participants-audio-level", event => {
+        if (live.current?.room !== room) return;
+        const level = Math.max(
+          0,
+          ...Object.values(event.participantsAudioLevel)
+        );
+        voice.current?.style.setProperty(
+          "--demo-level",
+          String(Math.min(1, level * 3))
+        );
+      });
       room.on("left-meeting", () => {
         if (live.current?.room === room) void finish("A chamada terminou.");
       });
@@ -167,7 +183,14 @@ export function DemoCall() {
           void finish("A ligação foi interrompida.");
       });
       await room.join({ url, ...(roomToken ? { token: roomToken } : {}) });
-      if (!signal.aborted && live.current?.room === room) setPhase("in-call");
+      if (!signal.aborted && live.current?.room === room) {
+        setPhase("in-call");
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          void room
+            .startRemoteParticipantsAudioLevelObserver(100)
+            .catch(() => undefined);
+        }
+      }
     } catch {
       await disconnect();
       if (!signal.aborted) {
@@ -183,74 +206,95 @@ export function DemoCall() {
     }
   }
 
-  if (token === "") {
-    return (
-      <p>Para iniciar a demonstração, abra o link do convite que recebeu.</p>
-    );
-  }
-
   return (
     <div className="demo-session__controls">
       <audio ref={audio} />
-      <div aria-live="polite">
-        <p>
-          {phase === "connecting"
-            ? "A ligar…"
-            : phase === "in-call"
-              ? "Chamada em curso."
-              : status
-                ? statusMessages[status.state]
-                : "A verificar o convite…"}
-        </p>
-        {typeof status?.remaining === "number" &&
-          typeof status.limit === "number" &&
-          status.state !== "invalid" && (
-            <p>
-              Tentativas restantes: {status.remaining} de {status.limit}.
-            </p>
-          )}
-        {feedback && <p>{feedback}</p>}
+      <div
+        className="demo-voice"
+        data-phase={phase}
+        ref={voice}
+        aria-hidden="true"
+      >
+        <div className="demo-voice__stage">
+          <span className="demo-voice__ring" />
+          <span className="demo-voice__ring" />
+          <div className="demo-voice__orb">
+            <Orb />
+          </div>
+        </div>
+        <div className="demo-voice__wave">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
-      {phase === "in-call" && (
-        <button
-          type="button"
-          className="btn btn--primary"
-          onClick={() => void finish("A chamada terminou.")}
-        >
-          Terminar chamada
-        </button>
-      )}
-      {phase === "in-call" && audioBlocked && (
-        <button
-          type="button"
-          className="btn btn--ghost"
-          onClick={() => void playAudio()}
-        >
-          Ativar som
-        </button>
-      )}
-      {phase === "idle" && status?.state === "ready" && (
-        <button
-          type="button"
-          className="btn btn--primary"
-          onClick={() => void startCall()}
-        >
-          Iniciar chamada
-        </button>
-      )}
-      {phase === "idle" &&
-        (status?.state === "busy" || status?.state === "unavailable") &&
-        token && (
+      <div className="demo-session__actions">
+        <div aria-live="polite">
+          <p>
+            {token === ""
+              ? "Para iniciar a demonstração, abra o link do convite que recebeu."
+              : phase === "connecting"
+                ? "A ligar…"
+                : phase === "in-call"
+                  ? "Chamada em curso."
+                  : phase === "ending"
+                    ? "A terminar…"
+                    : status
+                      ? statusMessages[status.state]
+                      : "A verificar o convite…"}
+          </p>
+          {typeof status?.remaining === "number" &&
+            typeof status.limit === "number" &&
+            status.state !== "invalid" && (
+              <p>
+                Tentativas restantes: {status.remaining} de {status.limit}.
+              </p>
+            )}
+          {feedback && <p>{feedback}</p>}
+        </div>
+        {phase === "in-call" && (
+          <button
+            type="button"
+            className="btn btn--primary"
+            onClick={() => void finish("A chamada terminou.")}
+          >
+            Terminar chamada
+          </button>
+        )}
+        {phase === "in-call" && audioBlocked && (
           <button
             type="button"
             className="btn btn--ghost"
-            onClick={() =>
-              scope.current && void refresh(token, scope.current.signal)
-            }
+            onClick={() => void playAudio()}
           >
-            Atualizar estado
+            Ativar som
           </button>
         )}
+        {phase === "idle" && status?.state === "ready" && (
+          <button
+            type="button"
+            className="btn btn--primary"
+            onClick={() => void startCall()}
+          >
+            Iniciar chamada
+          </button>
+        )}
+        {phase === "idle" &&
+          (status?.state === "busy" || status?.state === "unavailable") &&
+          token && (
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() =>
+                scope.current && void refresh(token, scope.current.signal)
+              }
+            >
+              Atualizar estado
+            </button>
+          )}
+      </div>
     </div>
   );
 }
