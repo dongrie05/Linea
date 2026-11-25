@@ -8,7 +8,7 @@ function countUp(el: HTMLElement) {
   const start = performance.now();
   const dur = 1100;
   const tick = (now: number) => {
-    const t = Math.min(1, (now - start) / dur);
+    const t = Math.min(1, Math.max(0, (now - start) / dur));
     const eased = 1 - Math.pow(1 - t, 3);
     el.textContent = String(Math.round(target * eased));
     if (t < 1) requestAnimationFrame(tick);
