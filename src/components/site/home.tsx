@@ -368,6 +368,38 @@ export function HomePage() {
           </div>
         </section>
 
+        <section className="section" id="demo" aria-labelledby="demo-h">
+          <div className="wrap">
+            <div className="pilot spot" data-reveal>
+              <span className="pilot__glow" aria-hidden="true" />
+              <div className="pilot__text">
+                <h2 id="demo-h">Experimente a Linea.</h2>
+                <p>
+                  Fale com a receção de uma clínica dentária fictícia. Pergunte
+                  pelos horários ou simule uma marcação no navegador.
+                </p>
+                <p>Já recebeu um convite? Abra o link para começar.</p>
+              </div>
+              <div className="pilot__side">
+                <dl className="pilot__facts">
+                  <div>
+                    <dt>Por convite</dt>
+                    <dd>1 ou 3 tentativas</dd>
+                  </div>
+                  <div>
+                    <dt>Por chamada</dt>
+                    <dd>Até 3 minutos</dd>
+                  </div>
+                  <div>
+                    <dt>Validade</dt>
+                    <dd>7 dias</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="precos" aria-labelledby="precos-h">
           <div className="wrap">
             <SectionHead

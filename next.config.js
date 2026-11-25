@@ -2,8 +2,8 @@
 
 /**
  * GitHub Pages (dongrie05.github.io/Linea) só reencaminha para linea.dongrielabs.com.
- * A Vercel define VERCEL=1 e publica na raiz de https://linea.dongrielabs.com.
- * BASE_PATH explícito ganha aos dois: vazio = raiz; /Linea = Pages.
+ * O site é servido na raiz pela Vercel. BASE_PATH permite alojar a aplicação
+ * num subcaminho quando necessário.
  */
 function resolveBasePath() {
   if (process.env.BASE_PATH !== undefined) {
@@ -13,15 +13,12 @@ function resolveBasePath() {
     return withLeading.replace(/\/+$/, "");
   }
 
-  if (process.env.VERCEL === "1") return "";
-  if (process.env.NODE_ENV === "production") return "/Linea";
   return "";
 }
 
 const basePath = resolveBasePath();
 
 const nextConfig = {
-  output: "export",
   trailingSlash: true,
   images: {
     unoptimized: true,
@@ -34,6 +31,7 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
+    serverComponentsExternalPackages: ["postgres"],
   },
   // Configurações de SEO
   compress: true,

@@ -32,9 +32,6 @@ npm run dev
 # Build de produção
 npm run build
 
-# Exportar para GitHub Pages
-npm run export
-
 # Linting
 npm run lint
 ```
@@ -49,17 +46,15 @@ npm run lint
 
 ## 🚀 Deploy
 
-### GitHub Pages (Automático)
+### Vercel
 
-1. Faça push para a branch `main`
-2. O GitHub Actions fará o deploy automaticamente
+O site usa o runtime do Next.js para a API de demonstração. Consulte a configuração em [Publicação e demonstração](README.md#publicação-e-demonstração). O GitHub Pages publica apenas o redirecionamento.
 
-### Deploy Manual
+### Executar a compilação localmente
 
 ```bash
 npm run build
-npm run export
-# Fazer upload da pasta 'out' para o seu servidor
+npm run start
 ```
 
 ## ✅ Verificação
