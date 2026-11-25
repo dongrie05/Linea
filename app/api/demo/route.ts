@@ -20,7 +20,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await handleDemoRequest(data.token, data.action === "start");
+    const result = await handleDemoRequest(
+      data.token,
+      data.action === "start",
+      request.headers.get("authorization") ?? ""
+    );
     return NextResponse.json(result, {
       status: result.state === "unavailable" ? 503 : 200,
       headers,
