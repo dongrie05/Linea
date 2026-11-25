@@ -1718,6 +1718,14 @@ html.motion-on .pilot.is-in .pilot__facts div {
   color: var(--dim);
   font-size: 13px;
 }
+.form__status {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+}
+.form__status[data-ok="false"] {
+  color: #f19a9a;
+}
 
 @media (max-width: 900px) {
   .request {

@@ -117,6 +117,54 @@ export function SiteMotion() {
         }
       });
     };
+    // Envio direto (Web3Forms): fica na página e mostra se correu bem.
+    document
+      .querySelectorAll<HTMLFormElement>("form[data-direct]")
+      .forEach(form => {
+        const status = form.querySelector<HTMLElement>(".form__status");
+        const button = form.querySelector<HTMLButtonElement>(
+          "button[type=submit]"
+        );
+        const show = (text: string, ok: boolean) => {
+          if (!status) return;
+          status.textContent = text;
+          status.dataset.ok = ok ? "true" : "false";
+          status.hidden = false;
+        };
+        form.addEventListener(
+          "submit",
+          async e => {
+            e.preventDefault();
+            if (button) button.disabled = true;
+            show("A enviar o pedido…", true);
+            try {
+              const res = await fetch(form.action, {
+                method: "POST",
+                headers: { Accept: "application/json" },
+                body: new FormData(form),
+              });
+              const data = (await res.json().catch(() => null)) as {
+                success?: boolean;
+              } | null;
+              if (!res.ok || !data?.success) throw new Error("envio");
+              const plan =
+                form.querySelector<HTMLSelectElement>("#f-plano")?.value;
+              form.reset();
+              if (plan) pickPlan(plan);
+              show("Pedido enviado. Respondemos por email em breve.", true);
+            } catch {
+              show(
+                "Não foi possível enviar. Tente outra vez ou escreva para linea.atendedor@gmail.com.",
+                false
+              );
+            } finally {
+              if (button) button.disabled = false;
+            }
+          },
+          { signal }
+        );
+      });
+
     // «Quero o Starter/Growth/Pro» abre o pedido com esse plano escolhido.
     const pickPlan = (name: string | null | undefined) => {
       const select = document.querySelector<HTMLSelectElement>("#f-plano");
