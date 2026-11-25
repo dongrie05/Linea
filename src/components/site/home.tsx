@@ -3,6 +3,7 @@ import {
   FAQ_ITEMS,
   PLANS_PRICES_CTA,
   SPECIAL_NOTE,
+  SPECIAL_VALID_NOTE,
   TRIAL_CTA,
   MESSAGES_NOTE,
   extraMinutePrices,
@@ -388,15 +389,19 @@ export function HomePage() {
                         <span className="tag tag--accent">Mais pedido</span>
                       ) : null}
                     </div>
+                    <p className="plan__was">
+                      <span className="sr-only">Preço normal: </span>
+                      <s>{plan.priceEur} €/mês</s>
+                    </p>
                     <p className="plan__price">
-                      <span data-count={plan.priceEur}>{plan.priceEur}</span>
+                      <span className="sr-only">Preço especial: </span>
+                      <span data-count={plan.founderPriceEur}>
+                        {plan.founderPriceEur}
+                      </span>
                       <span className="plan__cur">€</span>
                       <span className="plan__per">/mês</span>
                     </p>
-                    <p className="plan__founder">
-                      Preço especial: {plan.founderPriceEur} € por mês nos
-                      primeiros {PILOT.specialMonths} meses
-                    </p>
+                    <p className="plan__founder">{SPECIAL_VALID_NOTE}</p>
                     <ul className="plan__list">
                       <li>
                         <CheckIcon />
@@ -420,8 +425,9 @@ export function HomePage() {
                     <a
                       className={`btn ${featured ? "btn--primary" : "btn--ghost"} btn--block`}
                       href="#pedido"
+                      data-plan={plan.name}
                     >
-                      {TRIAL_CTA}
+                      Quero o {plan.name}
                     </a>
                   </article>
                 );

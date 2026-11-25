@@ -51,6 +51,9 @@ export const PILOT = {
 export const SPECIAL_NOTE =
   "Preço especial nos primeiros 3 meses. Experimente a LINEA durante 2 semanas.";
 
+/** Nota por baixo do preço especial em cada cartão. */
+export const SPECIAL_VALID_NOTE = "Válido nos primeiros 3 meses";
+
 /** Botões que levam ao pedido. */
 export const TRIAL_CTA = "Pedir período experimental";
 /** Botões que levam aos preços. */

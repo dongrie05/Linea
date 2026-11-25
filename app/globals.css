@@ -1303,6 +1303,15 @@ html.motion-on .plan.is-in:hover {
   font-weight: 500;
   letter-spacing: 0;
 }
+.plan__was {
+  margin-bottom: -10px;
+  color: var(--muted);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.plan__was s {
+  text-decoration-thickness: 1.5px;
+}
 .plan__founder {
   margin-top: -8px;
   color: var(--muted);

@@ -117,6 +117,25 @@ export function SiteMotion() {
         }
       });
     };
+    // «Quero o Starter/Growth/Pro» abre o pedido com esse plano escolhido.
+    const pickPlan = (name: string | null | undefined) => {
+      const select = document.querySelector<HTMLSelectElement>("#f-plano");
+      if (!select || !name) return;
+      const option = Array.from(select.options).find(o => o.value === name);
+      if (option) select.value = option.value;
+    };
+    pickPlan(new URLSearchParams(window.location.search).get("plano"));
+    document.addEventListener(
+      "click",
+      e => {
+        const link = (e.target as HTMLElement).closest?.<HTMLElement>(
+          "[data-plan]"
+        );
+        if (link) pickPlan(link.dataset.plan);
+      },
+      { signal }
+    );
+
     window.addEventListener("scroll", onScroll, { passive: true, signal });
     window.addEventListener("resize", onScroll, { signal });
     onScroll();
