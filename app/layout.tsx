@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Analytics } from "@/components/site/analytics";
 import { FAQ_ITEMS, PILOT, PLANS, formatEuro } from "@/lib/site";
 import { siteUrl } from "@/lib/site-url";
 
@@ -231,7 +232,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }
