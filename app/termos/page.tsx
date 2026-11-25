@@ -23,8 +23,8 @@ export default function TermosPage() {
       <h2>1. Quem somos</h2>
       <p>
         Este site é da Linea, um produto da Dongrie Labs, explorado por{" "}
-        {LEGAL_ENTITY.name}, NIF {LEGAL_ENTITY.nif}, com sede em{" "}
-        {LEGAL_ENTITY.address}. Contacto:{" "}
+        {LEGAL_ENTITY.name}, empresário em nome individual, NIF{" "}
+        {LEGAL_ENTITY.nif}, com domicílio em {LEGAL_ENTITY.address}. Contacto:{" "}
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
 
@@ -113,9 +113,8 @@ export default function TermosPage() {
 
       <h2>11. Lei aplicável e foro</h2>
       <p>
-        Estes termos regem-se pela lei portuguesa. Para qualquer litígio é
-        competente o tribunal da comarca de {LEGAL_ENTITY.court}, salvo quando a
-        lei determine outro.
+        Estes termos regem-se pela lei portuguesa. Para qualquer litígio são
+        competentes os tribunais portugueses, nos termos da lei.
       </p>
 
       <h2>12. Alterações</h2>

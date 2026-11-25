@@ -2,13 +2,13 @@ import { asset } from "@/lib/asset";
 
 /**
  * Dados da entidade que aparecem nas páginas legais.
- * Os valores entre parênteses retos ficam por preencher antes de publicar.
+ * Empresário em nome individual. Os valores entre parênteses retos ficam por
+ * preencher antes de publicar.
  */
 export const LEGAL_ENTITY = {
-  name: "[Nome legal da entidade]",
+  name: "Gonçalo Duarte Dongrie de Carvalho",
   nif: "[NIF]",
-  address: "[Morada da sede]",
-  court: "[Comarca]",
+  address: "[Morada (domicílio fiscal)]",
 } as const;
 
 /** Data da última revisão das páginas legais. */

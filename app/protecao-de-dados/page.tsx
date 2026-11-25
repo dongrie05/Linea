@@ -46,7 +46,11 @@ export default function ProtecaoDeDadosPage() {
           o plano as inclui.
         </li>
       </ul>
-      <p>[Confirmar: se as chamadas são gravadas em áudio e/ou transcritas.]</p>
+      <p>
+        As chamadas são transcritas. A transcrição fica guardada para a empresa
+        poder ver o que foi dito e o que ficou marcado.
+      </p>
+      <p>[Confirmar: se a gravação em áudio está desligada na Vapi.]</p>
 
       <h2>3. Dados de saúde</h2>
       <p>
@@ -78,19 +82,24 @@ export default function ProtecaoDeDadosPage() {
         os dados. A lista em vigor faz parte do acordo de tratamento de dados e
         é comunicada ao cliente antes de qualquer alteração.
       </p>
-      <p>[Lista de subcontratantes e países onde tratam os dados.]</p>
       <p>
-        Se algum tratar dados fora do Espaço Económico Europeu, a transferência
-        assenta nas garantias previstas no RGPD, como as cláusulas
+        As chamadas e as transcrições são tratadas pela Vapi, a plataforma de
+        voz em que a Linea funciona, que trata os dados nos Estados Unidos.
+      </p>
+      <p>[Outros subcontratantes: telefonia, SMS ou WhatsApp, e países.]</p>
+      <p>
+        Quando um fornecedor trata dados fora do Espaço Económico Europeu, a
+        transferência assenta nas garantias previstas no RGPD, como as cláusulas
         contratuais-tipo aprovadas pela Comissão Europeia.
       </p>
 
       <h2>7. Durante quanto tempo guardamos os dados</h2>
       <p>
-        Os dados das chamadas são guardados durante [prazo de conservação] e
-        depois apagados, salvo instrução diferente do cliente. No fim do
+        Os dados das chamadas, incluindo as transcrições, são guardados até 3
+        meses e depois apagados, salvo instrução diferente do cliente. No fim do
         contrato, apagamos ou devolvemos os dados, conforme o cliente escolher.
       </p>
+      <p>[Confirmar: o prazo de 3 meses configurado também na Vapi.]</p>
 
       <h2>8. Segurança</h2>
       <p>

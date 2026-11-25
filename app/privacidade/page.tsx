@@ -22,8 +22,9 @@ export default function PrivacidadePage() {
       <h2>1. Quem é o responsável pelo tratamento</h2>
       <p>
         A Linea é um produto da Dongrie Labs. O responsável pelo tratamento dos
-        dados recolhidos neste site é {LEGAL_ENTITY.name}, NIF{" "}
-        {LEGAL_ENTITY.nif}, com sede em {LEGAL_ENTITY.address}.
+        dados recolhidos neste site é {LEGAL_ENTITY.name}, empresário em nome
+        individual, NIF {LEGAL_ENTITY.nif}, com domicílio em{" "}
+        {LEGAL_ENTITY.address}.
       </p>
       <p>
         Para qualquer questão sobre os seus dados, escreva para{" "}
