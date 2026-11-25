@@ -1,0 +1,1 @@
+export const DEMO_MAX_DURATION_SECONDS = 180;
