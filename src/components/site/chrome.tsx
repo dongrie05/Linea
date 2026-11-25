@@ -1,14 +1,14 @@
 import { ArrowIcon, LogoMark, PhoneIcon } from "@/components/site/logo";
-import { FOUNDER_CTA } from "@/lib/site";
+import { PLANS_CTA, TRIAL_CTA } from "@/lib/site";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/lib/contact";
 
-const ACTION = FOUNDER_CTA;
+const ACTION = TRIAL_CTA;
 
 const LINKS = [
   ["chamadas", "Chamadas"],
   ["passos", "Como funciona"],
   ["precos", "Preços"],
-  ["piloto", "Piloto"],
+  ["piloto", "Período experimental"],
   ["perguntas", "Perguntas"],
 ] as const;
 
@@ -31,14 +31,12 @@ export function SiteNav({ home = "" }: { home?: string }) {
               {label}
             </a>
           ))}
-          <a className="btn btn--primary nav__mobile-cta" href={to("pedido")}>
-            <PhoneIcon />
-            {ACTION}
+          <a className="btn btn--primary nav__mobile-cta" href={to("precos")}>
+            {PLANS_CTA}
           </a>
         </nav>
-        <a className="btn btn--primary btn--sm nav__cta" href={to("pedido")}>
-          <PhoneIcon />
-          {ACTION}
+        <a className="btn btn--primary btn--sm nav__cta" href={to("precos")}>
+          {PLANS_CTA}
         </a>
         <button
           className="nav__toggle"
@@ -97,7 +95,7 @@ export function SiteFooter({ home = "" }: { home?: string }) {
           <div className="footer__col">
             <h3>Preços</h3>
             <a href={to("precos")}>Planos</a>
-            <a href={to("piloto")}>Piloto</a>
+            <a href={to("piloto")}>Período experimental</a>
             <a href={to("perguntas")}>Perguntas</a>
           </div>
           <div className="footer__col">

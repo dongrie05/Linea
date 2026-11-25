@@ -148,7 +148,7 @@ export default function RootLayout({
         potentialAction: {
           "@type": "ReserveAction",
           target: `${siteUrl}/formulario/`,
-          name: "Pedir preço de fundador",
+          name: "Pedir período experimental",
         },
       },
       {
@@ -171,7 +171,7 @@ export default function RootLayout({
           name: `${plan.name} - Atendedor de chamadas`,
           price: String(plan.priceEur),
           priceCurrency: "EUR",
-          description: `${plan.minutesPerMonth} minutos por mês. ${plan.messagesPerMonth > 0 ? `${plan.messagesPerMonth} mensagens por WhatsApp ou SMS por mês (valores em avaliação).` : "Sem mensagens incluídas."} Minuto extra a ${formatEuro(plan.extraMinuteEur)} €. Preço de fundador ${plan.founderPriceEur} € por mês, só para os primeiros ${PILOT.founderSpots} clientes, durante ${PILOT.founderMonths} meses.`,
+          description: `${plan.minutesPerMonth} minutos por mês. ${plan.messagesPerMonth > 0 ? `${plan.messagesPerMonth} mensagens por WhatsApp ou SMS por mês (valores em avaliação).` : "Sem mensagens incluídas."} Minuto extra a ${formatEuro(plan.extraMinuteEur)} €. Preço especial de ${plan.founderPriceEur} € por mês nos primeiros ${PILOT.specialMonths} meses. Período experimental de ${PILOT.trialWeeks} semanas.`,
           availability: "https://schema.org/InStock",
           url: `${siteUrl}/#precos`,
         })),

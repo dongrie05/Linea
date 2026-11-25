@@ -1,7 +1,7 @@
 /**
- * Preços e piloto aprovados para publicação.
+ * Preços e período experimental aprovados para publicação.
  * Valores mensais, em euros. O volume conta em minutos.
- * A caução do piloto é 29€, 89€ e 179€, do Starter ao Pro.
+ * A caução do período experimental é 29€, 89€ e 179€, do Starter ao Pro.
  * Mensagens incluídas (WhatsApp ou SMS): valores ainda em avaliação.
  */
 
@@ -41,11 +41,21 @@ export const PLANS = [
 export type PlanId = (typeof PLANS)[number]["id"];
 
 export const PILOT = {
-  founderMonths: 6,
-  founderSpots: 5,
+  /** Meses com o preço especial. */
+  specialMonths: 3,
+  /** Duração do período experimental. */
+  trialWeeks: 2,
 } as const;
 
-export const FOUNDER_CTA = "Quero o preço de fundador";
+/** Texto dele, palavra por palavra. */
+export const SPECIAL_NOTE =
+  "Preço especial nos primeiros 3 meses. Experimente a LINEA durante 2 semanas.";
+
+/** Botões que levam ao pedido. */
+export const TRIAL_CTA = "Pedir período experimental";
+/** Botões que levam aos preços. */
+export const PLANS_CTA = "Ver planos";
+export const PLANS_PRICES_CTA = "Ver planos e preços";
 
 /** As mensagens incluídas ainda estão em avaliação. */
 export const MESSAGES_NOTE =
@@ -122,7 +132,7 @@ export function founderPricesSentence(): string {
 export const PILOT_SENTENCES = [
   "Duas semanas grátis.",
   `A caução depende do plano: ${PLANS.map(plan => `${plan.name} ${plan.depositEur}€`).join(", ")}. É devolvida se avançar para um plano.`,
-  `O preço de fundador é só para os primeiros ${PILOT.founderSpots} clientes e dura ${PILOT.founderMonths} meses.`,
+  `Preço especial nos primeiros ${PILOT.specialMonths} meses.`,
   founderPricesSentence(),
 ] as const;
 
@@ -149,8 +159,8 @@ export const FAQ_ITEMS = [
     "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens. Estes valores ainda estão em avaliação.",
   ],
   [
-    "A caução cobre as chamadas do piloto?",
-    "Depende do plano e está na tabela do piloto. É devolvida se avançar para um plano.",
+    "A caução cobre as chamadas do período experimental?",
+    "Depende do plano e está na tabela do período experimental. É devolvida se avançar para um plano.",
   ],
   [
     "A Linea substitui a equipa?",

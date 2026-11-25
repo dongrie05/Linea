@@ -1,7 +1,9 @@
 import type { CSSProperties } from "react";
 import {
   FAQ_ITEMS,
-  FOUNDER_CTA,
+  PLANS_PRICES_CTA,
+  SPECIAL_NOTE,
+  TRIAL_CTA,
   MESSAGES_NOTE,
   extraMinutePrices,
   PILOT,
@@ -123,19 +125,14 @@ export function HomePage() {
                 confirmação por SMS. De dia e de noite.
               </p>
               <div className="hero__actions">
-                <a className="btn btn--primary btn--lg" href="#pedido">
-                  <PhoneIcon />
-                  {FOUNDER_CTA}
+                <a className="btn btn--primary btn--lg" href="#precos">
+                  {PLANS_PRICES_CTA}
                 </a>
                 <a className="btn btn--ghost btn--lg" href="#chamadas">
                   Ver uma chamada
                 </a>
               </div>
-              <p className="hero__note">
-                Preço de fundador só para os primeiros {PILOT.founderSpots}{" "}
-                clientes, durante {PILOT.founderMonths} meses. Piloto de duas
-                semanas.
-              </p>
+              <p className="hero__note">{SPECIAL_NOTE}</p>
             </div>
 
             <div className="hero__stage" aria-hidden="true">
@@ -397,8 +394,8 @@ export function HomePage() {
                       <span className="plan__per">/mês</span>
                     </p>
                     <p className="plan__founder">
-                      {plan.founderPriceEur} € por mês para os primeiros{" "}
-                      {PILOT.founderSpots}, durante {PILOT.founderMonths} meses
+                      Preço especial: {plan.founderPriceEur} € por mês nos
+                      primeiros {PILOT.specialMonths} meses
                     </p>
                     <ul className="plan__list">
                       <li>
@@ -424,7 +421,7 @@ export function HomePage() {
                       className={`btn ${featured ? "btn--primary" : "btn--ghost"} btn--block`}
                       href="#pedido"
                     >
-                      {FOUNDER_CTA}
+                      {TRIAL_CTA}
                     </a>
                   </article>
                 );
@@ -438,49 +435,41 @@ export function HomePage() {
             <div className="pilot spot" data-reveal>
               <span className="pilot__glow" aria-hidden="true" />
               <div className="pilot__text">
-                <h2 id="piloto-h">Piloto de duas semanas.</h2>
+                <h2 id="piloto-h">Período experimental de 2 semanas.</h2>
                 <p>
-                  O preço de fundador está nos planos acima. É só para os
-                  primeiros {PILOT.founderSpots} clientes e dura{" "}
-                  {PILOT.founderMonths} meses.
+                  Experimente a LINEA durante {PILOT.trialWeeks} semanas nas
+                  suas chamadas. Depois, paga o preço especial do plano nos
+                  primeiros {PILOT.specialMonths} meses.
                 </p>
                 <a className="btn btn--primary btn--lg" href="#pedido">
-                  {FOUNDER_CTA}
+                  {TRIAL_CTA}
                   <ArrowIcon />
                 </a>
               </div>
               <dl className="pilot__facts">
                 <div style={d(0)}>
                   <dt>Duração</dt>
-                  <dd>2 semanas</dd>
+                  <dd>{PILOT.trialWeeks} semanas</dd>
                 </div>
                 <div style={d(1)}>
-                  <dt>Primeiros clientes</dt>
+                  <dt>Preço especial</dt>
                   <dd>
-                    <span data-count={PILOT.founderSpots}>
-                      {PILOT.founderSpots}
-                    </span>
-                  </dd>
-                </div>
-                <div style={d(3)}>
-                  <dt>Preço fixo durante</dt>
-                  <dd>
-                    <span data-count={PILOT.founderMonths}>
-                      {PILOT.founderMonths}
+                    <span data-count={PILOT.specialMonths}>
+                      {PILOT.specialMonths}
                     </span>{" "}
                     meses
                   </dd>
                 </div>
               </dl>
             </div>
-            <h3 className="table-title">Caução do piloto</h3>
+            <h3 className="table-title">Caução do período experimental</h3>
             <p className="table-note">
               A caução é devolvida se o cliente avançar para um plano.
             </p>
             <div className="table-scroll">
               <table className="data-table">
                 <caption className="sr-only">
-                  Caução do piloto de duas semanas
+                  Caução do período experimental de 2 semanas
                 </caption>
                 <thead>
                   <tr>
@@ -544,11 +533,8 @@ export function HomePage() {
         <section className="section" id="pedido" aria-labelledby="pedido-h">
           <div className="wrap request">
             <div className="request__side" data-reveal>
-              <h2 id="pedido-h">Fique com o preço de fundador.</h2>
-              <p className="head__text">
-                O preço de fundador é só para os primeiros {PILOT.founderSpots}{" "}
-                clientes e fica fixo durante {PILOT.founderMonths} meses.
-              </p>
+              <h2 id="pedido-h">Peça o período experimental.</h2>
+              <p className="head__text">{SPECIAL_NOTE}</p>
               <ul className="contacts">
                 {CONTACT_PHONES.map(phone => (
                   <li key={phone.e164}>
