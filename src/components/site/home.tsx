@@ -418,10 +418,6 @@ export function HomePage() {
                           {planMessagesLabel(plan.messagesPerMonth)}
                         </li>
                       ) : null}
-                      <li>
-                        <CheckIcon />
-                        Caução de {plan.depositEur} €, devolvida ao avançar
-                      </li>
                     </ul>
                     <a
                       className={`btn ${featured ? "btn--primary" : "btn--ghost"} btn--block`}
@@ -453,49 +449,43 @@ export function HomePage() {
                   <ArrowIcon />
                 </a>
               </div>
-              <dl className="pilot__facts">
-                <div style={d(0)}>
-                  <dt>Duração</dt>
-                  <dd>{PILOT.trialWeeks} semanas</dd>
+              <div className="pilot__side">
+                <dl className="pilot__facts">
+                  <div style={d(0)}>
+                    <dt>Duração</dt>
+                    <dd>{PILOT.trialWeeks} semanas</dd>
+                  </div>
+                  <div style={d(1)}>
+                    <dt>Preço especial</dt>
+                    <dd>
+                      <span data-count={PILOT.specialMonths}>
+                        {PILOT.specialMonths}
+                      </span>{" "}
+                      meses
+                    </dd>
+                  </div>
+                </dl>
+                <div className="pilot__deposit" style={d(2)}>
+                  <table>
+                    <caption>Caução do período experimental</caption>
+                    <thead className="sr-only">
+                      <tr>
+                        <th scope="col">Plano</th>
+                        <th scope="col">Caução</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {PLANS.map(plan => (
+                        <tr key={plan.id}>
+                          <th scope="row">{plan.name}</th>
+                          <td>{plan.depositEur} €</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p>Devolvida se avançar para um plano.</p>
                 </div>
-                <div style={d(1)}>
-                  <dt>Preço especial</dt>
-                  <dd>
-                    <span data-count={PILOT.specialMonths}>
-                      {PILOT.specialMonths}
-                    </span>{" "}
-                    meses
-                  </dd>
-                </div>
-              </dl>
-            </div>
-            <h3 className="table-title">Caução do período experimental</h3>
-            <p className="table-note">
-              A caução é devolvida se o cliente avançar para um plano.
-            </p>
-            <div className="table-scroll">
-              <table className="data-table">
-                <caption className="sr-only">
-                  Caução do período experimental de 2 semanas
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Plano</th>
-                    <th scope="col">Caução</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PLANS.map(plan => (
-                    <tr key={plan.id}>
-                      <th scope="row">{plan.name}</th>
-                      <td>
-                        <span className="cell-label">Caução</span>
-                        {plan.depositEur} €
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              </div>
             </div>
           </div>
         </section>

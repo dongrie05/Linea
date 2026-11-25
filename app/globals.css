@@ -1410,6 +1410,61 @@ html.motion-on .plan.is-in:hover {
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
+.pilot__side {
+  display: grid;
+  gap: 16px;
+}
+.pilot__deposit {
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(10, 12, 16, 0.85);
+}
+.pilot__deposit table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.pilot__deposit caption {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: left;
+}
+.pilot__deposit th,
+.pilot__deposit td {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  font-size: 16px;
+}
+.pilot__deposit tbody tr:first-child th,
+.pilot__deposit tbody tr:first-child td {
+  border-top: 0;
+}
+.pilot__deposit th {
+  font-weight: 600;
+  text-align: left;
+}
+.pilot__deposit td {
+  text-align: right;
+}
+.pilot__deposit p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+html.motion-on .pilot .pilot__deposit {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease);
+  transition-delay: calc(0.3s + var(--i) * 0.1s);
+}
+html.motion-on .pilot.is-in .pilot__deposit {
+  opacity: 1;
+  transform: none;
+}
 html.motion-on .pilot .pilot__facts div {
   opacity: 0;
   transform: translateY(14px);
