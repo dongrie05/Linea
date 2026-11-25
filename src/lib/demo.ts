@@ -22,6 +22,14 @@ type Invite = {
 type DemoState = "ready" | "invalid" | "busy" | "exhausted";
 type DemoCall = { url: string; roomToken?: string };
 
+export type DemoInviteSummary = {
+  id: string;
+  clinicName: string | null;
+  callLimit: number;
+  remaining: number;
+  expiresAt: string;
+};
+
 let database: ReturnType<typeof postgres> | undefined;
 
 function getConfig() {
@@ -49,8 +57,9 @@ function hashToken(token: string) {
 export async function administerDemo(
   authorization: string,
   operation:
-    | { action: "create"; callLimit: unknown }
+    | { action: "create"; callLimit: unknown; clinicName: unknown }
     | { action: "revoke"; id: unknown }
+    | { action: "list" }
 ) {
   const secret = process.env.DEMO_ADMIN_TOKEN;
   if (
@@ -69,12 +78,23 @@ export async function administerDemo(
     };
   const { sql } = config;
 
+  if (operation.action === "list") {
+    const invites = await sql<DemoInviteSummary[]>`
+      SELECT id, clinic_name AS "clinicName", call_limit AS "callLimit",
+             greatest(call_limit - calls_used, 0) AS remaining, expires_at AS "expiresAt"
+      FROM linea_demo_invites
+      WHERE revoked_at IS NULL AND expires_at > now() AND calls_used < call_limit
+      ORDER BY expires_at DESC, id
+    `;
+    return { status: 200, body: { invites } };
+  }
+
   if (operation.action === "revoke") {
     const inviteId = operation.id;
     if (typeof inviteId !== "string" || !UUID_PATTERN.test(inviteId)) {
       return {
         status: 400,
-        body: { error: "Indique o ID de gestão do convite." },
+        body: { error: "Selecione o convite a desativar." },
       };
     }
     const [invite] = await sql`
@@ -93,17 +113,32 @@ export async function administerDemo(
   if (callLimit !== 1 && callLimit !== 3) {
     return { status: 400, body: { error: "Escolhe uma ou três tentativas." } };
   }
+  const clinicName =
+    typeof operation.clinicName === "string" ? operation.clinicName.trim() : "";
+  if (!clinicName || clinicName.length > 120 || clinicName.includes("\0")) {
+    return {
+      status: 400,
+      body: { error: "Indique o nome da clínica (até 120 caracteres)." },
+    };
+  }
   const token = randomBytes(32).toString("base64url");
   const tokenHash = hashToken(token).toString("hex");
   const id = randomUUID();
   const [invite] = await sql<{ expires_at: Date }[]>`
-    INSERT INTO linea_demo_invites (id, token_hash, call_limit)
-    VALUES (${id}, ${tokenHash}, ${callLimit})
+    INSERT INTO linea_demo_invites (id, token_hash, call_limit, clinic_name)
+    VALUES (${id}, ${tokenHash}, ${callLimit}, ${clinicName})
     RETURNING expires_at
   `;
   return {
     status: 201,
-    body: { token, id, callLimit, expiresAt: invite.expires_at.toISOString() },
+    body: {
+      token,
+      id,
+      clinicName,
+      callLimit,
+      remaining: callLimit,
+      expiresAt: invite.expires_at.toISOString(),
+    },
   };
 }
 

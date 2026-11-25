@@ -1,23 +1,31 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { asset } from "@/lib/asset";
+import type { DemoInviteSummary } from "@/lib/demo";
 
-type Invite = { url: string; id: string; expiresAt: string; callLimit: number };
+type Invite = DemoInviteSummary & { url: string };
+type Operation =
+  | { action: "create"; callLimit: number; clinicName: string }
+  | { action: "revoke"; id: string }
+  | { action: "list" };
+
+const expiryFormat = new Intl.DateTimeFormat("pt-PT", {
+  dateStyle: "long",
+  timeStyle: "short",
+  timeZone: "Europe/Lisbon",
+});
 
 export function InviteManager() {
   const [secret, setSecret] = useState("");
-  const [inviteId, setInviteId] = useState("");
+  const [clinicName, setClinicName] = useState("");
   const [callLimit, setCallLimit] = useState(1);
   const [invite, setInvite] = useState<Invite>();
+  const [activeInvites, setActiveInvites] = useState<DemoInviteSummary[]>();
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState("");
 
-  async function manage(
-    event: FormEvent<HTMLFormElement>,
-    action: "create" | "revoke"
-  ) {
-    event.preventDefault();
+  async function manage(operation: Operation) {
     if (!secret.trim() || pending) return;
     setPending(true);
     setStatus("");
@@ -28,31 +36,33 @@ export function InviteManager() {
           Authorization: `Bearer ${secret.trim()}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          action === "create"
-            ? { action, callLimit }
-            : { action, id: inviteId.trim() }
-        ),
+        body: JSON.stringify(operation),
       });
       const result = await response.json();
       if (!response.ok) {
         setStatus(result.error);
-      } else if (action === "create") {
+      } else if (operation.action === "create") {
         const url = new URL(asset("/demo/"), window.location.origin);
         url.hash = result.token;
-        setInvite({
-          url: url.href,
+        const summary: DemoInviteSummary = {
           id: result.id,
+          clinicName: result.clinicName,
           expiresAt: result.expiresAt,
           callLimit: result.callLimit,
-        });
-        setInviteId(result.id);
-        setStatus(
-          "Convite criado. Copie o link para o partilhar e guarde o ID para o desativar se precisar."
-        );
+          remaining: result.remaining,
+        };
+        setInvite({ ...summary, url: url.href });
+        setActiveInvites(current => current && [summary, ...current]);
+        setStatus("Convite criado. Copie o link para o partilhar.");
+      } else if (operation.action === "list") {
+        setActiveInvites(result.invites);
       } else {
-        if (invite?.id === inviteId.trim()) setInvite(undefined);
-        setInviteId("");
+        setInvite(current =>
+          current?.id === operation.id ? undefined : current
+        );
+        setActiveInvites(current =>
+          current?.filter(item => item.id !== operation.id)
+        );
         setStatus("Convite desativado.");
       }
     } catch {
@@ -83,7 +93,13 @@ export function InviteManager() {
           onChange={event => setSecret(event.target.value)}
         />
       </div>
-      <form onSubmit={event => void manage(event, "create")}>
+      <form
+        onSubmit={event => {
+          event.preventDefault();
+          if (clinicName.trim())
+            void manage({ action: "create", clinicName, callLimit });
+        }}
+      >
         <div className="field">
           <label htmlFor="demo-call-limit">Tentativas por convite</label>
           <select
@@ -96,10 +112,20 @@ export function InviteManager() {
             <option value={3}>Três tentativas</option>
           </select>
         </div>
+        <div className="field">
+          <label htmlFor="demo-clinic-name">Nome da clínica</label>
+          <input
+            id="demo-clinic-name"
+            value={clinicName}
+            onChange={event => setClinicName(event.target.value)}
+            maxLength={120}
+            required
+          />
+        </div>
         <button
           type="submit"
           className="btn btn--primary"
-          disabled={pending || !secret.trim()}
+          disabled={pending || !secret.trim() || !clinicName.trim()}
         >
           Gerar convite
         </button>
@@ -107,7 +133,7 @@ export function InviteManager() {
       {invite && (
         <div>
           <div className="field">
-            <label htmlFor="demo-link">Link do cliente</label>
+            <label htmlFor="demo-link">Link para {invite.clinicName}</label>
             <input
               id="demo-link"
               readOnly
@@ -118,12 +144,7 @@ export function InviteManager() {
           <p>
             {invite.callLimit === 1 ? "Uma tentativa" : "Três tentativas"}, até
             três minutos por chamada. Válido até{" "}
-            {new Intl.DateTimeFormat("pt-PT", {
-              dateStyle: "long",
-              timeStyle: "short",
-              timeZone: "Europe/Lisbon",
-            }).format(new Date(invite.expiresAt))}
-            .
+            {expiryFormat.format(new Date(invite.expiresAt))}.
           </p>
           <button
             type="button"
@@ -134,24 +155,42 @@ export function InviteManager() {
           </button>
         </div>
       )}
-      <form onSubmit={event => void manage(event, "revoke")}>
-        <div className="field">
-          <label htmlFor="demo-invite-id">ID de gestão do convite</label>
-          <input
-            id="demo-invite-id"
-            value={inviteId}
-            onChange={event => setInviteId(event.target.value)}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="btn btn--ghost"
-          disabled={pending || !secret.trim() || !inviteId.trim()}
-        >
-          Desativar convite
-        </button>
-      </form>
+      <button
+        type="button"
+        className="btn btn--ghost"
+        disabled={pending || !secret.trim()}
+        onClick={() => void manage({ action: "list" })}
+      >
+        {activeInvites ? "Atualizar convites ativos" : "Ver convites ativos"}
+      </button>
+      {activeInvites &&
+        (activeInvites.length ? (
+          <ul className="demo-invites" aria-label="Convites ativos">
+            {activeInvites.map(item => (
+              <li key={item.id}>
+                <p>
+                  <strong>
+                    {item.clinicName ?? "Convite anterior sem nome"}
+                  </strong>
+                </p>
+                <p>
+                  {item.remaining} de {item.callLimit} tentativas · Válido até{" "}
+                  {expiryFormat.format(new Date(item.expiresAt))}.
+                </p>
+                <button
+                  type="button"
+                  className="btn btn--ghost btn--sm"
+                  disabled={pending || !secret.trim()}
+                  onClick={() => void manage({ action: "revoke", id: item.id })}
+                >
+                  Desativar convite
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Não há convites ativos.</p>
+        ))}
       <p role="status">{status}</p>
     </>
   );

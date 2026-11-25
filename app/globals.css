@@ -2198,6 +2198,15 @@ html.motion-on .pilot.is-in .pilot__facts div {
   margin-top: 1rem;
 }
 
+.demo-invites li {
+  border-top: 1px solid var(--line);
+  padding-block: 0.75rem;
+}
+
+.demo-invites .btn {
+  margin-top: 0.5rem;
+}
+
 .demo-session button:disabled {
   opacity: 0.55;
   cursor: not-allowed;
