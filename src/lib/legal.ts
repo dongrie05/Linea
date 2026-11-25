@@ -7,7 +7,7 @@ import { asset } from "@/lib/asset";
  */
 export const LEGAL_ENTITY = {
   name: "Gonçalo Duarte Dongrie de Carvalho",
-  nif: "[NIF]",
+  nif: "261710770",
   address: "[Morada (domicílio fiscal)]",
 } as const;
 
