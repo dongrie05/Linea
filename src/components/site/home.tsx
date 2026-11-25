@@ -378,22 +378,17 @@ export function HomePage() {
                   Fale com a receção de uma clínica dentária fictícia. Pergunte
                   pelos horários ou simule uma marcação no navegador.
                 </p>
-                <a
-                  className="btn btn--primary btn--lg"
-                  href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de receber um convite para experimentar a Linea.")}`}
-                >
-                  Pedir convite <ArrowIcon />
-                </a>
+                <p>Já recebeu um convite? Abra o link para começar.</p>
               </div>
               <div className="pilot__side">
                 <dl className="pilot__facts">
                   <div>
                     <dt>Por convite</dt>
-                    <dd>5 chamadas</dd>
+                    <dd>1 ou 3 tentativas</dd>
                   </div>
                   <div>
                     <dt>Por chamada</dt>
-                    <dd>Até 2 minutos</dd>
+                    <dd>Até 3 minutos</dd>
                   </div>
                   <div>
                     <dt>Validade</dt>

@@ -1,13 +1,13 @@
 "use client";
 
 import type { DailyCall } from "@daily-co/daily-js";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { asset } from "@/lib/asset";
 
 type Status = {
   state: "ready" | "invalid" | "busy" | "exhausted" | "unavailable";
   remaining?: number;
+  limit?: number;
   call?: { url: string; roomToken?: string };
 };
 
@@ -31,7 +31,7 @@ const statusMessages: Record<Status["state"], string> = {
   ready: "Convite ativo.",
   invalid: "Este convite é inválido, expirou ou foi desativado.",
   busy: "Já existe uma chamada a iniciar ou em curso para este convite. Aguarde e atualize o estado.",
-  exhausted: "As cinco chamadas deste convite já foram utilizadas.",
+  exhausted: "Este convite já atingiu o limite de tentativas.",
   unavailable:
     "A demonstração está temporariamente indisponível. Tente novamente.",
 };
@@ -65,16 +65,27 @@ export function DemoCall() {
   }
 
   useEffect(() => {
+    function readInvite() {
+      setToken(window.location.hash.slice(1));
+    }
+    readInvite();
+    window.addEventListener("hashchange", readInvite);
+    return () => window.removeEventListener("hashchange", readInvite);
+  }, []);
+
+  useEffect(() => {
     const controller = new AbortController();
     scope.current = controller;
-    const invite = window.location.hash.slice(1);
-    setToken(invite);
-    if (invite) void refresh(invite, controller.signal);
+    setStatus(null);
+    setPhase("idle");
+    setFeedback("");
+    setAudioBlocked(false);
+    if (token) void refresh(token, controller.signal);
     return () => {
       controller.abort();
       void disconnect();
     };
-  }, []);
+  }, [token]);
 
   async function finish(message: string) {
     if (!live.current || !token || !scope.current) return;
@@ -174,13 +185,7 @@ export function DemoCall() {
 
   if (token === "") {
     return (
-      <p>
-        Abra o endereço do seu convite ou{" "}
-        <Link className="link" href="/#pedido">
-          peça um convite
-        </Link>
-        .
-      </p>
+      <p>Para iniciar a demonstração, abra o link do convite que recebeu.</p>
     );
   }
 
@@ -198,8 +203,11 @@ export function DemoCall() {
                 : "A verificar o convite…"}
         </p>
         {typeof status?.remaining === "number" &&
+          typeof status.limit === "number" &&
           status.state !== "invalid" && (
-            <p>Chamadas restantes: {status.remaining} de 5.</p>
+            <p>
+              Tentativas restantes: {status.remaining} de {status.limit}.
+            </p>
           )}
         {feedback && <p>{feedback}</p>}
       </div>

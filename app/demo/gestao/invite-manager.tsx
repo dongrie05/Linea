@@ -3,11 +3,12 @@
 import { useState, type FormEvent } from "react";
 import { asset } from "@/lib/asset";
 
-type Invite = { url: string; id: string; expiresAt: string };
+type Invite = { url: string; id: string; expiresAt: string; callLimit: number };
 
 export function InviteManager() {
   const [secret, setSecret] = useState("");
   const [inviteId, setInviteId] = useState("");
+  const [callLimit, setCallLimit] = useState(1);
   const [invite, setInvite] = useState<Invite>();
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState("");
@@ -27,7 +28,11 @@ export function InviteManager() {
           Authorization: `Bearer ${secret.trim()}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ action, id: inviteId.trim() }),
+        body: JSON.stringify(
+          action === "create"
+            ? { action, callLimit }
+            : { action, id: inviteId.trim() }
+        ),
       });
       const result = await response.json();
       if (!response.ok) {
@@ -39,6 +44,7 @@ export function InviteManager() {
           url: url.href,
           id: result.id,
           expiresAt: result.expiresAt,
+          callLimit: result.callLimit,
         });
         setInviteId(result.id);
         setStatus(
@@ -78,6 +84,18 @@ export function InviteManager() {
         />
       </div>
       <form onSubmit={event => void manage(event, "create")}>
+        <div className="field">
+          <label htmlFor="demo-call-limit">Tentativas por convite</label>
+          <select
+            id="demo-call-limit"
+            value={callLimit}
+            onChange={event => setCallLimit(Number(event.target.value))}
+            disabled={pending}
+          >
+            <option value={1}>Uma tentativa</option>
+            <option value={3}>Três tentativas</option>
+          </select>
+        </div>
         <button
           type="submit"
           className="btn btn--primary"
@@ -98,7 +116,8 @@ export function InviteManager() {
             />
           </div>
           <p>
-            Válido até{" "}
+            {invite.callLimit === 1 ? "Uma tentativa" : "Três tentativas"}, até
+            três minutos por chamada. Válido até{" "}
             {new Intl.DateTimeFormat("pt-PT", {
               dateStyle: "long",
               timeStyle: "short",

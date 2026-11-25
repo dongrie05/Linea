@@ -23,7 +23,7 @@ export default function DemoPage() {
         </p>
         <DemoCall />
         <p className="demo-session__note">
-          Cada chamada dura até dois minutos. Use dados fictícios durante a
+          Cada chamada dura até três minutos. Use dados fictícios durante a
           demonstração.
         </p>
       </section>

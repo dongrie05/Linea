@@ -6,13 +6,14 @@ import {
 } from "node:crypto";
 import postgres from "postgres";
 
-const MAX_CALLS = 5;
+const MAX_DURATION_SECONDS = 180;
 const VAPI_URL = "https://api.vapi.ai";
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/;
 const UUID_PATTERN = /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i;
 
 type Invite = {
   calls_used: number;
+  call_limit: number;
   active: boolean;
   reservation_id: string | null;
   vapi_call_id: string | null;
@@ -47,8 +48,9 @@ function hashToken(token: string) {
 
 export async function administerDemo(
   authorization: string,
-  action: "create" | "revoke",
-  inviteId: unknown
+  operation:
+    | { action: "create"; callLimit: unknown }
+    | { action: "revoke"; id: unknown }
 ) {
   const secret = process.env.DEMO_ADMIN_TOKEN;
   if (
@@ -67,7 +69,8 @@ export async function administerDemo(
     };
   const { sql } = config;
 
-  if (action === "revoke") {
+  if (operation.action === "revoke") {
+    const inviteId = operation.id;
     if (typeof inviteId !== "string" || !UUID_PATTERN.test(inviteId)) {
       return {
         status: 400,
@@ -86,16 +89,21 @@ export async function administerDemo(
         };
   }
 
+  const { callLimit } = operation;
+  if (callLimit !== 1 && callLimit !== 3) {
+    return { status: 400, body: { error: "Escolhe uma ou três tentativas." } };
+  }
   const token = randomBytes(32).toString("base64url");
   const tokenHash = hashToken(token).toString("hex");
   const id = randomUUID();
   const [invite] = await sql<{ expires_at: Date }[]>`
-    INSERT INTO linea_demo_invites (id, token_hash) VALUES (${id}, ${tokenHash})
+    INSERT INTO linea_demo_invites (id, token_hash, call_limit)
+    VALUES (${id}, ${tokenHash}, ${callLimit})
     RETURNING expires_at
   `;
   return {
     status: 201,
-    body: { token, id, expiresAt: invite.expires_at.toISOString() },
+    body: { token, id, callLimit, expiresAt: invite.expires_at.toISOString() },
   };
 }
 
@@ -113,28 +121,32 @@ function vapiRequest(key: string, endpoint: string, options: RequestInit = {}) {
 
 async function getInvite({ sql, key }: Config, hash: string) {
   const [invite] = await sql<Invite[]>`
-    SELECT calls_used, reservation_id, vapi_call_id,
+    SELECT calls_used, call_limit, reservation_id, vapi_call_id,
            (revoked_at IS NULL AND expires_at > now()) AS active
     FROM linea_demo_invites WHERE token_hash = ${hash}
   `;
   if (!invite?.active) return { state: "invalid", remaining: 0 } as const;
 
-  const remaining = MAX_CALLS - invite.calls_used;
-  if (remaining === 0) return { state: "exhausted", remaining } as const;
-  if (!invite.reservation_id) return { state: "ready", remaining } as const;
-  if (!invite.vapi_call_id) return { state: "busy", remaining } as const;
+  const allowance = {
+    remaining: Math.max(0, invite.call_limit - invite.calls_used),
+    limit: invite.call_limit,
+  };
+  if (allowance.remaining === 0)
+    return { state: "exhausted", ...allowance } as const;
+  if (!invite.reservation_id) return { state: "ready", ...allowance } as const;
+  if (!invite.vapi_call_id) return { state: "busy", ...allowance } as const;
 
   // Only the provider can confirm the last call ended. Leaving a tab is not authoritative.
   const response = await vapiRequest(key, `/call/${invite.vapi_call_id}`);
   if (!response.ok || (await response.json()).status !== "ended") {
-    return { state: "busy", remaining } as const;
+    return { state: "busy", ...allowance } as const;
   }
   const [cleared] = await sql`
     UPDATE linea_demo_invites SET reservation_id = NULL, vapi_call_id = NULL
     WHERE token_hash = ${hash} AND reservation_id = ${invite.reservation_id}
     RETURNING token_hash
   `;
-  return { state: cleared ? "ready" : "busy", remaining } as const;
+  return { state: cleared ? "ready" : "busy", ...allowance } as const;
 }
 
 function parseDemoCall(value: unknown): DemoCall | null {
@@ -161,6 +173,7 @@ export async function handleDemoRequest(
 ): Promise<{
   state: DemoState | "unavailable";
   remaining?: number;
+  limit?: number;
   call?: DemoCall;
 }> {
   if (!TOKEN_PATTERN.test(token)) return { state: "invalid", remaining: 0 };
@@ -174,13 +187,13 @@ export async function handleDemoRequest(
 
   // Claim both the use and the concurrency slot in one statement.
   const reservationId = randomUUID();
-  const [reservation] = await sql<{ calls_used: number }[]>`
+  const [reservation] = await sql<Pick<Invite, "calls_used" | "call_limit">[]>`
     UPDATE linea_demo_invites
     SET calls_used = calls_used + 1, reservation_id = ${reservationId}
     WHERE token_hash = ${hash}
       AND revoked_at IS NULL AND expires_at > now()
-      AND calls_used < ${MAX_CALLS} AND reservation_id IS NULL
-    RETURNING calls_used
+      AND calls_used < call_limit AND reservation_id IS NULL
+    RETURNING calls_used, call_limit
   `;
   if (!reservation) {
     const current = await getInvite(config, hash);
@@ -190,12 +203,13 @@ export async function handleDemoRequest(
     };
   }
 
-  const remaining = MAX_CALLS - reservation.calls_used;
+  const limit = reservation.call_limit;
+  const remaining = limit - reservation.calls_used;
   const response = await vapiRequest(key, "/call/web", {
     method: "POST",
     body: JSON.stringify({
       assistantId,
-      assistantOverrides: { maxDurationSeconds: 120 },
+      assistantOverrides: { maxDurationSeconds: MAX_DURATION_SECONDS },
       roomDeleteOnUserLeaveEnabled: true,
     }),
   });
@@ -205,15 +219,15 @@ export async function handleDemoRequest(
         UPDATE linea_demo_invites SET calls_used = calls_used - 1, reservation_id = NULL
         WHERE token_hash = ${hash} AND reservation_id = ${reservationId}
       `;
-      return { state: "unavailable", remaining: remaining + 1 };
+      return { state: "unavailable", remaining: remaining + 1, limit };
     }
     // A timeout or upstream error can mean that Vapi accepted the call.
     // Keep the claim until its outcome is known rather than creating a second call.
-    return { state: "unavailable", remaining };
+    return { state: "unavailable", remaining, limit };
   }
   const payload = await response.json();
   if (typeof payload?.id !== "string" || !UUID_PATTERN.test(payload.id)) {
-    return { state: "unavailable", remaining };
+    return { state: "unavailable", remaining, limit };
   }
   await sql`
     UPDATE linea_demo_invites SET vapi_call_id = ${payload.id}
@@ -221,6 +235,6 @@ export async function handleDemoRequest(
   `;
   const call = parseDemoCall(payload);
   return call
-    ? { state: "ready", remaining, call }
-    : { state: "unavailable", remaining };
+    ? { state: "ready", remaining, limit, call }
+    : { state: "unavailable", remaining, limit };
 }

@@ -8,3 +8,7 @@ CREATE TABLE IF NOT EXISTS linea_demo_invites (
   vapi_call_id uuid,
   CHECK (vapi_call_id IS NULL OR reservation_id IS NOT NULL)
 );
+
+ALTER TABLE linea_demo_invites
+  ADD COLUMN IF NOT EXISTS call_limit integer NOT NULL DEFAULT 3
+    CHECK (call_limit IN (1, 3));

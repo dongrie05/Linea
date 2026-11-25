@@ -56,11 +56,11 @@ npm run dev
 O site e a API correm na Vercel em `linea.dongrielabs.com`. O GitHub Pages publica apenas o redirecionamento para esse domínio.
 
 1. Configure `DEMO_DATABASE_URL` com a ligação a PostgreSQL e aplique `scripts/demo/schema.sql` com `node --env-file=.env.local scripts/demo/setup.mjs` (Node.js 20.6 ou mais recente). Para este comando, guarde a ligação em `.env.local`, que está ignorado pelo Git.
-2. Nas variáveis do projeto na Vercel, configure `DEMO_DATABASE_URL`, `VAPI_PRIVATE_API_KEY`, `VAPI_DEMO_ASSISTANT_ID` e `DEMO_ADMIN_TOKEN`. Confirme no painel Vapi que o ID é o da clínica fictícia e que está publicada a versão prevista para a demo, com duração máxima de 120 segundos e sem integrações reais. Use um código de gestão aleatório, por exemplo gerado com `openssl rand -hex 32`.
-3. Abra `/demo/gestao/`, introduza o código de gestão e gere um convite. Partilhe o link com o cliente e guarde o ID de gestão para o poder desativar. O código de gestão é distinto do link de cliente.
-4. Confirme numa chamada de teste que há áudio nos dois sentidos, que a chamada termina aos dois minutos e que o contador baixa. Teste também com dois separadores e confirme que a sexta tentativa é bloqueada.
+2. Nas variáveis do projeto na Vercel, configure `DEMO_DATABASE_URL`, `VAPI_PRIVATE_API_KEY`, `VAPI_DEMO_ASSISTANT_ID` e `DEMO_ADMIN_TOKEN`. Confirme no painel Vapi que o ID é o da clínica fictícia e que está publicada a versão prevista para a demo, com duração máxima de 180 segundos e sem integrações reais. Use um código de gestão aleatório, por exemplo gerado com `openssl rand -hex 32`.
+3. Abra `/demo/gestao/`, introduza o código de gestão, escolha uma ou três tentativas e gere o convite. Partilhe o link com o cliente e guarde o ID de gestão para o poder desativar. O código de gestão é distinto do link de cliente.
+4. Confirme numa chamada de teste que há áudio nos dois sentidos, que a chamada termina aos três minutos e que o contador baixa. Teste com dois separadores e confirme o bloqueio da segunda tentativa num convite de uma tentativa e da quarta num convite de três tentativas.
 
-Cada convite vale sete dias, disponibiliza cinco chamadas no navegador e permite uma chamada de cada vez. A secção pública recebe pedidos de convite pelo WhatsApp. Em caso de resposta incerta da Vapi ao criar uma chamada, o convite fica bloqueado para evitar uma segunda chamada. Consulte os registos da Vapi antes de desativar e substituir o convite.
+Cada convite vale sete dias e permite uma chamada de cada vez no navegador. A gestão cria os convites que a equipa envia diretamente aos clientes. Em caso de resposta incerta da Vapi ao criar uma chamada, o convite fica bloqueado para evitar uma segunda chamada. Consulte os registos da Vapi antes de desativar e substituir o convite.
 
 ## 📁 Estrutura do Projeto
 

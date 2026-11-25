@@ -17,8 +17,9 @@ export async function POST(request: Request) {
   try {
     const result = await administerDemo(
       request.headers.get("authorization") ?? "",
-      data.action,
-      data.id
+      data.action === "create"
+        ? { action: "create", callLimit: data.callLimit }
+        : { action: "revoke", id: data.id }
     );
     return NextResponse.json(result.body, { status: result.status, headers });
   } catch {
