@@ -368,6 +368,43 @@ export function HomePage() {
           </div>
         </section>
 
+        <section className="section" id="demo" aria-labelledby="demo-h">
+          <div className="wrap">
+            <div className="pilot spot" data-reveal>
+              <span className="pilot__glow" aria-hidden="true" />
+              <div className="pilot__text">
+                <h2 id="demo-h">Experimente a Linea.</h2>
+                <p>
+                  Fale com a receção de uma clínica dentária fictícia. Pergunte
+                  pelos horários ou simule uma marcação no navegador.
+                </p>
+                <a
+                  className="btn btn--primary btn--lg"
+                  href={`https://wa.me/${CONTACT_PHONE_WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de receber um convite para experimentar a Linea.")}`}
+                >
+                  Pedir convite <ArrowIcon />
+                </a>
+              </div>
+              <div className="pilot__side">
+                <dl className="pilot__facts">
+                  <div>
+                    <dt>Por convite</dt>
+                    <dd>5 chamadas</dd>
+                  </div>
+                  <div>
+                    <dt>Por chamada</dt>
+                    <dd>Até 2 minutos</dd>
+                  </div>
+                  <div>
+                    <dt>Validade</dt>
+                    <dd>7 dias</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="precos" aria-labelledby="precos-h">
           <div className="wrap">
             <SectionHead

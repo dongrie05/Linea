@@ -2161,3 +2161,44 @@ html.motion-on .pilot.is-in .pilot__facts div {
     font-weight: 500;
   }
 }
+
+.demo-page {
+  padding-block: clamp(2rem, 8vw, 6rem);
+}
+
+.demo-session {
+  max-width: 42rem;
+  margin-top: 2rem;
+  padding: clamp(1.25rem, 5vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: var(--surface);
+}
+
+.demo-session h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+}
+
+.demo-session__controls {
+  min-height: 6rem;
+  margin-block: 1.5rem;
+}
+
+.demo-session__controls .btn {
+  margin: 0.75rem 0.5rem 0.25rem 0;
+}
+
+.demo-session__note {
+  font-size: 0.875rem;
+}
+
+.demo-manager > * + *,
+.demo-manager form > * + * {
+  margin-top: 1rem;
+}
+
+.demo-session button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

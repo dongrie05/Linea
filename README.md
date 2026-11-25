@@ -9,7 +9,7 @@ Site moderno e responsivo para a startup Linea (SaaS / Atendedor de chamadas com
 - **Animações Suaves**: Fade-in, parallax leve, microinterações
 - **Multilíngue**: Suporte para Português, Inglês, Espanhol, Francês e Alemão
 - **Otimizado para SEO**: Meta tags e estrutura clean
-- **GitHub Pages Ready**: Configurado para deploy automático
+- **Vercel**: Site e API de demonstração no mesmo domínio
 
 ## 🛠️ Tecnologias
 
@@ -51,30 +51,16 @@ npm run dev
 - 🇫🇷 Français
 - 🇩🇪 Deutsch
 
-## 🚀 Deploy no GitHub Pages
+## Publicação e demonstração
 
-### Deploy Automático
+O site e a API correm na Vercel em `linea.dongrielabs.com`. O GitHub Pages publica apenas o redirecionamento para esse domínio.
 
-O projeto está configurado para deploy automático via GitHub Actions. Basta fazer push para a branch `main` e o site será atualizado automaticamente.
+1. Configure `DEMO_DATABASE_URL` com a ligação a PostgreSQL e aplique `scripts/demo/schema.sql` com `node --env-file=.env.local scripts/demo/setup.mjs` (Node.js 20.6 ou mais recente). Para este comando, guarde a ligação em `.env.local`, que está ignorado pelo Git.
+2. Nas variáveis do projeto na Vercel, configure `DEMO_DATABASE_URL`, `VAPI_PRIVATE_API_KEY`, `VAPI_DEMO_ASSISTANT_ID` e `DEMO_ADMIN_TOKEN`. Confirme no painel Vapi que o ID é o da clínica fictícia e que está publicada a versão prevista para a demo, com duração máxima de 120 segundos e sem integrações reais. Use um código de gestão aleatório, por exemplo gerado com `openssl rand -hex 32`.
+3. Abra `/demo/gestao/`, introduza o código de gestão e gere um convite. Partilhe o link com o cliente e guarde o ID de gestão para o poder desativar. O código de gestão é distinto do link de cliente.
+4. Confirme numa chamada de teste que há áudio nos dois sentidos, que a chamada termina aos dois minutos e que o contador baixa. Teste também com dois separadores e confirme que a sexta tentativa é bloqueada.
 
-### Deploy Manual
-
-1. Configure o repositório para GitHub Pages:
-   - Vá em Settings > Pages
-   - Selecione "GitHub Actions" como fonte
-
-2. Execute o build e export:
-
-```bash
-npm run build
-npm run export
-```
-
-3. Faça push da pasta `out` para a branch `gh-pages`:
-
-```bash
-git subtree push --prefix out origin gh-pages
-```
+Cada convite vale sete dias, disponibiliza cinco chamadas no navegador e permite uma chamada de cada vez. A secção pública recebe pedidos de convite pelo WhatsApp. Em caso de resposta incerta da Vapi ao criar uma chamada, o convite fica bloqueado para evitar uma segunda chamada. Consulte os registos da Vapi antes de desativar e substituir o convite.
 
 ## 📁 Estrutura do Projeto
 
@@ -144,7 +130,6 @@ O site foi desenvolvido com abordagem mobile-first e inclui breakpoints para:
 - `npm run dev` - Executa em modo desenvolvimento
 - `npm run build` - Cria build de produção
 - `npm run start` - Executa build de produção
-- `npm run export` - Exporta para GitHub Pages
 - `npm run lint` - Executa linter
 
 ## 📄 Licença

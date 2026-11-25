@@ -7,6 +7,7 @@ const ACTION = TRIAL_CTA;
 const LINKS = [
   ["chamadas", "Chamadas"],
   ["passos", "Como funciona"],
+  ["demo", "Demonstração"],
   ["precos", "Preços"],
   ["piloto", "Período experimental"],
   ["perguntas", "Perguntas"],
