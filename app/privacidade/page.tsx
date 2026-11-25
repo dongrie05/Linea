@@ -34,20 +34,20 @@ export default function PrivacidadePage() {
       <h3>Formulário de pedido</h3>
       <p>
         Quando pede um período experimental ou uma demonstração, recolhemos o
-        nome, o email, o telefone (com o indicativo do país), o nome da
-        empresa, o plano escolhido e a mensagem que escrever.
+        nome, o email, o telefone (com o indicativo do país), o nome da empresa,
+        o plano escolhido e a mensagem que escrever.
       </p>
       <h3>Contacto direto</h3>
       <p>
-        Se nos escrever por email ou WhatsApp, ou se nos telefonar, recebemos
-        os dados que partilhar nesse contacto, como o nome, o número de
-        telefone e o conteúdo da mensagem.
+        Se nos escrever por email ou WhatsApp, ou se nos telefonar, recebemos os
+        dados que partilhar nesse contacto, como o nome, o número de telefone e
+        o conteúdo da mensagem.
       </p>
       <h3>Dados técnicos</h3>
       <p>
         O fornecedor que aloja o site regista dados técnicos de cada acesso,
-        como o endereço IP, a data e a hora e o tipo de browser. São
-        necessários para servir as páginas e proteger o site contra abusos.
+        como o endereço IP, a data e a hora e o tipo de browser. São necessários
+        para servir as páginas e proteger o site contra abusos.
       </p>
       <p>
         Este site não usa ferramentas de análise de tráfego nem de publicidade.
@@ -81,16 +81,16 @@ export default function PrivacidadePage() {
 
       <h2>4. Com quem partilhamos os dados</h2>
       <p>
-        Não vendemos dados pessoais. Recorremos a estes fornecedores, que
-        tratam dados por nossa conta ou como serviços que escolhe usar:
+        Não vendemos dados pessoais. Recorremos a estes fornecedores, que tratam
+        dados por nossa conta ou como serviços que escolhe usar:
       </p>
       <ul>
         <li>
           <strong>Vercel Inc.</strong>, que aloja o site.
         </li>
         <li>
-          <strong>Web3Forms</strong>, que recebe o formulário e o encaminha
-          para o nosso email.
+          <strong>Web3Forms</strong>, que recebe o formulário e o encaminha para
+          o nosso email.
         </li>
         <li>
           <strong>Google</strong>, através do Gmail, onde recebemos e guardamos
@@ -101,17 +101,15 @@ export default function PrivacidadePage() {
           WhatsApp.
         </li>
       </ul>
-      <p>
-        Podemos ainda comunicar dados a autoridades quando a lei o exija.
-      </p>
+      <p>Podemos ainda comunicar dados a autoridades quando a lei o exija.</p>
 
       <h2>5. Transferências para fora do Espaço Económico Europeu</h2>
       <p>
         Alguns destes fornecedores podem tratar dados fora do Espaço Económico
         Europeu, nomeadamente nos Estados Unidos. Nesses casos, a transferência
-        assenta nas garantias previstas no RGPD, como o Quadro de Privacidade
-        de Dados UE-EUA ou as cláusulas contratuais-tipo aprovadas pela
-        Comissão Europeia.
+        assenta nas garantias previstas no RGPD, como o Quadro de Privacidade de
+        Dados UE-EUA ou as cláusulas contratuais-tipo aprovadas pela Comissão
+        Europeia.
       </p>
 
       <h2>6. Durante quanto tempo guardamos os dados</h2>
@@ -150,9 +148,7 @@ export default function PrivacidadePage() {
         Esta política trata dos dados recolhidos neste site. Quando a Linea
         atende as chamadas de uma empresa, os dados de quem liga são tratados
         por conta dessa empresa. Explicamos como na página{" "}
-        <a href={asset("/protecao-de-dados/")}>
-          Segurança e Proteção de Dados
-        </a>
+        <a href={asset("/protecao-de-dados/")}>Segurança e Proteção de Dados</a>
         .
       </p>
 

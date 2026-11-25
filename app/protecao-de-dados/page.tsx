@@ -23,13 +23,12 @@ export default function ProtecaoDeDadosPage() {
         Quando a Linea atende as chamadas de uma clínica ou de outra empresa,
         essa empresa é a responsável pelo tratamento dos dados de quem liga. A
         Linea é subcontratante, nos termos do artigo 28.º do RGPD: trata os
-        dados apenas para prestar o serviço e segundo as instruções do
-        cliente.
+        dados apenas para prestar o serviço e segundo as instruções do cliente.
       </p>
       <p>
-        Antes de começar, celebramos com cada cliente um acordo de tratamento
-        de dados que define o que tratamos, durante quanto tempo, com que
-        medidas de segurança e com que subcontratantes.
+        Antes de começar, celebramos com cada cliente um acordo de tratamento de
+        dados que define o que tratamos, durante quanto tempo, com que medidas
+        de segurança e com que subcontratantes.
       </p>
 
       <h2>2. Que dados das chamadas tratamos</h2>
@@ -52,9 +51,9 @@ export default function ProtecaoDeDadosPage() {
       <h2>3. Dados de saúde</h2>
       <p>
         Numa clínica, o motivo de uma consulta pode revelar informação sobre a
-        saúde de quem liga, que o RGPD protege de forma reforçada (artigo
-        9.º). A Linea é configurada para pedir apenas o necessário para marcar
-        ou encaminhar o pedido, e não para recolher informação clínica.
+        saúde de quem liga, que o RGPD protege de forma reforçada (artigo 9.º).
+        A Linea é configurada para pedir apenas o necessário para marcar ou
+        encaminhar o pedido, e não para recolher informação clínica.
       </p>
 
       <h2>4. Quem liga sabe que fala com um assistente automático</h2>
@@ -75,9 +74,9 @@ export default function ProtecaoDeDadosPage() {
       <p>
         Para funcionar, a Linea recorre a fornecedores de telefonia, de
         reconhecimento de voz e de inteligência artificial, de envio de
-        mensagens e de alojamento. Cada um fica obrigado por contrato a
-        proteger os dados. A lista em vigor faz parte do acordo de tratamento
-        de dados e é comunicada ao cliente antes de qualquer alteração.
+        mensagens e de alojamento. Cada um fica obrigado por contrato a proteger
+        os dados. A lista em vigor faz parte do acordo de tratamento de dados e
+        é comunicada ao cliente antes de qualquer alteração.
       </p>
       <p>[Lista de subcontratantes e países onde tratam os dados.]</p>
       <p>
@@ -112,8 +111,8 @@ export default function ProtecaoDeDadosPage() {
       <h2>10. Direitos de quem liga</h2>
       <p>
         Quem ligou para uma empresa que usa a Linea pode exercer os seus
-        direitos junto dessa empresa. Se nos contactar diretamente,
-        encaminhamos o pedido e ajudamos a empresa a responder.
+        direitos junto dessa empresa. Se nos contactar diretamente, encaminhamos
+        o pedido e ajudamos a empresa a responder.
       </p>
 
       <h2>11. Contacto</h2>

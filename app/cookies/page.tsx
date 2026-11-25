@@ -27,14 +27,14 @@ export default function CookiesPage() {
 
       <h2>2. Que cookies usamos</h2>
       <p>
-        Nenhum. O site da Linea não guarda cookies nem usa o armazenamento
-        local do browser, e não tem ferramentas de análise de tráfego, de
-        publicidade ou de redes sociais. Os tipos de letra e as imagens são
-        servidos pelo próprio site.
+        Nenhum. O site da Linea não guarda cookies nem usa o armazenamento local
+        do browser, e não tem ferramentas de análise de tráfego, de publicidade
+        ou de redes sociais. Os tipos de letra e as imagens são servidos pelo
+        próprio site.
       </p>
       <p>
-        Por isso, não mostramos um aviso de cookies: não há nada para aceitar
-        ou recusar.
+        Por isso, não mostramos um aviso de cookies: não há nada para aceitar ou
+        recusar.
       </p>
 
       <h2>3. Serviços externos</h2>
@@ -52,8 +52,8 @@ export default function CookiesPage() {
       </p>
       <p>
         Dúvidas: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Mais
-        informação na <a href={asset("/privacidade/")}>Política de
-        Privacidade</a>.
+        informação na{" "}
+        <a href={asset("/privacidade/")}>Política de Privacidade</a>.
       </p>
     </LegalPage>
   );

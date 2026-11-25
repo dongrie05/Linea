@@ -30,16 +30,15 @@ export default function TermosPage() {
 
       <h2>2. Aceitação</h2>
       <p>
-        Ao usar este site aceita estes termos. Se não concordar, não use o
-        site.
+        Ao usar este site aceita estes termos. Se não concordar, não use o site.
       </p>
 
       <h2>3. O serviço</h2>
       <p>
         A Linea é um atendedor de chamadas com inteligência artificial para
-        empresas e profissionais. Atende as chamadas no número da empresa,
-        marca consultas ou reservas e regista os pedidos. O serviço destina-se
-        a empresas e não a consumidores.
+        empresas e profissionais. Atende as chamadas no número da empresa, marca
+        consultas ou reservas e regista os pedidos. O serviço destina-se a
+        empresas e não a consumidores.
       </p>
       <p>
         As condições concretas de cada cliente, como o plano, os minutos, as
@@ -63,8 +62,8 @@ export default function TermosPage() {
       <h2>5. Período experimental</h2>
       <p>
         O período experimental dura {PILOT.trialWeeks} semanas e está sujeito a
-        uma caução, cujo valor depende do plano. A caução é devolvida se
-        avançar para um plano. As restantes condições constam da proposta.
+        uma caução, cujo valor depende do plano. A caução é devolvida se avançar
+        para um plano. As restantes condições constam da proposta.
       </p>
 
       <h2>6. Cancelamento</h2>
@@ -79,16 +78,16 @@ export default function TermosPage() {
         <li>usá-lo para fins ilícitos;</li>
         <li>tentar aceder a sistemas ou dados sem autorização;</li>
         <li>
-          enviar pelo formulário conteúdo falso, ofensivo ou que contenha
-          código malicioso.
+          enviar pelo formulário conteúdo falso, ofensivo ou que contenha código
+          malicioso.
         </li>
       </ul>
 
       <h2>8. Propriedade intelectual</h2>
       <p>
-        Os textos, o design, o logótipo e restantes conteúdos do site
-        pertencem à Linea ou a quem lhe deu licença. Não os pode copiar nem
-        usar para fins comerciais sem autorização escrita.
+        Os textos, o design, o logótipo e restantes conteúdos do site pertencem
+        à Linea ou a quem lhe deu licença. Não os pode copiar nem usar para fins
+        comerciais sem autorização escrita.
       </p>
 
       <h2>9. Responsabilidade</h2>
@@ -107,19 +106,16 @@ export default function TermosPage() {
       <h2>10. Proteção de dados</h2>
       <p>
         O tratamento de dados pessoais está descrito na{" "}
-        <a href={asset("/privacidade/")}>Política de Privacidade</a> e na
-        página{" "}
-        <a href={asset("/protecao-de-dados/")}>
-          Segurança e Proteção de Dados
-        </a>
+        <a href={asset("/privacidade/")}>Política de Privacidade</a> e na página{" "}
+        <a href={asset("/protecao-de-dados/")}>Segurança e Proteção de Dados</a>
         .
       </p>
 
       <h2>11. Lei aplicável e foro</h2>
       <p>
         Estes termos regem-se pela lei portuguesa. Para qualquer litígio é
-        competente o tribunal da comarca de {LEGAL_ENTITY.court}, salvo quando
-        a lei determine outro.
+        competente o tribunal da comarca de {LEGAL_ENTITY.court}, salvo quando a
+        lei determine outro.
       </p>
 
       <h2>12. Alterações</h2>
