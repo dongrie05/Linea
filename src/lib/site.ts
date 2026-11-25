@@ -2,7 +2,7 @@
  * Preços e período experimental aprovados para publicação.
  * Valores mensais, em euros. O volume conta em minutos.
  * A caução do período experimental é 29€, 89€ e 179€, do Starter ao Pro.
- * Mensagens incluídas (WhatsApp ou SMS): valores ainda em avaliação.
+ * Mensagens incluídas (WhatsApp ou SMS) no Growth e no Pro.
  */
 
 export const PLANS = [
@@ -60,9 +60,8 @@ export const TRIAL_CTA = "Pedir período experimental";
 export const PLANS_CTA = "Ver planos";
 export const PLANS_PRICES_CTA = "Ver planos e preços";
 
-/** As mensagens incluídas ainda estão em avaliação. */
-export const MESSAGES_NOTE =
-  "As mensagens incluídas são por WhatsApp ou SMS e os valores ainda estão em avaliação.";
+/** Nota sobre as mensagens incluídas, por cima dos cartões. */
+export const MESSAGES_NOTE = "As mensagens incluídas são por WhatsApp ou SMS.";
 
 export function planMessagesLabel(messagesPerMonth: number): string {
   return messagesPerMonth > 0
@@ -159,7 +158,7 @@ export const FAQ_ITEMS = [
   ],
   [
     "As mensagens por WhatsApp ou SMS estão incluídas?",
-    "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens. Estes valores ainda estão em avaliação.",
+    "O Growth inclui 400 mensagens por mês e o Pro inclui 1000, por WhatsApp ou SMS. O Starter não inclui mensagens.",
   ],
   [
     "A caução cobre as chamadas do período experimental?",
