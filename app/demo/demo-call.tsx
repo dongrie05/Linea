@@ -41,12 +41,16 @@ export function DemoCall() {
   const [token, setToken] = useState<string | null>(null);
   const [status, setStatus] = useState<Status | null>(null);
   const [phase, setPhase] = useState<
-    "idle" | "connecting" | "in-call" | "ending"
+    "idle" | "connecting" | "opening-audio" | "in-call" | "ending"
   >("idle");
   const [feedback, setFeedback] = useState("");
   const [audioBlocked, setAudioBlocked] = useState(false);
   const scope = useRef<AbortController>();
-  const live = useRef<{ room: DailyCall; microphone: MediaStream }>();
+  const live = useRef<{
+    room: DailyCall;
+    microphone: MediaStream;
+    playableTrack?: MediaStreamTrack;
+  }>();
   const pending = useRef(false);
   const audio = useRef<HTMLAudioElement>(null);
   const voice = useRef<HTMLDivElement>(null);
@@ -105,12 +109,31 @@ export function DemoCall() {
   }
 
   async function playAudio() {
-    if (!audio.current?.srcObject) return;
+    const session = live.current;
+    const player = audio.current;
+    const stream = player?.srcObject;
+    if (!session || !player || !(stream instanceof MediaStream)) return;
+    const [track] = stream.getAudioTracks();
+    if (!track) return;
     try {
-      await audio.current.play();
-      setAudioBlocked(false);
+      await player.play();
     } catch {
-      setAudioBlocked(true);
+      if (live.current === session && player.srcObject === stream)
+        setAudioBlocked(true);
+      return;
+    }
+    if (live.current === session && player.srcObject === stream) {
+      if (session.playableTrack !== track) {
+        // Vapi waits for this acknowledgement before starting the conversation.
+        try {
+          session.room.sendAppMessage("playable");
+          session.playableTrack = track;
+        } catch {
+          setAudioBlocked(true);
+          return;
+        }
+      }
+      setAudioBlocked(false);
     }
   }
 
@@ -142,23 +165,37 @@ export function DemoCall() {
       if (!track) throw new Error("Microfone indisponível");
       const room = DailyIframe.createCallObject({
         audioSource: track,
+        startAudioOff: false,
         videoSource: false,
         startVideoOff: true,
       });
       live.current = { room, microphone };
       microphone = undefined;
 
+      room.on("participant-joined", ({ participant }) => {
+        if (participant.local || participant.user_name !== "Vapi Speaker")
+          return;
+        room.updateParticipant(participant.session_id, {
+          setSubscribedTracks: { audio: true, video: false },
+        });
+      });
       room.on("track-started", event => {
         if (
           live.current?.room !== room ||
           !event.participant ||
           event.participant.local ||
+          event.participant.user_name !== "Vapi Speaker" ||
           event.track.kind !== "audio" ||
           !audio.current
         )
           return;
         audio.current.srcObject = new MediaStream([event.track]);
         void playAudio();
+      });
+      room.on("app-message", event => {
+        if (live.current?.room === room && event.data === "listening") {
+          setPhase("in-call");
+        }
       });
       room.on("remote-participants-audio-level", event => {
         if (live.current?.room !== room) return;
@@ -175,16 +212,26 @@ export function DemoCall() {
         if (live.current?.room === room) void finish("A chamada terminou.");
       });
       room.on("participant-left", event => {
-        if (live.current?.room === room && !event.participant.local)
+        if (
+          live.current?.room === room &&
+          !event.participant.local &&
+          event.participant.user_name === "Vapi Speaker"
+        )
           void finish("A chamada terminou.");
       });
       room.on("error", () => {
         if (live.current?.room === room)
           void finish("A ligação foi interrompida.");
       });
-      await room.join({ url, ...(roomToken ? { token: roomToken } : {}) });
+      await room.join({
+        url,
+        ...(roomToken ? { token: roomToken } : {}),
+        subscribeToTracksAutomatically: false,
+      });
       if (!signal.aborted && live.current?.room === room) {
-        setPhase("in-call");
+        setPhase(current =>
+          current === "connecting" ? "opening-audio" : current
+        );
         if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
           void room
             .startRemoteParticipantsAudioLevelObserver(100)
@@ -208,10 +255,10 @@ export function DemoCall() {
 
   return (
     <div className="demo-session__controls">
-      <audio ref={audio} />
+      <audio ref={audio} autoPlay aria-hidden="true" />
       <div
         className="demo-voice"
-        data-phase={phase}
+        data-phase={phase === "opening-audio" ? "connecting" : phase}
         ref={voice}
         aria-hidden="true"
       >
@@ -237,13 +284,15 @@ export function DemoCall() {
               ? "Para iniciar a demonstração, abra o link do convite que recebeu."
               : phase === "connecting"
                 ? "A ligar…"
-                : phase === "in-call"
-                  ? "Chamada em curso."
-                  : phase === "ending"
-                    ? "A terminar…"
-                    : status
-                      ? statusMessages[status.state]
-                      : "A verificar o convite…"}
+                : phase === "opening-audio"
+                  ? "A preparar o áudio…"
+                  : phase === "in-call"
+                    ? "Chamada em curso."
+                    : phase === "ending"
+                      ? "A terminar…"
+                      : status
+                        ? statusMessages[status.state]
+                        : "A verificar o convite…"}
           </p>
           {typeof status?.remaining === "number" &&
             typeof status.limit === "number" &&
@@ -254,7 +303,7 @@ export function DemoCall() {
             )}
           {feedback && <p>{feedback}</p>}
         </div>
-        {phase === "in-call" && (
+        {(phase === "in-call" || phase === "opening-audio") && (
           <button
             type="button"
             className="btn btn--primary"
@@ -263,15 +312,18 @@ export function DemoCall() {
             Terminar chamada
           </button>
         )}
-        {phase === "in-call" && audioBlocked && (
-          <button
-            type="button"
-            className="btn btn--ghost"
-            onClick={() => void playAudio()}
-          >
-            Ativar som
-          </button>
-        )}
+        {audioBlocked &&
+          (phase === "connecting" ||
+            phase === "opening-audio" ||
+            phase === "in-call") && (
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => void playAudio()}
+            >
+              Ativar som
+            </button>
+          )}
         {phase === "idle" && status?.state === "ready" && (
           <button
             type="button"
