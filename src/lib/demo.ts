@@ -165,13 +165,7 @@ function vapiRequest(key: string, endpoint: string, options: RequestInit = {}) {
   });
 }
 
-async function describeVapiFailure(response: Response) {
-  const error = await response.json().catch(() => null);
-  const parts: unknown[] = Array.isArray(error?.message)
-    ? error.message
-    : [error?.message];
-  const message = parts.filter(part => typeof part === "string").join(" ");
-  const status = response.status;
+function classifyVapiFailure(status: number, message: string) {
   if (
     status === 402 ||
     /insufficient (?:credits|funds|balance)|payment|billing|credit balance/i.test(
@@ -257,7 +251,7 @@ export async function handleDemoRequest(
   remaining?: number;
   limit?: number;
   call?: DemoCall;
-  providerFailure?: { status: number; reason: string };
+  providerFailure?: { status: number; reason: string; detail?: string };
 }> {
   if (!TOKEN_PATTERN.test(token)) return { state: "invalid", remaining: 0 };
   const config = getConfig();
@@ -301,12 +295,35 @@ export async function handleDemoRequest(
     }),
   });
   if (!response.ok) {
-    const failure = await describeVapiFailure(response);
+    const error = await response
+      .clone()
+      .json()
+      .catch(() => null);
+    const parts: unknown[] = Array.isArray(error?.message)
+      ? error.message
+      : [error?.message];
+    const message =
+      parts.filter(part => typeof part === "string").join(" ") ||
+      (await response.text().catch(() => ""));
+    const failure = classifyVapiFailure(response.status, message);
     console.warn("Vapi rejected Linea demo call", failure);
     const secret = process.env.DEMO_ADMIN_TOKEN?.trim();
     const diagnostic =
       secret && secret.length >= 32 && matchesAdminToken(authorization, secret)
-        ? { providerFailure: failure }
+        ? {
+            providerFailure: {
+              ...failure,
+              detail:
+                message
+                  .split(key)
+                  .join("[redacted]")
+                  .replace(/https?:\/\/\S+/gi, "[url]")
+                  .replace(/[a-z0-9_-]{24,}/gi, "[identifier]")
+                  .replace(/\s+/g, " ")
+                  .trim()
+                  .slice(0, 400) || undefined,
+            },
+          }
         : {};
     if ([400, 401, 402, 403, 404, 422, 429].includes(response.status)) {
       await sql`
