@@ -116,6 +116,12 @@ export default function RootLayout({
         },
         description:
           "Atendedor de chamadas com IA para empresas em Portugal. Atende, marca consultas e reservas, confirma por SMS.",
+        parentOrganization: {
+          "@type": "Organization",
+          "@id": "https://dongrielabs.com/#org",
+          name: "Dongrie Labs",
+          url: "https://dongrielabs.com/",
+        },
         areaServed: {
           "@type": "Country",
           name: "Portugal",
