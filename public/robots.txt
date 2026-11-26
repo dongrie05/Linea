@@ -13,9 +13,11 @@ Sitemap: https://linea.dongrielabs.com/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
 
 User-agent: GPTBot
 Allow: /
